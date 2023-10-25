@@ -24,4 +24,9 @@ public class Piece {
     void capturada() {
         this.inPlay = false;
     }
+
+    void novaPos(int posX, int posY) {
+        this.posX = posX;
+        this.posY = posY;
+    }
 }

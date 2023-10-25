@@ -1,11 +1,13 @@
 package pt.ulusofona.lp2.deisichess;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class GameManager {
 
     Board board;
+    String winner; //a preencher pelo gameOver
 
     boolean loadGame(File file) {
         return true;
@@ -65,9 +67,32 @@ public class GameManager {
     }
 
     int getCurrentTeamID() {
-        return board.currentTeam;
+        if (board.currentTeam) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
+    ArrayList<String> getGameResults() {
+        ArrayList<String> result = new ArrayList<>();
+        result.add(winner);
 
+        //EQUIPA PRETA
+        result.add(String.valueOf(board.equipas[0].numCapturadas));
+        result.add(String.valueOf(board.equipas[0].numJogadas));
+        result.add(String.valueOf(board.equipas[0].numFalhadas));
+
+        //EQUIPA BRANCA
+        result.add(String.valueOf(board.equipas[1].numCapturadas));
+        result.add(String.valueOf(board.equipas[1].numJogadas));
+        result.add(String.valueOf(board.equipas[1].numFalhadas));
+
+        return result;
+    }
+
+    boolean gameOver() {
+        return true;
+    }
 
 }

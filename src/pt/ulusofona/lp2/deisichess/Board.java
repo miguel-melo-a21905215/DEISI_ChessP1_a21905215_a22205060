@@ -8,7 +8,7 @@ public class Board {
     Piece[][] tabuleiro;
     Team[] equipas;
     ArrayList<Piece> totalPieces;
-    int currentTeam;
+    boolean currentTeam;
 
 
     public Board(int size) {
@@ -38,10 +38,12 @@ public class Board {
     void comeu(int team) {
         equipas[team].comeu();
         this.consecPassPlays = 0;
+        this.currentTeam = !currentTeam;
     }
 
     void moveu(int team) {
         equipas[team].fino();
         this.consecPassPlays++;
+        this.currentTeam = !currentTeam;
     }
 }
