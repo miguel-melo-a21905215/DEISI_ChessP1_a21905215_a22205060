@@ -113,4 +113,8 @@ public class GameManager {
         }
     }
 
+    public boolean move(int oriX, int oriY, int destX,int destY){
+        return true;
+    }
+
 }
