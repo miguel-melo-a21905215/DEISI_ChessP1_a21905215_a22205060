@@ -19,6 +19,30 @@ public class Board {
         this.totalPieces = new ArrayList<>();
     }
 
+    public Piece[][] getTabuleiro() {
+        return tabuleiro;
+    }
+
+    public Team[] getEquipas() {
+        return equipas;
+    }
+
+    public ArrayList<Piece> getTotalPieces() {
+        return totalPieces;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public int getConsecPassPlays() {
+        return consecPassPlays;
+    }
+
+    public boolean isCurrentTeam() {
+        return currentTeam;
+    }
+
     boolean validaMove(int id, int destX, int destY) {
         if ("valido" == "valido") {
             return true;
@@ -32,7 +56,7 @@ public class Board {
     }
 
     void metePecaDestino(int team, int id, int destX, int destY) {
-        tabuleiro[destX][destY] = equipas[team].teamPieces.get(id);
+        tabuleiro[destX][destY] = equipas[team].getTeamPieces().get(id);
     }
 
     void comeu(int team) {
