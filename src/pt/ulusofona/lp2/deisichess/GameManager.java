@@ -9,11 +9,14 @@ public class GameManager {
     Board board;
     String winner; //a preencher pelo gameOver
 
-    boolean loadGame(File file) {
+    public GameManager() {
+    }
+
+    public boolean loadGame(File file) {
         return true;
     }
 
-    String[] getPieceInfo(int id) {
+    public String[] getPieceInfo(int id) {
 
         //ID|tipo|Equipa|Alcunha|Estado|posX|posY
 
@@ -36,7 +39,7 @@ public class GameManager {
         return result;
     }
 
-    String getPieceInfoAsString(int id) {
+    public String getPieceInfoAsString(int id) {
         String espBarra = " | ";
         String[] pieceInfo = getPieceInfo(id);
         StringBuilder result = new StringBuilder();
@@ -50,7 +53,7 @@ public class GameManager {
         return result.toString();
     }
 
-    String[] getSquareInfo(int x, int y) {
+    public String[] getSquareInfo(int x, int y) {
         Piece piece = board.tabuleiro[x][y];
         String[] result = new String[7];
         result[0] = String.valueOf(piece.id);
@@ -62,7 +65,7 @@ public class GameManager {
         return result;
     }
 
-    int getBoardSize() {
+    public int getBoardSize() {
         return board.size;
     }
 
@@ -74,7 +77,7 @@ public class GameManager {
         }
     }
 
-    ArrayList<String> getGameResults() {
+    public ArrayList<String> getGameResults() {
         ArrayList<String> result = new ArrayList<>();
         result.add(winner);
 
@@ -91,7 +94,7 @@ public class GameManager {
         return result;
     }
 
-    boolean gameOver() {
+    public boolean gameOver() {
         return true;
     }
 
