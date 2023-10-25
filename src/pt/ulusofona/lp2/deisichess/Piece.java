@@ -21,6 +21,10 @@ public class Piece {
         this.inPlay = true;
     }
 
+    public File getIcon() {
+        return icon;
+    }
+
     public int getTeam() {
         return team;
     }
