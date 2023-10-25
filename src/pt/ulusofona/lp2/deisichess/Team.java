@@ -18,6 +18,30 @@ public class Team {
         this.teamPieces = new HashMap<>();
     }
 
+    public HashMap<Integer, Piece> getTeamPieces() {
+        return teamPieces;
+    }
+
+    public int getIdEquipa() {
+        return idEquipa;
+    }
+
+    public int getNumJogadas() {
+        return numJogadas;
+    }
+
+    public int getNumFalhadas() {
+        return numFalhadas;
+    }
+
+    public int getNumCapturadas() {
+        return numCapturadas;
+    }
+
+    public int getInPlayPieces() {
+        return inPlayPieces;
+    }
+
     void falhou() {
         this.numFalhadas++;
     }
