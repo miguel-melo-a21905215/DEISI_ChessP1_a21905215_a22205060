@@ -21,6 +21,22 @@ public class Piece {
         this.inPlay = true;
     }
 
+    public int getTeam() {
+        return team;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public boolean isInPlay() {
+        return inPlay;
+    }
+
     public int getId() {
         return id;
     }
