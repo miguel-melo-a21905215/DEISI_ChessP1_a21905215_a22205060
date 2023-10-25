@@ -23,14 +23,14 @@ public class GameManager {
         String[] result = new String[7];
         result[0] = String.valueOf(id);
         while (!Objects.equals(result[1], "")) {
-            for (Piece piece : board.totalPieces) {
-                if (id == piece.id) {
-                    result[1] = String.valueOf(piece.type);
-                    result[2] = String.valueOf(piece.team);
-                    result[3] = String.valueOf(piece.nickname);
-                    result[4] = String.valueOf(piece.inPlay);
-                    result[5] = String.valueOf(piece.posX);
-                    result[6] = String.valueOf(piece.posY);
+            for (Piece piece : board.getTotalPieces()) {
+                if (id == piece.getId()) {
+                    result[1] = String.valueOf(piece.getType());
+                    result[2] = String.valueOf(piece.getTeam());
+                    result[3] = String.valueOf(piece.getNickname());
+                    result[4] = String.valueOf(piece.isInPlay());
+                    result[5] = String.valueOf(piece.getPosX());
+                    result[6] = String.valueOf(piece.getPosY());
                     return result;
                 }
             }
@@ -54,23 +54,23 @@ public class GameManager {
     }
 
     public String[] getSquareInfo(int x, int y) {
-        Piece piece = board.tabuleiro[x][y];
+        Piece piece = board.getTabuleiro()[x][y];
         String[] result = new String[7];
-        result[0] = String.valueOf(piece.id);
-        result[1] = String.valueOf(piece.type);
-        result[2] = String.valueOf(piece.team);
-        result[3] = String.valueOf(piece.nickname);
+        result[0] = String.valueOf(piece.getId());
+        result[1] = String.valueOf(piece.getType());
+        result[2] = String.valueOf(piece.getTeam());
+        result[3] = String.valueOf(piece.getNickname());
         result[4] = null;
 
         return result;
     }
 
     public int getBoardSize() {
-        return board.size;
+        return board.getSize();
     }
 
     int getCurrentTeamID() {
-        if (board.currentTeam) {
+        if (board.isCurrentTeam()) {
             return 1;
         } else {
             return 0;
@@ -82,14 +82,14 @@ public class GameManager {
         result.add(winner);
 
         //EQUIPA PRETA
-        result.add(String.valueOf(board.equipas[0].numCapturadas));
-        result.add(String.valueOf(board.equipas[0].numJogadas));
-        result.add(String.valueOf(board.equipas[0].numFalhadas));
+        result.add(String.valueOf(board.getEquipas()[0].getNumCapturadas()));
+        result.add(String.valueOf(board.getEquipas()[0].getNumJogadas()));
+        result.add(String.valueOf(board.getEquipas()[0].getNumFalhadas()));
 
         //EQUIPA BRANCA
-        result.add(String.valueOf(board.equipas[1].numCapturadas));
-        result.add(String.valueOf(board.equipas[1].numJogadas));
-        result.add(String.valueOf(board.equipas[1].numFalhadas));
+        result.add(String.valueOf(board.getEquipas()[1].getNumCapturadas()));
+        result.add(String.valueOf(board.getEquipas()[1].getNumJogadas()));
+        result.add(String.valueOf(board.getEquipas()[1].getNumFalhadas()));
 
         return result;
     }
