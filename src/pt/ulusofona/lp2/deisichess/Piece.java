@@ -21,6 +21,18 @@ public class Piece {
         this.inPlay = true;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public int getPosX() {
+        return posX;
+    }
+
+    public int getPosY() {
+        return posY;
+    }
+
     void capturada() {
         this.inPlay = false;
     }
