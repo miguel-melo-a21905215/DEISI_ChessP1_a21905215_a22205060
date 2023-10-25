@@ -7,7 +7,7 @@ import java.util.Objects;
 public class GameManager {
 
     Board board;
-    String winner; //a preencher pelo gameOver
+    String winner = ""; //a preencher pelo gameOver
 
     public GameManager() {
     }
@@ -96,6 +96,17 @@ public class GameManager {
 
     public boolean gameOver() {
         if (board.getEquipas()[0].getInPlayPieces() == 0 || board.getEquipas()[1].getInPlayPieces() == 0) {
+            if (board.getEquipas()[0].getInPlayPieces() == 0) {
+                winner = "VENCERAM AS PRETAS";
+            } else {
+                winner = "VENCERAM AS BRANCAS";
+            }
+            return true;
+        } else if (board.getEquipas()[0].getInPlayPieces() == 1 && board.getEquipas()[1].getInPlayPieces() == 1) {
+            winner = "EMPATE";
+            return true;
+        } else if (board.getConsecPassPlays() == 10) {
+            winner = "EMPATE";
             return true;
         } else {
             return false;
