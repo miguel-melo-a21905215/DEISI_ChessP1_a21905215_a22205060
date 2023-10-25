@@ -21,6 +21,9 @@ public class Piece {
         this.inPlay = true;
     }
 
+    public Piece() {
+    }
+
     public File getIcon() {
         return icon;
     }
