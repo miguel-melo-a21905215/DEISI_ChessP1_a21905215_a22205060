@@ -69,7 +69,7 @@ public class GameManager {
         return board.getSize();
     }
 
-    int getCurrentTeamID() {
+    public int getCurrentTeamID() {
         if (board.isCurrentTeam()) {
             return 1;
         } else {
@@ -95,7 +95,11 @@ public class GameManager {
     }
 
     public boolean gameOver() {
-        return true;
+        if (board.getEquipas()[0].getInPlayPieces() == 0 || board.getEquipas()[1].getInPlayPieces() == 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
