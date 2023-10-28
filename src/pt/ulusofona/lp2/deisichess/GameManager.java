@@ -29,6 +29,12 @@ public class GameManager {
             return false;
         }
 
+        //TODO
+        /*A funcao nao esta a conseguir lidar com os dados, acho que é preciso primeiro ler os dados necessários
+        * para o construtor da classe Board, criar um objeto novo e só depois por a informação lida.
+        * A lógica parece-me estar bem, é só mesmo ler para uma variável antes de começar a dar informção ao objeto.
+        * A outra solução pode ser, no construtor vazio, dar valor 0 a tudo e depois alterar à medida que se lê do file
+        * mas não me parece o mais indicado.*/
 
         board.size = Integer.parseInt((scanner.nextLine()));
         board.numeroPecas = Integer.parseInt(scanner.nextLine());
