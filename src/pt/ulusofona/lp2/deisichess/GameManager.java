@@ -24,7 +24,7 @@ public class GameManager {
         }
 
 
-            board.size = Integer.parseInt(scanner.nextLine());
+            board.size = Integer.parseInt((scanner.nextLine()));
             board.numeroPecas = Integer.parseInt(scanner.nextLine());
 
             for (int i = 0; i < board.numeroPecas; i++){
@@ -37,12 +37,32 @@ public class GameManager {
                 peca.team = Integer.parseInt(divisao[2]);
                 peca.nickname = String.valueOf(Integer.parseInt(divisao[3]));
 
-
-
-
+                board.totalPieces.add(peca); // adiciona ao arraylist das peças na class board
             }
 
-            return false;
+
+        Board board = new Board();
+
+        for (int i = 0; i < board.size; i++) {
+            String linha = scanner.nextLine();
+            String[] divisao = linha.split(":");
+
+            for (int j = 0; j < divisao.length; j++) {
+                int id = Integer.parseInt(divisao[j]);
+
+                if (id != 0) {
+                    Piece piece = new Piece();
+                    piece.id = id;
+
+                    // nao percebi se é preciso adicionar mais atributos, mas pelo
+                    // que percebi estava lá so o id no video
+
+                    board.tabuleiro[i][j] = piece;
+                }
+            }
+        }
+
+        return false;
     }
 
     public String[] getPieceInfo(int id) {
