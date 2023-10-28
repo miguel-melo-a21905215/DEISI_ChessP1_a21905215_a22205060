@@ -13,7 +13,7 @@ public class Piece {
     File icon;
     boolean inPlay;
 
-    public Piece(int id, int team, int type, String nickname) {
+    public Piece(int id, int type, int team, String nickname) {
         this.id = id;
         this.team = team;
         this.type = type;

@@ -1,8 +1,10 @@
 package pt.ulusofona.lp2.deisichess;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Scanner;
 
 public class GameManager {
 
@@ -13,7 +15,54 @@ public class GameManager {
     }
 
     public boolean loadGame(File file) {
-        return true;
+        Scanner scanner = null;
+
+        try {
+            scanner = new Scanner(file);
+        } catch (FileNotFoundException e) {
+            return false;
+        }
+
+
+            board.size = Integer.parseInt((scanner.nextLine()));
+            board.numeroPecas = Integer.parseInt(scanner.nextLine());
+
+            for (int i = 0; i < board.numeroPecas; i++){
+                String linha = scanner.nextLine();
+                String[] divisao = linha.split(":");
+
+                Piece peca = new Piece();
+                peca.id = Integer.parseInt(divisao[0]);
+                peca.type = Integer.parseInt(divisao[1]);
+                peca.team = Integer.parseInt(divisao[2]);
+                peca.nickname = String.valueOf(Integer.parseInt(divisao[3]));
+
+                board.totalPieces.add(peca); // adiciona ao arraylist das peças na class board
+            }
+
+
+        Board board = new Board();
+
+        for (int i = 0; i < board.size; i++) {
+            String linha = scanner.nextLine();
+            String[] divisao = linha.split(":");
+
+            for (int j = 0; j < divisao.length; j++) {
+                int id = Integer.parseInt(divisao[j]);
+
+                if (id != 0) {
+                    Piece piece = new Piece();
+                    piece.id = id;
+
+                    // nao percebi se é preciso adicionar mais atributos, mas pelo
+                    // que percebi estava lá so o id no video
+
+                    board.tabuleiro[i][j] = piece;
+                }
+            }
+        }
+
+        return false;
     }
 
     public String[] getPieceInfo(int id) {

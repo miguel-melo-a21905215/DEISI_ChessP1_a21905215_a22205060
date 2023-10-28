@@ -10,13 +10,18 @@ public class Board {
     ArrayList<Piece> totalPieces;
     boolean currentTeam;
 
+    int numeroPecas;
 
-    public Board(int size) {
+
+    public Board(int size, int numeroPecas) {
         this.size = size;
         this.consecPassPlays = 0;
         this.tabuleiro = new Piece[size][size];
         this.equipas = new Team[1];
         this.totalPieces = new ArrayList<>();
+    }
+
+    public Board() {
     }
 
     public Piece[][] getTabuleiro() {
