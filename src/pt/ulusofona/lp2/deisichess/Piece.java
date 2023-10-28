@@ -56,11 +56,11 @@ public class Piece {
         return posY;
     }
 
-    void capturada() {
+    public void capturada() {
         this.inPlay = false;
     }
 
-    void novaPos(int posX, int posY) {
+    public void novaPos(int posX, int posY) {
         this.posX = posX;
         this.posY = posY;
     }
