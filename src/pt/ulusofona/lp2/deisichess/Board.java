@@ -21,6 +21,9 @@ public class Board {
         this.totalPieces = new ArrayList<>();
     }
 
+    public Board() {
+    }
+
     public Piece[][] getTabuleiro() {
         return tabuleiro;
     }
