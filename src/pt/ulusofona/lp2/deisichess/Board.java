@@ -48,6 +48,14 @@ public class Board {
         return currentTeam;
     }
 
+    boolean temPeca(int x, int y) {
+        if (tabuleiro[y][x] != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     boolean validaMove(int id, int destX, int destY) {
         if ("valido" == "valido") {
             return true;
