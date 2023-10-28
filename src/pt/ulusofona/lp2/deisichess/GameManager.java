@@ -11,7 +11,13 @@ public class GameManager {
     Board board;
     String winner = ""; //a preencher pelo gameOver
 
+    public GameManager(Board board, String winner) {
+        this.board = board;
+        this.winner = winner;
+    }
+
     public GameManager() {
+
     }
 
     public boolean loadGame(File file) {
@@ -24,21 +30,21 @@ public class GameManager {
         }
 
 
-            board.size = Integer.parseInt((scanner.nextLine()));
-            board.numeroPecas = Integer.parseInt(scanner.nextLine());
+        board.size = Integer.parseInt((scanner.nextLine()));
+        board.numeroPecas = Integer.parseInt(scanner.nextLine());
 
-            for (int i = 0; i < board.numeroPecas; i++){
-                String linha = scanner.nextLine();
-                String[] divisao = linha.split(":");
+        for (int i = 0; i < board.numeroPecas; i++) {
+            String linha = scanner.nextLine();
+            String[] divisao = linha.split(":");
 
-                Piece peca = new Piece();
-                peca.id = Integer.parseInt(divisao[0]);
-                peca.type = Integer.parseInt(divisao[1]);
-                peca.team = Integer.parseInt(divisao[2]);
-                peca.nickname = String.valueOf(Integer.parseInt(divisao[3]));
+            Piece peca = new Piece();
+            peca.id = Integer.parseInt(divisao[0]);
+            peca.type = Integer.parseInt(divisao[1]);
+            peca.team = Integer.parseInt(divisao[2]);
+            peca.nickname = String.valueOf(Integer.parseInt(divisao[3]));
 
-                board.totalPieces.add(peca); // adiciona ao arraylist das peças na class board
-            }
+            board.totalPieces.add(peca); // adiciona ao arraylist das peças na class board
+        }
 
 
         Board board = new Board();
@@ -91,27 +97,29 @@ public class GameManager {
     public String getPieceInfoAsString(int id) {
         String espBarra = " | ";
         String[] pieceInfo = getPieceInfo(id);
-        StringBuilder result = new StringBuilder();
-        result.append(pieceInfo[5]).append(espBarra);           //posX
-        result.append(pieceInfo[6]).append(espBarra);           //posY
-        result.append(pieceInfo[2]).append(espBarra);           //team
-        result.append(pieceInfo[3]).append(" @ ");              //nickname
-        result.append('(').append(pieceInfo[5]);                //posX
-        result.append(',').append(pieceInfo[6]).append(')');    //posY
 
-        return result.toString();
+        return pieceInfo[5] + espBarra +            //posX
+                pieceInfo[6] + espBarra +           //posY
+                pieceInfo[2] + espBarra +           //team
+                pieceInfo[3] + " @ " +              //nickname
+                '(' + pieceInfo[5] +                //posX
+                ',' + pieceInfo[6] + ')';           //posY
     }
 
     public String[] getSquareInfo(int x, int y) {
         Piece piece = board.getTabuleiro()[x][y];
-        String[] result = new String[7];
-        result[0] = String.valueOf(piece.getId());
-        result[1] = String.valueOf(piece.getType());
-        result[2] = String.valueOf(piece.getTeam());
-        result[3] = String.valueOf(piece.getNickname());
-        result[4] = null;
+        if (piece == null) {
+            return null;
+        } else {
+            String[] result = new String[7];
+            result[0] = String.valueOf(piece.getId());
+            result[1] = String.valueOf(piece.getType());
+            result[2] = String.valueOf(piece.getTeam());
+            result[3] = String.valueOf(piece.getNickname());
+            result[4] = null;
 
-        return result;
+            return result;
+        }
     }
 
     public int getBoardSize() {
@@ -120,9 +128,9 @@ public class GameManager {
 
     public int getCurrentTeamID() {
         if (board.isCurrentTeam()) {
-            return 1;
+            return 1; //BRANCA
         } else {
-            return 0;
+            return 0; //PRETA
         }
     }
 
@@ -162,10 +170,32 @@ public class GameManager {
         }
     }
 
-    public boolean move(int oriX, int oriY, int destX,int destY){
+    public boolean move(int oriX, int oriY, int destX, int destY) {
+        if (board.temPeca(oriX, oriY)) {
+            Piece pecaMovida = board.getTabuleiro()[oriY][oriX];
+            if (pecaMovida.isInPlay() && pecaMovida.getTeam() == board.isCurrentTeamNumb()) {
+                if (board.validaMove(oriX, oriY, destX, destY)) {                                       //MOVE VALIDO
+                    if (board.temPeca(destX, destY)) {
+                        if (board.getPeca(destX, destY).getTeam() != board.isCurrentTeamNumb()) {       //PECA NO DESTINO É DA EQUIPA CONTRÁRIA -> COME
+                            board.tiraPecaOrigem(oriX, oriY);
+                            board.getPeca(destX, destY).capturada();
+                            board.metePecaDestino(pecaMovida, destX, destY);
+                            board.comeu(getCurrentTeamID());
+
+                        } else {
+                            return false;                                                               //PECA NO DESTINO DA MESMA EQUIPA -> INVALIDO
+                        }
+                    } else if (!board.temPeca(destX, destY)) {                                          //SEM PECA NO DESTINO -> MOVE APENAS
+                        board.tiraPecaOrigem(oriX, oriY);
+                        board.metePecaDestino(pecaMovida, destX, destY);
+                        board.moveu(getCurrentTeamID());
+                    }
+                }
+            }
+        }
 
 
-        return true;
+        return false;
     }
 
 }
