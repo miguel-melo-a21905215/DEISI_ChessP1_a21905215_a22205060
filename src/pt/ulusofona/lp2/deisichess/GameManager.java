@@ -118,7 +118,7 @@ public class GameManager {
     public String[] getSquareInfo(int x, int y) {
         Piece piece = board.getTabuleiro()[x][y];
         if (piece == null) {
-            return null;
+            return new String[0];
         } else {
             String[] result = new String[7];
             result[0] = String.valueOf(piece.getId());
