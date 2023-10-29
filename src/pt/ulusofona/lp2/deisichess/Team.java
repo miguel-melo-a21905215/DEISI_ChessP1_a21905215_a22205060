@@ -16,6 +16,7 @@ public class Team {
         this.numFalhadas = 0;
         this.numCapturadas = 0;
         this.teamPieces = new HashMap<>();
+        this.inPlayPieces = 0;
     }
 
     public HashMap<Integer, Piece> getTeamPieces() {
@@ -52,6 +53,14 @@ public class Team {
 
     void fino() {
         this.numJogadas++;
+    }
+
+    void incrementarInPlay(){
+        this.inPlayPieces++;
+    }
+
+    void decrementarInPlay(){
+        this.inPlayPieces--;
     }
 
     void comeu() {

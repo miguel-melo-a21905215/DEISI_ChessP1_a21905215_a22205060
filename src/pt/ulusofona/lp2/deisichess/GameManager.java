@@ -49,6 +49,7 @@ public class GameManager {
             peca.setNickname((divisao[3].trim()));
 
             board.getEquipas()[peca.getTeam()].addPieceToHmap(peca);
+            board.getEquipas()[peca.getTeam()].incrementarInPlay();
 
 
             board.totalPieces.add(peca);
