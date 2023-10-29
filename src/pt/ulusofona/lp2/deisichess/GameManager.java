@@ -29,12 +29,6 @@ public class GameManager {
             return false;
         }
 
-        //TODO
-        /*A funcao nao esta a conseguir lidar com os dados, acho que é preciso primeiro ler os dados necessários
-         * para o construtor da classe Board, criar um objeto novo e só depois por a informação lida.
-         * A lógica parece-me estar bem, é só mesmo ler para uma variável antes de começar a dar informção ao objeto.
-         * A outra solução pode ser, no construtor vazio, dar valor 0 a tudo e depois alterar à medida que se lê do file
-         * mas não me parece o mais indicado.*/
 
         int size;
         int numPecas;
@@ -49,10 +43,10 @@ public class GameManager {
             String[] divisao = linha.split(":");
 
             Piece peca = new Piece();
-            peca.setId(Integer.parseInt(divisao[0]));
-            peca.setType(Integer.parseInt(divisao[1]));
-            peca.setTeam(Integer.parseInt(divisao[2]));
-            peca.setNickname(String.valueOf(divisao[3]));
+            peca.setId(Integer.parseInt(divisao[0].trim()));
+            peca.setType(Integer.parseInt(divisao[1].trim()));
+            peca.setTeam(Integer.parseInt(divisao[2].trim()));
+            peca.setNickname((divisao[3].trim()));
 
             board.totalPieces.add(peca); // adiciona ao arraylist das peças na class board
         }
@@ -68,7 +62,10 @@ public class GameManager {
                 if (id != 0) {
                     for (Piece piece : board.getTotalPieces()) {
                         if (piece.getId() == id) {
+                            piece.setPosX(x);
+                            piece.setPosY(y);
                             board.getTabuleiro()[x][y] = piece;
+                            piece.setInPlay(true);
                         }
                     }
 
@@ -91,7 +88,11 @@ public class GameManager {
                     result[1] = String.valueOf(piece.getType());
                     result[2] = String.valueOf(piece.getTeam());
                     result[3] = String.valueOf(piece.getNickname());
-                    result[4] = String.valueOf(piece.isInPlay());
+                    if (piece.isInPlay()) {
+                        result[4] = "em jogo";
+                    } else {
+                        result[4] = "capturada";
+                    }
                     result[5] = String.valueOf(piece.getPosX());
                     result[6] = String.valueOf(piece.getPosY());
                     return result;
