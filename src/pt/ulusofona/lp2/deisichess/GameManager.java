@@ -152,12 +152,18 @@ public class GameManager {
         ArrayList<String> result = new ArrayList<>();
         result.add(winnerMessage);
 
-        //EQUIPA PRETA
+        result.add("JOGO DE CRAZY CHESS");
+        result.add("Resultado: <RES>");
+        result.add("---");
+
+        //Equipa Das Pretas
+        result.add("Equipa Das Pretas");
         result.add(String.valueOf(board.getEquipas()[0].getNumCapturadas()));
         result.add(String.valueOf(board.getEquipas()[0].getNumJogadas()));
         result.add(String.valueOf(board.getEquipas()[0].getNumFalhadas()));
 
-        //EQUIPA BRANCA
+        //Equipa Das Brancas
+        result.add("Equipa Das Brancas");
         result.add(String.valueOf(board.getEquipas()[1].getNumCapturadas()));
         result.add(String.valueOf(board.getEquipas()[1].getNumJogadas()));
         result.add(String.valueOf(board.getEquipas()[1].getNumFalhadas()));
