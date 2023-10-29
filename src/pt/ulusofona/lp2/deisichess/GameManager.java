@@ -9,11 +9,11 @@ import java.util.Scanner;
 public class GameManager {
 
     Board board;
-    String winner = ""; //a preencher pelo gameOver
+    String winnerMessage = ""; //a preencher pelo gameOver
 
     public GameManager(Board board, String winner) {
         this.board = board;
-        this.winner = winner;
+        this.winnerMessage = winner;
     }
 
     public GameManager() {
@@ -149,7 +149,7 @@ public class GameManager {
 
     public ArrayList<String> getGameResults() {
         ArrayList<String> result = new ArrayList<>();
-        result.add(winner);
+        result.add(winnerMessage);
 
         //EQUIPA PRETA
         result.add(String.valueOf(board.getEquipas()[0].getNumCapturadas()));
@@ -167,16 +167,16 @@ public class GameManager {
     public boolean gameOver() {
         if (board.getEquipas()[0].getInPlayPieces() == 0 || board.getEquipas()[1].getInPlayPieces() == 0) {
             if (board.getEquipas()[0].getInPlayPieces() == 0) {
-                winner = "VENCERAM AS PRETAS";
+                winnerMessage = "VENCERAM AS PRETAS";
             } else {
-                winner = "VENCERAM AS BRANCAS";
+                winnerMessage = "VENCERAM AS BRANCAS";
             }
             return true;
         } else if (board.getEquipas()[0].getInPlayPieces() == 1 && board.getEquipas()[1].getInPlayPieces() == 1) {
-            winner = "EMPATE";
+            winnerMessage = "EMPATE";
             return true;
         } else if (board.getConsecPassPlays() == 10) {
-            winner = "EMPATE";
+            winnerMessage = "EMPATE";
             return true;
         } else {
             return false;
