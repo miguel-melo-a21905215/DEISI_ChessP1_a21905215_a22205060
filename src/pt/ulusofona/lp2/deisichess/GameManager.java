@@ -48,7 +48,11 @@ public class GameManager {
             peca.setTeam(Integer.parseInt(divisao[2].trim()));
             peca.setNickname((divisao[3].trim()));
 
-            board.totalPieces.add(peca); // adiciona ao arraylist das peças na class board
+            board.getEquipas()[peca.getTeam()].addPieceToHmap(peca);
+
+
+            board.totalPieces.add(peca);
+            // adiciona ao arraylist das peças na class board
         }
 
 
@@ -91,7 +95,7 @@ public class GameManager {
                     if (piece.isInPlay()) {
                         result[4] = "em jogo";
                     } else {
-                        result[4] = "capturada";
+                        result[4] = "capturado";
                     }
                     result[5] = String.valueOf(piece.getPosX());
                     result[6] = String.valueOf(piece.getPosY());
@@ -107,8 +111,8 @@ public class GameManager {
         String espBarra = " | ";
         String[] pieceInfo = getPieceInfo(id);
 
-        return pieceInfo[5] + espBarra +            //posX
-                pieceInfo[6] + espBarra +           //posY
+        return pieceInfo[0] + espBarra +            //ID
+                pieceInfo[1] + espBarra +           //Tipo
                 pieceInfo[2] + espBarra +           //team
                 pieceInfo[3] + " @ " +              //nickname
                 '(' + pieceInfo[5] +                //posX
