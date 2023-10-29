@@ -112,7 +112,7 @@ public class GameManager {
                 pieceInfo[2] + espBarra +           //team
                 pieceInfo[3] + " @ " +              //nickname
                 '(' + pieceInfo[5] +                //posX
-                ',' + pieceInfo[6] + ')';           //posY
+                ", " + pieceInfo[6] + ')';           //posY
     }
 
     public String[] getSquareInfo(int x, int y) {
