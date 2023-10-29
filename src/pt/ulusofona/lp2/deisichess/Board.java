@@ -17,7 +17,9 @@ public class Board {
         this.size = size;
         this.consecPassPlays = -1000;
         this.tabuleiro = new Piece[size][size];
-        this.equipas = new Team[1];
+        this.equipas = new Team[2];
+        this.equipas[0] = new Team(0);
+        this.equipas[1] = new Team(1);
         this.totalPieces = new ArrayList<>();
         this.currentTeam = false;
     }

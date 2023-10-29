@@ -22,6 +22,10 @@ public class Team {
         return teamPieces;
     }
 
+    public void addPieceToHmap(Piece newPiece) {
+        teamPieces.put(newPiece.getId(), newPiece);
+    }
+
     public int getIdEquipa() {
         return idEquipa;
     }
