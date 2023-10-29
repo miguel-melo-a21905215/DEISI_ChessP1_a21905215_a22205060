@@ -24,14 +24,6 @@ public class Piece {
     public Piece() {
     }
 
-    public File getIcon() {
-        return icon;
-    }
-
-    public void setIcon(File icon) {
-        this.icon = icon;
-    }
-
     public int getTeam() {
         return team;
     }
