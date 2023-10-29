@@ -150,10 +150,10 @@ public class GameManager {
 
     public ArrayList<String> getGameResults() {
         ArrayList<String> result = new ArrayList<>();
-        result.add(winnerMessage);
+
 
         result.add("JOGO DE CRAZY CHESS");
-        result.add("Resultado: <RES>");
+        result.add("Resultado:" + " " + winnerMessage);
         result.add("---");
 
         //Equipa Das Pretas
