@@ -179,7 +179,7 @@ public class GameManager {
     }
 
     public boolean move(int oriX, int oriY, int destX, int destY) {
-        if (board.temPeca(oriX, oriY)) {
+        if (board.temPeca(oriX, oriY) && destX != oriX && destY != oriY) {
             Piece pecaMovida = board.getTabuleiro()[oriY][oriX];
             if (pecaMovida.isInPlay() && pecaMovida.getTeam() == board.isCurrentTeamNumb()) {
                 if (board.validaMove(oriX, oriY, destX, destY)) {                                       //MOVE VALIDO
