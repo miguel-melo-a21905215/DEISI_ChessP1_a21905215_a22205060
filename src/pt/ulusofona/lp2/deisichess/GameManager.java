@@ -116,13 +116,26 @@ public class GameManager {
     public String getPieceInfoAsString(int id) {
         String espBarra = " | ";
         String[] pieceInfo = getPieceInfo(id);
+        String result = "";
+        Piece peca = new Piece();
 
-        return pieceInfo[0] + espBarra +            //ID
-                pieceInfo[1] + espBarra +           //Tipo
-                pieceInfo[2] + espBarra +           //team
-                pieceInfo[3] + " @ " +              //nickname
-                '(' + pieceInfo[5] +                //posX
-                ", " + pieceInfo[6] + ')';           //posY
+        result += pieceInfo[0] + espBarra;              //ID
+        result += pieceInfo[1] + espBarra;              //Tipo
+        result += pieceInfo[2] + espBarra;              //team
+        result += pieceInfo[3] + " @ ";                 //nickname
+        for (Piece piece : board.getTotalPieces()){
+            if (piece.getId() == id){
+                peca = piece;
+            }
+        }
+        if (peca.isInPlay()){
+            result += '(' + pieceInfo[5];               //posX
+            result += ", " + pieceInfo[6] + ')';        //posY
+        } else {
+            result += "(n/a)";
+        }
+
+        return result;
     }
 
     public String[] getSquareInfo(int x, int y) {
