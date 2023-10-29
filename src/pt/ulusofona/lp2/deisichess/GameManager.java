@@ -31,50 +31,52 @@ public class GameManager {
 
         //TODO
         /*A funcao nao esta a conseguir lidar com os dados, acho que é preciso primeiro ler os dados necessários
-        * para o construtor da classe Board, criar um objeto novo e só depois por a informação lida.
-        * A lógica parece-me estar bem, é só mesmo ler para uma variável antes de começar a dar informção ao objeto.
-        * A outra solução pode ser, no construtor vazio, dar valor 0 a tudo e depois alterar à medida que se lê do file
-        * mas não me parece o mais indicado.*/
+         * para o construtor da classe Board, criar um objeto novo e só depois por a informação lida.
+         * A lógica parece-me estar bem, é só mesmo ler para uma variável antes de começar a dar informção ao objeto.
+         * A outra solução pode ser, no construtor vazio, dar valor 0 a tudo e depois alterar à medida que se lê do file
+         * mas não me parece o mais indicado.*/
 
-        board.size = Integer.parseInt((scanner.nextLine()));
-        board.numeroPecas = Integer.parseInt(scanner.nextLine());
+        int size;
+        int numPecas;
 
-        for (int i = 0; i < board.numeroPecas; i++) {
+        size = Integer.parseInt((scanner.nextLine()));
+        numPecas = Integer.parseInt(scanner.nextLine());
+
+        this.board = new Board(size, numPecas);
+
+        for (int i = 0; i < numPecas; i++) {
             String linha = scanner.nextLine();
             String[] divisao = linha.split(":");
 
             Piece peca = new Piece();
-            peca.id = Integer.parseInt(divisao[0]);
-            peca.type = Integer.parseInt(divisao[1]);
-            peca.team = Integer.parseInt(divisao[2]);
-            peca.nickname = String.valueOf(Integer.parseInt(divisao[3]));
+            peca.setId(Integer.parseInt(divisao[0]));
+            peca.setType(Integer.parseInt(divisao[1]));
+            peca.setTeam(Integer.parseInt(divisao[2]));
+            peca.setNickname(String.valueOf(divisao[3]));
 
             board.totalPieces.add(peca); // adiciona ao arraylist das peças na class board
         }
 
 
-        Board board = new Board();
-
-        for (int i = 0; i < board.size; i++) {
+        for (int y = 0; y < board.getSize(); y++) {
             String linha = scanner.nextLine();
             String[] divisao = linha.split(":");
 
-            for (int j = 0; j < divisao.length; j++) {
-                int id = Integer.parseInt(divisao[j]);
+            for (int x = 0; x < divisao.length; x++) {
+                int id = Integer.parseInt(divisao[x]);
 
                 if (id != 0) {
-                    Piece piece = new Piece();
-                    piece.id = id;
+                    for (Piece piece : board.getTotalPieces()) {
+                        if (piece.getId() == id) {
+                            board.getTabuleiro()[x][y] = piece;
+                        }
+                    }
 
-                    // nao percebi se é preciso adicionar mais atributos, mas pelo
-                    // que percebi estava lá so o id no video
-
-                    board.tabuleiro[i][j] = piece;
                 }
             }
         }
 
-        return false;
+        return true;
     }
 
     public String[] getPieceInfo(int id) {
