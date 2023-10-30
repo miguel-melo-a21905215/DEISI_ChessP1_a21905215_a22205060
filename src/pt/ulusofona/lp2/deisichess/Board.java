@@ -94,6 +94,8 @@ public class Board {
 
     void metePecaDestino(Piece pecaMovida, int destX, int destY) {
         tabuleiro[destX][destY] = pecaMovida;
+        pecaMovida.setPosX(destX);
+        pecaMovida.setPosY(destY);
     }
 
     public void comeu(int team) {
