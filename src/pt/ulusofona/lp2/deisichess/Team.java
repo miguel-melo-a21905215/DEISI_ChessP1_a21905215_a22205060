@@ -15,12 +15,11 @@ public class Team {
         this.numJogadas = 0;
         this.numFalhadas = 0;
         this.numCapturadas = 0;
+        this.inPlayPieces = 0;
         this.teamPieces = new HashMap<>();
     }
 
-    public HashMap<Integer, Piece> getTeamPieces() {
-        return teamPieces;
-    }
+
 
     public void addPieceToHmap(Piece newPiece) {
         teamPieces.put(newPiece.getId(), newPiece);
@@ -34,9 +33,7 @@ public class Team {
         this.inPlayPieces--;
     }
 
-    public int getIdEquipa() {
-        return idEquipa;
-    }
+
 
     public int getNumJogadas() {
         return numJogadas;
