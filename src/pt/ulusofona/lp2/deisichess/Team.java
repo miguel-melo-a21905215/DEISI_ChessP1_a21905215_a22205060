@@ -26,6 +26,14 @@ public class Team {
         teamPieces.put(newPiece.getId(), newPiece);
     }
 
+    void incrementarInPlay() {
+        this.inPlayPieces++;
+    }
+
+    void decrementarInPlay() {
+        this.inPlayPieces--;
+    }
+
     public int getIdEquipa() {
         return idEquipa;
     }
