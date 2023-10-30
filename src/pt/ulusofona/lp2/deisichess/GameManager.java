@@ -125,12 +125,18 @@ public class GameManager {
         if (piece == null) {
             return new String[0];
         } else {
-            String[] result = new String[7];
+            String[] result = new String[5];
             result[0] = String.valueOf(piece.getId());
             result[1] = String.valueOf(piece.getType());
             result[2] = String.valueOf(piece.getTeam());
             result[3] = String.valueOf(piece.getNickname());
-            result[4] = null;
+
+            if (piece.getTeam() == 0){
+                result[4] = "crazy_emoji_black.png";
+
+            } else {
+                result[4] = "crazy_emoji_white.png";
+            }
 
             return result;
         }
