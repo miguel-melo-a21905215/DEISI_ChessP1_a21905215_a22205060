@@ -229,6 +229,7 @@ public class GameManager {
                             return true;
 
                         } else {
+                            board.equipas[board.isCurrentTeamNumb()].falhou();
                             return false;                                                               //PECA NO DESTINO DA MESMA EQUIPA -> INVALIDO
                         }
                     } else if (!board.temPeca(destX, destY)) {                                          //SEM PECA NO DESTINO -> MOVE APENAS
@@ -240,8 +241,7 @@ public class GameManager {
                 }
             }
         }
-
-
+        board.equipas[board.isCurrentTeamNumb()].falhou();
         return false;
     }
 
