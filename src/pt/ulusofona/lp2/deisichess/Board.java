@@ -60,7 +60,7 @@ public class Board {
     }
 
     public boolean temPeca(int x, int y) {
-        return tabuleiro[y][x] != null;
+        return tabuleiro[x][y] != null;
     }
 
     public Piece getPeca(int posX, int posY) {

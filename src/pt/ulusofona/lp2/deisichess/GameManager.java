@@ -124,12 +124,12 @@ public class GameManager {
         result += pieceInfo[1] + espBarra;              //Tipo
         result += pieceInfo[2] + espBarra;              //team
         result += pieceInfo[3] + " @ ";                 //nickname
-        for (Piece piece : board.getTotalPieces()){
-            if (piece.getId() == id){
+        for (Piece piece : board.getTotalPieces()) {
+            if (piece.getId() == id) {
                 peca = piece;
             }
         }
-        if (peca.isInPlay()){
+        if (peca.isInPlay()) {
             result += '(' + pieceInfo[5];            //posX
             result += ", " + pieceInfo[6] + ')';     //posY
         } else {
@@ -150,7 +150,7 @@ public class GameManager {
             result[2] = String.valueOf(piece.getTeam());
             result[3] = String.valueOf(piece.getNickname());
 
-            if (piece.getTeam() == 0){
+            if (piece.getTeam() == 0) {
                 result[4] = "crazy_emoji_black.png";
 
             } else {
@@ -216,7 +216,7 @@ public class GameManager {
 
     public boolean move(int oriX, int oriY, int destX, int destY) {
         if (board.temPeca(oriX, oriY) && (destX != oriX || destY != oriY)) {
-            Piece pecaMovida = board.getTabuleiro()[oriY][oriX];
+            Piece pecaMovida = board.getTabuleiro()[oriX][oriY];
             if (pecaMovida.isInPlay() && pecaMovida.getTeam() == board.isCurrentTeamNumb()) {
                 if (board.validaMove(oriX, oriY, destX, destY)) {                                       //MOVE VALIDO
                     if (board.temPeca(destX, destY)) {
@@ -225,6 +225,7 @@ public class GameManager {
                             board.getPeca(destX, destY).capturada();
                             board.metePecaDestino(pecaMovida, destX, destY);
                             board.comeu(getCurrentTeamID());
+                            return true;
 
                         } else {
                             return false;                                                               //PECA NO DESTINO DA MESMA EQUIPA -> INVALIDO
@@ -233,6 +234,7 @@ public class GameManager {
                         board.tiraPecaOrigem(oriX, oriY);
                         board.metePecaDestino(pecaMovida, destX, destY);
                         board.moveu(getCurrentTeamID());
+                        return true;
                     }
                 }
             }
