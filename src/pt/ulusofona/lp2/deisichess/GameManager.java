@@ -221,10 +221,11 @@ public class GameManager {
                 if (board.validaMove(oriX, oriY, destX, destY)) {                                       //MOVE VALIDO
                     if (board.temPeca(destX, destY)) {
                         if (board.getPeca(destX, destY).getTeam() != board.isCurrentTeamNumb()) {       //PECA NO DESTINO É DA EQUIPA CONTRÁRIA -> COME
-                            board.tiraPecaOrigem(oriX, oriY);
+
                             board.getPeca(destX, destY).capturada();
                             board.metePecaDestino(pecaMovida, destX, destY);
                             board.comeu(getCurrentTeamID());
+                            board.tiraPecaOrigem(oriX, oriY);
                             return true;
 
                         } else {

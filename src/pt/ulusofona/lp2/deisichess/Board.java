@@ -59,12 +59,20 @@ public class Board {
         }
     }
 
+    public int isntCurrentTeamNumb() {
+        if (!currentTeam) {
+            return 1; //PRETA
+        } else {
+            return 0; //BRANCA
+        }
+    }
+
     public boolean temPeca(int x, int y) {
         return tabuleiro[x][y] != null;
     }
 
     public Piece getPeca(int posX, int posY) {
-        return tabuleiro[posY][posX];
+        return tabuleiro[posX][posY];
     }
 
     boolean validaMove(int oriX, int oriY, int destX, int destY) {
@@ -92,6 +100,8 @@ public class Board {
         equipas[team].comeu();
         this.consecPassPlays = 0;
         this.currentTeam = !currentTeam;
+        equipas[isntCurrentTeamNumb()].decrementarInPlay();
+
     }
 
     public void moveu(int team) {
