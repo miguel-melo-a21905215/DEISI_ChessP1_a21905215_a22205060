@@ -68,15 +68,17 @@ public class Board {
     }
 
     boolean validaMove(int oriX, int oriY, int destX, int destY) {
-        if (destX < size && destY < size && destX > 0 && destY > 0) {
-            int deslocX = Math.abs(destX - oriX);
-            int deslocY = Math.abs(destY - oriY);
-            int deslocTotal = deslocY + deslocX;
-            return deslocTotal <= 2;
+        int deslocX = Math.abs(destX - oriX);
+        int deslocY = Math.abs(destY - oriY);
+
+        // Certifique-se de que a peça está se movendo apenas uma casa em qualquer direção (horizontal, vertical ou diagonal).
+        if ((deslocX == 1 && deslocY == 0) || (deslocX == 0 && deslocY == 1) || (deslocX == 1 && deslocY == 1)) {
+            return true;
         } else {
             return false;
         }
     }
+
 
     void tiraPecaOrigem(int origemX, int origemY) {
         tabuleiro[origemX][origemY] = null;
