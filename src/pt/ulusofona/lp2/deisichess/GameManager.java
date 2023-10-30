@@ -162,13 +162,13 @@ public class GameManager {
         result.add("---");
 
         //Equipa Das Pretas
-        result.add("Equipa Das Pretas");
+        result.add("Equipa das Pretas");
         result.add(String.valueOf(board.getEquipas()[0].getNumCapturadas()));
         result.add(String.valueOf(board.getEquipas()[0].getNumJogadas()));
         result.add(String.valueOf(board.getEquipas()[0].getNumFalhadas()));
 
         //Equipa Das Brancas
-        result.add("Equipa Das Brancas");
+        result.add("Equipa das Brancas");
         result.add(String.valueOf(board.getEquipas()[1].getNumCapturadas()));
         result.add(String.valueOf(board.getEquipas()[1].getNumJogadas()));
         result.add(String.valueOf(board.getEquipas()[1].getNumFalhadas()));
