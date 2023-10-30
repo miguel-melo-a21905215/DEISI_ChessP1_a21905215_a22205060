@@ -196,14 +196,29 @@ public class GameManager {
     }
 
     public boolean gameOver() {
-        if (board.getEquipas()[0].getInPlayPieces() == 0 || board.getEquipas()[1].getInPlayPieces() == 0) {
-            if (board.getEquipas()[0].getInPlayPieces() == 0) {
+
+        int pecasBrancas = 0;
+        int pecasPretas = 0;
+
+        for (Piece piece : board.getTotalPieces()) {
+            if (piece.isInPlay() && piece.getTeam() == 0) {
+                pecasPretas++;
+            } else if (piece.isInPlay() && piece.getTeam() == 1) {
+                pecasBrancas++;
+            }
+
+        }
+
+        //board.getEquipas()[0].getInPlayPieces() == 0 || board.getEquipas()[1].getInPlayPieces() == 0
+        if (pecasBrancas == 0 || pecasPretas == 0) {
+            //board.getEquipas()[0].getInPlayPieces()
+            if (pecasBrancas == 0) {
                 winnerMessage = "VENCERAM AS PRETAS";
             } else {
                 winnerMessage = "VENCERAM AS BRANCAS";
             }
             return true;
-        } else if (board.getEquipas()[0].getInPlayPieces() == 1 && board.getEquipas()[1].getInPlayPieces() == 1) {
+        } else if (pecasPretas == 1 && pecasBrancas == 1) {
             winnerMessage = "EMPATE";
             return true;
         } else if (board.getConsecPassPlays() == 10) {
