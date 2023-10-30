@@ -98,8 +98,13 @@ public class GameManager {
                     } else {
                         result[4] = "capturado";
                     }
-                    result[5] = String.valueOf(piece.getPosX());
-                    result[6] = String.valueOf(piece.getPosY());
+                    if (piece.isInPlay()) {
+                        result[5] = String.valueOf(piece.getPosX());
+                        result[6] = String.valueOf(piece.getPosY());
+                    } else {
+                        result[5] = "";
+                        result[6] = "";
+                    }
                     return result;
                 }
             }
