@@ -60,11 +60,7 @@ public class Board {
     }
 
     public boolean temPeca(int x, int y) {
-        if (tabuleiro[y][x] != null) {
-            return true;
-        } else {
-            return false;
-        }
+        return tabuleiro[y][x] != null;
     }
 
     public Piece getPeca(int posX, int posY) {
@@ -87,7 +83,7 @@ public class Board {
     }
 
     void metePecaDestino(Piece pecaMovida, int destX, int destY) {
-        tabuleiro[destY][destX] = pecaMovida;
+        tabuleiro[destX][destY] = pecaMovida;
     }
 
     public void comeu(int team) {

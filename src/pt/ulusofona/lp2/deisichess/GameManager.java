@@ -49,7 +49,7 @@ public class GameManager {
             peca.setNickname((divisao[3].trim()));
 
             board.getEquipas()[peca.getTeam()].addPieceToHmap(peca);
-            board.getEquipas()[peca.getTeam()].incrementarInPlay();
+            //board.getEquipas()[peca.getTeam()].incrementarInPlay();
 
 
             board.totalPieces.add(peca);
@@ -111,13 +111,16 @@ public class GameManager {
     public String getPieceInfoAsString(int id) {
         String espBarra = " | ";
         String[] pieceInfo = getPieceInfo(id);
+        String result = "";
 
-        return pieceInfo[0] + espBarra +            //ID
-                pieceInfo[1] + espBarra +           //Tipo
-                pieceInfo[2] + espBarra +           //team
-                pieceInfo[3] + " @ " +              //nickname
-                '(' + pieceInfo[5] +                //posX
-                ", " + pieceInfo[6] + ')';           //posY
+        result += pieceInfo[0] + espBarra;              //ID
+        result += pieceInfo[1] + espBarra;              //Tipo
+        result += pieceInfo[2] + espBarra;              //team
+        result += pieceInfo[3] + " @ ";                 //nickname
+        result += '(' + pieceInfo[5];                   //posX
+        result += ", " + pieceInfo[6] + ')';            //posY
+
+        return result;
     }
 
     public String[] getSquareInfo(int x, int y) {
@@ -190,25 +193,27 @@ public class GameManager {
         }
     }
 
-    public boolean move(int oriX, int oriY, int destX, int destY) {
-        if (board.temPeca(oriX, oriY) && destX != oriX && destY != oriY) {
-            Piece pecaMovida = board.getTabuleiro()[oriY][oriX];
+    public boolean move(int x0, int y0, int x1, int y1) {
+        if (board.temPeca(x0, y0) && (x1 != x0 || y1 != y0)) {
+            Piece pecaMovida = board.getTabuleiro()[x0][y0];
             if (pecaMovida.isInPlay() && pecaMovida.getTeam() == board.isCurrentTeamNumb()) {
-                if (board.validaMove(oriX, oriY, destX, destY)) {                                       //MOVE VALIDO
-                    if (board.temPeca(destX, destY)) {
-                        if (board.getPeca(destX, destY).getTeam() != board.isCurrentTeamNumb()) {       //PECA NO DESTINO É DA EQUIPA CONTRÁRIA -> COME
-                            board.tiraPecaOrigem(oriX, oriY);
-                            board.getPeca(destX, destY).capturada();
-                            board.metePecaDestino(pecaMovida, destX, destY);
+                if (board.validaMove(x0, y0, x1, y1)) {                                       //MOVE VALIDO
+                    if (board.temPeca(x1, y1)) {
+                        if (board.getPeca(x1, y1).getTeam() != board.isCurrentTeamNumb()) {       //PECA NO DESTINO É DA EQUIPA CONTRÁRIA -> COME
+                            board.tiraPecaOrigem(x0, y0);
+                            board.getPeca(x1, y1).capturada();
+                            board.metePecaDestino(pecaMovida, x1, y1);
                             board.comeu(getCurrentTeamID());
+                            return true;
 
                         } else {
                             return false;                                                               //PECA NO DESTINO DA MESMA EQUIPA -> INVALIDO
                         }
-                    } else if (!board.temPeca(destX, destY)) {                                          //SEM PECA NO DESTINO -> MOVE APENAS
-                        board.tiraPecaOrigem(oriX, oriY);
-                        board.metePecaDestino(pecaMovida, destX, destY);
+                    } else if (!board.temPeca(x1, y1)) {                                          //SEM PECA NO DESTINO -> MOVE APENAS
+                        board.tiraPecaOrigem(x0, y0);
+                        board.metePecaDestino(pecaMovida, x1, y1);
                         board.moveu(getCurrentTeamID());
+                        return true;
                     }
                 }
             }
