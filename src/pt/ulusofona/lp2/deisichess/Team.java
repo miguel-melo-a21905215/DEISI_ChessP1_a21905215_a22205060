@@ -20,7 +20,6 @@ public class Team {
     }
 
 
-
     public void addPieceToHmap(Piece newPiece) {
         teamPieces.put(newPiece.getId(), newPiece);
     }
@@ -32,7 +31,6 @@ public class Team {
     void decrementarInPlay() {
         this.inPlayPieces--;
     }
-
 
 
     public int getNumJogadas() {
