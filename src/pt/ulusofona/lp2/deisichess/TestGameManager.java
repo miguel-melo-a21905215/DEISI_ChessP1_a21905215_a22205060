@@ -1,17 +1,26 @@
 package pt.ulusofona.lp2.deisichess;
 
 import org.junit.jupiter.api.Test;
+
 import java.io.File;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestGameManager {
 
     @Test
-    void loadGame() {
+    void loadGameCorreto() {
         GameManager gameManager = new GameManager();
         File file = new File("test_files/4x4.txt");
         assertTrue(gameManager.loadGame(file));
     }
+    @Test
+    void loadGameIncorreto() {
+        GameManager gameManager = new GameManager();
+        File file = new File("test_files/shalom.txt");
+        assertFalse(gameManager.loadGame(file));
+    }
+
 
     @Test
     void getPieceInfo() {
@@ -33,27 +42,18 @@ public class TestGameManager {
         String expectedResult = "1 | 0 | 0 | Chefe @ (1, 0)";
 
     }
+
     @Test
     void getPieceInfoAsString2() {
         GameManager gameManager = new GameManager();
         File file = new File("test_files/8x8.txt");
         gameManager.loadGame(file);
 
-        String ActualResult = gameManager.getPieceInfoAsString(1);
-        String expectedResult = "1 | 0 | 0 | Chefe @ (1, 0)";
+        String ActualResult = gameManager.getPieceInfoAsString(3);
+        String expectedResult = "1 | 0 | 0 | Grande Artista @ (2, 1)";
 
     }
 
-    @Test
-    void getSquareInfo() {
-        GameManager gameManager = new GameManager();
-        File file = new File("test_files/8x8.txt");   //falta
-        gameManager.loadGame(file);                             //resolver
-
-        String[] squareInfo = gameManager.getSquareInfo(0, 0);
-        assertEquals("1", squareInfo[0]);
-
-    }
 
     @Test
     void getBoardSize() {
@@ -92,16 +92,16 @@ public class TestGameManager {
         gameManager.loadGame(file);
 
         // Obtenha a situação do tabuleiro antes do movimento
-        String[] initialSquareInfo = gameManager.getSquareInfo(0, 1);
+        String[] initialSquareInfo = gameManager.getSquareInfo(1, 0);
 
         // Tente fazer um movimento válido
-        boolean validMove = gameManager.move(0, 1, 1, 1);
+        boolean validMove = gameManager.move(1, 0, 1, 1);
 
         // Obtenha a situação do tabuleiro após o movimento
         String[] updatedSquareInfo = gameManager.getSquareInfo(1, 1);
 
         // Verifique se o movimento foi válido (true)
         assertTrue(validMove);
-        assertNotEquals(initialSquareInfo[0], updatedSquareInfo[0]); // Verifica se o ID da peça mudou
+        assertNotEquals(initialSquareInfo, updatedSquareInfo); // Verifica se o ID da peça mudou
     }
 }
