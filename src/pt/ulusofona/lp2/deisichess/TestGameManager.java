@@ -1,9 +1,7 @@
 package pt.ulusofona.lp2.deisichess;
 
 import org.junit.jupiter.api.Test;
-
 import java.io.File;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestGameManager {
@@ -35,20 +33,34 @@ public class TestGameManager {
         String expectedResult = "1 | 0 | 0 | Chefe @ (1, 0)";
 
     }
+    @Test
+    void getPieceInfoAsString2() {
+        GameManager gameManager = new GameManager();
+        File file = new File("test_files/8x8.txt");
+        gameManager.loadGame(file);
+
+        String ActualResult = gameManager.getPieceInfoAsString(1);
+        String expectedResult = "1 | 0 | 0 | Chefe @ (1, 0)";
+
+    }
 
     @Test
     void getSquareInfo() {
         GameManager gameManager = new GameManager();
-        // Suponhamos que você tenha um objeto Piece válido nas coordenadas (0, 0) no seu tabuleiro.
+        File file = new File("test_files/8x8.txt");   //falta
+        gameManager.loadGame(file);                             //resolver
+
         String[] squareInfo = gameManager.getSquareInfo(0, 0);
-        assertEquals("1", squareInfo[0]); // Suponha que o ID seja 1 para esse exemplo.
-        // Adicione mais asserções de acordo com os detalhes do objeto Piece esperado.
+        assertEquals("1", squareInfo[0]);
+
     }
 
     @Test
     void getBoardSize() {
         GameManager gameManager = new GameManager();
-        // Suponhamos que o tamanho do tabuleiro seja 8x8.
+        File file = new File("test_files/8x8.txt");
+        gameManager.loadGame(file);
+
         int size = gameManager.getBoardSize();
         assertEquals(8, size);
     }
@@ -56,23 +68,40 @@ public class TestGameManager {
     @Test
     void getCurrentTeamID() {
         GameManager gameManager = new GameManager();
-
+        File file = new File("test_files/4x4.txt");
+        gameManager.loadGame(file);
         // Suponhamos que a equipe atual seja a equipe das Brancas (ID 1).
         int currentTeamID = gameManager.getCurrentTeamID();
-        assertEquals(1, currentTeamID);
+        assertEquals(0, currentTeamID);
     }
 
     @Test
     void gameOver() {
         GameManager gameManager = new GameManager();
+        File file = new File("test_files/4x4.txt");
+        gameManager.loadGame(file);
         // Implemente testes que verifiquem se o jogo acabou em diferentes cenários (vitória das Pretas, vitória das Brancas, empate).
         // Use asserções para verificar as mensagens de vitória/empate.
     }
 
     @Test
-    void move() {
+    public void testValidMove() {
+
         GameManager gameManager = new GameManager();
-        // Implemente testes para o método move, verificando diferentes cenários de movimento válido e inválido.
-        // Use asserções apropriadas para verificar o comportamento esperado.
+        File file = new File("test_files/4x4.txt");
+        gameManager.loadGame(file);
+
+        // Obtenha a situação do tabuleiro antes do movimento
+        String[] initialSquareInfo = gameManager.getSquareInfo(0, 1);
+
+        // Tente fazer um movimento válido
+        boolean validMove = gameManager.move(0, 1, 1, 1);
+
+        // Obtenha a situação do tabuleiro após o movimento
+        String[] updatedSquareInfo = gameManager.getSquareInfo(1, 1);
+
+        // Verifique se o movimento foi válido (true)
+        assertTrue(validMove);
+        assertNotEquals(initialSquareInfo[0], updatedSquareInfo[0]); // Verifica se o ID da peça mudou
     }
 }
