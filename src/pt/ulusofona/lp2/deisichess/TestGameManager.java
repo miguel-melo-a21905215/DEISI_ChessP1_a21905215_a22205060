@@ -1,7 +1,9 @@
 package pt.ulusofona.lp2.deisichess;
 
 import org.junit.jupiter.api.Test;
+
 import java.io.File;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestGameManager {
@@ -9,26 +11,29 @@ public class TestGameManager {
     @Test
     void loadGame() {
         GameManager gameManager = new GameManager();
-        File file = new File("4x4.txt");
+        File file = new File("test_files/4x4.txt");
         assertTrue(gameManager.loadGame(file));
     }
 
     @Test
     void getPieceInfo() {
         GameManager gameManager = new GameManager();
-        // Suponhamos que você tenha um objeto Piece válido com ID 1 no seu tabuleiro.
-        String[] pieceInfo = gameManager.getPieceInfo(1);
-        assertEquals("1", pieceInfo[0]);
-        // Adicione mais asserções de acordo com os detalhes do objeto Piece esperado.
+        File file = new File("test_files/4x4.txt");
+        gameManager.loadGame(file);
+        String[] actualArray = gameManager.getPieceInfo(1);
+        String[] expectedArray = {"1", "0", "0", "Chefe", "em jogo", "1", "0"};
+        assertArrayEquals(expectedArray, actualArray);
     }
 
     @Test
     void getPieceInfoAsString() {
         GameManager gameManager = new GameManager();
-        // Suponhamos que você tenha um objeto Piece válido com ID 1 no seu tabuleiro.
-        String pieceInfoString = gameManager.getPieceInfoAsString(1);
-        // Verifique se a string gerada é válida de acordo com os detalhes do objeto Piece esperado.
-        // Use asserções apropriadas para verificar os valores na string.
+        File file = new File("test_files/4x4.txt");
+        gameManager.loadGame(file);
+
+        String ActualResult = gameManager.getPieceInfoAsString(1);
+        String expectedResult = "1 | 0 | 0 | Chefe @ (1, 0)";
+
     }
 
     @Test
@@ -51,6 +56,7 @@ public class TestGameManager {
     @Test
     void getCurrentTeamID() {
         GameManager gameManager = new GameManager();
+
         // Suponhamos que a equipe atual seja a equipe das Brancas (ID 1).
         int currentTeamID = gameManager.getCurrentTeamID();
         assertEquals(1, currentTeamID);
