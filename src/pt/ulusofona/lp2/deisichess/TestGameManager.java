@@ -11,13 +11,14 @@ public class TestGameManager {
     @Test
     void loadGameCorreto() {
         GameManager gameManager = new GameManager();
-        File file = new File("test_files/4x4.txt");
+        File file = new File("test-files/4x4.txt");
         assertTrue(gameManager.loadGame(file));
     }
+
     @Test
     void loadGameIncorreto() {
         GameManager gameManager = new GameManager();
-        File file = new File("test_files/shalom.txt");
+        File file = new File("test-files/shalom.txt");
         assertFalse(gameManager.loadGame(file));
     }
 
@@ -25,7 +26,7 @@ public class TestGameManager {
     @Test
     void getPieceInfo() {
         GameManager gameManager = new GameManager();
-        File file = new File("test_files/4x4.txt");
+        File file = new File("test-files/4x4.txt");
         gameManager.loadGame(file);
         String[] actualArray = gameManager.getPieceInfo(1);
         String[] expectedArray = {"1", "0", "0", "Chefe", "em jogo", "1", "0"};
@@ -35,22 +36,25 @@ public class TestGameManager {
     @Test
     void getPieceInfoAsString() {
         GameManager gameManager = new GameManager();
-        File file = new File("test_files/4x4.txt");
+        File file = new File("test-files/4x4.txt");
         gameManager.loadGame(file);
 
-        String ActualResult = gameManager.getPieceInfoAsString(1);
+        String actualResult = gameManager.getPieceInfoAsString(1);
         String expectedResult = "1 | 0 | 0 | Chefe @ (1, 0)";
+        assertEquals(actualResult, expectedResult);
 
     }
 
     @Test
     void getPieceInfoAsString2() {
         GameManager gameManager = new GameManager();
-        File file = new File("test_files/8x8.txt");
+        File file = new File("test-files/8x8.txt");
         gameManager.loadGame(file);
 
         String ActualResult = gameManager.getPieceInfoAsString(3);
-        String expectedResult = "1 | 0 | 0 | Grande Artista @ (2, 1)";
+        String expectedResult = "3 | 0 | 0 | Grande Artista @ (2, 1)";
+
+        assertEquals(ActualResult, expectedResult);
 
     }
 
@@ -58,7 +62,7 @@ public class TestGameManager {
     @Test
     void getBoardSize() {
         GameManager gameManager = new GameManager();
-        File file = new File("test_files/8x8.txt");
+        File file = new File("test-files/8x8.txt");
         gameManager.loadGame(file);
 
         int size = gameManager.getBoardSize();
@@ -68,7 +72,7 @@ public class TestGameManager {
     @Test
     void getCurrentTeamID() {
         GameManager gameManager = new GameManager();
-        File file = new File("test_files/4x4.txt");
+        File file = new File("test-files/4x4.txt");
         gameManager.loadGame(file);
         // Suponhamos que a equipe atual seja a equipe das Brancas (ID 1).
         int currentTeamID = gameManager.getCurrentTeamID();
@@ -78,7 +82,7 @@ public class TestGameManager {
     @Test
     void gameOver() {
         GameManager gameManager = new GameManager();
-        File file = new File("test_files/4x4.txt");
+        File file = new File("test-files/4x4.txt");
         gameManager.loadGame(file);
         // Implemente testes que verifiquem se o jogo acabou em diferentes cenários (vitória das Pretas, vitória das Brancas, empate).
         // Use asserções para verificar as mensagens de vitória/empate.
@@ -88,7 +92,7 @@ public class TestGameManager {
     public void testValidMove() {
 
         GameManager gameManager = new GameManager();
-        File file = new File("test_files/4x4.txt");
+        File file = new File("test-files/4x4.txt");
         gameManager.loadGame(file);
 
         // Obtenha a situação do tabuleiro antes do movimento
