@@ -8,9 +8,13 @@ import java.util.Scanner;
 
 public class GameManager {
 
-    Board board = new Board();
+    Board board;
     String winnerMessage = ""; //a preencher pelo gameOver
 
+    public GameManager(Board board, String winner) {
+        this.board = board;
+        this.winnerMessage = winner;
+    }
 
     public GameManager() {
 
@@ -29,8 +33,8 @@ public class GameManager {
         int size;
         int numPecas;
 
-        size = Integer.parseInt((scanner.nextLine()));
-        numPecas = Integer.parseInt(scanner.nextLine());
+        size = Integer.parseInt((scanner.nextLine()));                  //size do tabuleiro
+        numPecas = Integer.parseInt(scanner.nextLine());                //numero de pecas presentes no tabuleiro
 
         this.board = new Board(size, numPecas);
 
@@ -38,17 +42,15 @@ public class GameManager {
             String linha = scanner.nextLine();
             String[] divisao = linha.split(":");
 
-            Piece peca = new Piece();
-            peca.setId(Integer.parseInt(divisao[0].trim()));
-            peca.setType(Integer.parseInt(divisao[1].trim()));
-            peca.setTeam(Integer.parseInt(divisao[2].trim()));
-            peca.setNickname((divisao[3].trim()));
+            int id = Integer.parseInt(divisao[0].trim());
+            int type = Integer.parseInt(divisao[1].trim());
+            int team = Integer.parseInt(divisao[2].trim());
+            String nickname = (divisao[3].trim());
 
-            board.getEquipas()[peca.getTeam()].addPieceToHmap(peca);
-            board.getEquipas()[peca.getTeam()].incrementarInPlay();
+            Piece peca = new Piece(id, type, team, nickname);
 
-
-            board.totalPieces.add(peca);
+            board.getEquipas()[team].addPieceToHmap(peca);
+            board.getTotalPieces().add(peca);
             // adiciona ao arraylist das peças na class board
         }
 
@@ -59,21 +61,19 @@ public class GameManager {
 
             for (int x = 0; x < divisao.length; x++) {
                 int id = Integer.parseInt(divisao[x]);
-
                 if (id != 0) {
                     for (Piece piece : board.getTotalPieces()) {
                         if (piece.getId() == id) {
-                            piece.setPosX(x);
-                            piece.setPosY(y);
-                            board.getTabuleiro()[x][y] = piece;
-                            piece.setInPlay(true);
+                            piece.novaPos(x, y);
+                            board.metePecaDestino(piece, x, y);
+                            piece.marcaInPlay();
+                            board.getEquipas()[piece.getTeam()].incrementarInPlay();    //esta linha estava no sitio errado, causava o erro do gameOver
                         }
                     }
 
                 }
             }
         }
-
         return true;
     }
 
@@ -105,7 +105,7 @@ public class GameManager {
                 }
             }
         }
-        result[1] = "barraca";
+        result[1] = "ERRO";
         return result;
     }
 
@@ -126,8 +126,8 @@ public class GameManager {
             }
         }
         if (peca.isInPlay()) {
-            result += '(' + pieceInfo[5];            //posX
-            result += ", " + pieceInfo[6] + ')';     //posY
+            result += '(' + pieceInfo[5];               //posX
+            result += ", " + pieceInfo[6] + ')';        //posY
         } else {
             result += "(n/a)";
         }
@@ -173,16 +173,14 @@ public class GameManager {
         ArrayList<String> result = new ArrayList<>();
 
         result.add("JOGO DE CRAZY CHESS");
-        result.add("Resultado:" + " " + winnerMessage);
+        result.add("Resultado: " + winnerMessage);
         result.add("---");
 
-        //Equipa Das Pretas
         result.add("Equipa das Pretas");
         result.add(String.valueOf(board.getEquipas()[0].getNumCapturadas()));
         result.add(String.valueOf(board.getEquipas()[0].getNumJogadas()));
         result.add(String.valueOf(board.getEquipas()[0].getNumFalhadas()));
-
-        //Equipa Das Brancas
+        /*------------------------------------------------------------*/
         result.add("Equipa das Brancas");
         result.add(String.valueOf(board.getEquipas()[1].getNumCapturadas()));
         result.add(String.valueOf(board.getEquipas()[1].getNumJogadas()));
@@ -193,21 +191,11 @@ public class GameManager {
 
     public boolean gameOver() {
 
-        int pecasBrancas = 0;
-        int pecasPretas = 0;
+        int pecasBrancas = board.getEquipas()[1].getInPlayPieces();
+        int pecasPretas = board.getEquipas()[0].getInPlayPieces();
 
-        for (Piece piece : board.getTotalPieces()) {
-            if (piece.isInPlay() && piece.getTeam() == 0) {
-                pecasPretas++;
-            } else if (piece.isInPlay() && piece.getTeam() == 1) {
-                pecasBrancas++;
-            }
 
-        }
-
-        //board.getEquipas()[0].getInPlayPieces() == 0 || board.getEquipas()[1].getInPlayPieces() == 0
         if (pecasBrancas == 0 || pecasPretas == 0) {
-            //board.getEquipas()[0].getInPlayPieces()
             if (pecasBrancas == 0) {
                 winnerMessage = "VENCERAM AS PRETAS";
             } else {
@@ -227,32 +215,32 @@ public class GameManager {
 
     public boolean move(int oriX, int oriY, int destX, int destY) {
         if (board.temPeca(oriX, oriY) && (destX != oriX || destY != oriY)) {
-            Piece pecaMovida = board.getTabuleiro()[oriX][oriY];
+            Piece pecaMovida = board.getPecaNaPos(oriX, oriY);
             if (pecaMovida.isInPlay() && pecaMovida.getTeam() == board.isCurrentTeamNumb()) {
-                if (board.validaMove(oriX, oriY, destX, destY)) {                                       //MOVE VALIDO
+                if (board.validaMove(oriX, oriY, destX, destY)) {                                           //MOVE VALIDO
                     if (board.temPeca(destX, destY)) {
-                        if (board.getPeca(destX, destY).getTeam() != board.isCurrentTeamNumb()) {       //PECA NO DESTINO É DA EQUIPA CONTRÁRIA -> COME
+                        if (board.getPecaNaPos(destX, destY).getTeam() != board.isCurrentTeamNumb()) {      //PECA NO DESTINO É DA EQUIPA CONTRÁRIA -> COME
 
-                            board.getPeca(destX, destY).capturada();
+                            board.getPecaNaPos(destX, destY).capturada();
                             board.metePecaDestino(pecaMovida, destX, destY);
-                            board.comeu(getCurrentTeamID());
+                            board.comeu();
                             board.tiraPecaOrigem(oriX, oriY);
                             return true;
 
                         } else {
-                            board.equipas[board.isCurrentTeamNumb()].falhou();
-                            return false;                                                               //PECA NO DESTINO DA MESMA EQUIPA -> INVALIDO
+                            board.equipas[board.isCurrentTeamNumb()].invalida();
+                            return false;                                                                   //PECA NO DESTINO DA MESMA EQUIPA -> INVALIDO
                         }
-                    } else if (!board.temPeca(destX, destY)) {                                          //SEM PECA NO DESTINO -> MOVE APENAS
+                    } else if (!board.temPeca(destX, destY)) {                                              //SEM PECA NO DESTINO -> MOVE APENAS
                         board.tiraPecaOrigem(oriX, oriY);
                         board.metePecaDestino(pecaMovida, destX, destY);
-                        board.moveu(getCurrentTeamID());
+                        board.moveu();
                         return true;
                     }
                 }
             }
         }
-        board.equipas[board.isCurrentTeamNumb()].falhou();
+        board.falhou();
         return false;
     }
 

@@ -4,17 +4,17 @@ import java.util.ArrayList;
 
 public class Board {
     int size;
-    int consecPassPlays;
     Piece[][] tabuleiro;
     Team[] equipas;
     ArrayList<Piece> totalPieces;
     boolean currentTeam;
-
+    int consecPassPlays;
     int numeroPecas;
 
 
     public Board(int size, int numeroPecas) {
         this.size = size;
+        this.numeroPecas = numeroPecas;
         this.consecPassPlays = -1000;
         this.tabuleiro = new Piece[size][size];
         this.equipas = new Team[2];
@@ -71,20 +71,13 @@ public class Board {
         return tabuleiro[x][y] != null;
     }
 
-    public Piece getPeca(int posX, int posY) {
-        return tabuleiro[posX][posY];
-    }
 
     boolean validaMove(int oriX, int oriY, int destX, int destY) {
         int deslocX = Math.abs(destX - oriX);
         int deslocY = Math.abs(destY - oriY);
 
-        // Certifique-se de que a peça está se movendo apenas uma casa em qualquer direção (horizontal, vertical ou diagonal).
-        if ((deslocX == 1 && deslocY == 0) || (deslocX == 0 && deslocY == 1) || (deslocX == 1 && deslocY == 1)) {
-            return true;
-        } else {
-            return false;
-        }
+
+        return (deslocX == 1 && deslocY == 0) || (deslocX == 0 && deslocY == 1) || (deslocX == 1 && deslocY == 1);
     }
 
 
@@ -94,20 +87,28 @@ public class Board {
 
     void metePecaDestino(Piece pecaMovida, int destX, int destY) {
         tabuleiro[destX][destY] = pecaMovida;
-        pecaMovida.setPosX(destX);
-        pecaMovida.setPosY(destY);
+        pecaMovida.novaPos(destX, destY);
     }
 
-    public void comeu(int team) {
-        equipas[team].comeu();
-        this.consecPassPlays = 0;
-        this.currentTeam = !currentTeam;
+    public Piece getPecaNaPos(int x, int y) {
+        return tabuleiro[x][y];
+    }
+
+    public void falhou() {
+        equipas[isCurrentTeamNumb()].invalida();
+    }
+
+    public void comeu() {
+        equipas[isCurrentTeamNumb()].comeu();
+        consecPassPlays = 0;
         equipas[isntCurrentTeamNumb()].decrementarInPlay();
+        currentTeam = !currentTeam;
+
 
     }
 
-    public void moveu(int team) {
-        equipas[team].fino();
+    public void moveu() {
+        equipas[isCurrentTeamNumb()].moveuSemComer();
         this.consecPassPlays++;
         this.currentTeam = !currentTeam;
     }

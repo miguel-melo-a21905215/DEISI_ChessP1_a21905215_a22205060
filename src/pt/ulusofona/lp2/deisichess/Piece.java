@@ -18,7 +18,7 @@ public class Piece {
         this.team = team;
         this.type = type;
         this.nickname = nickname;
-        this.inPlay = true;
+        this.inPlay = false;
     }
 
     public Piece() {
@@ -28,56 +28,36 @@ public class Piece {
         return team;
     }
 
-    public void setTeam(int team) {
-        this.team = team;
-    }
 
     public int getType() {
         return type;
     }
 
-    public void setType(int type) {
-        this.type = type;
-    }
 
     public String getNickname() {
         return nickname;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
 
     public boolean isInPlay() {
         return inPlay;
     }
 
-    public void setInPlay(boolean inPlay) {
-        this.inPlay = inPlay;
+    public void marcaInPlay() {
+        inPlay = true;
     }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public int getPosX() {
         return posX;
     }
 
-    public void setPosX(int posX) {
-        this.posX = posX;
-    }
-
     public int getPosY() {
         return posY;
-    }
-
-    public void setPosY(int posY) {
-        this.posY = posY;
     }
 
     public void capturada() {

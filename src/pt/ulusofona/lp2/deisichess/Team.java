@@ -32,7 +32,6 @@ public class Team {
         this.inPlayPieces--;
     }
 
-
     public int getNumJogadas() {
         return numJogadas;
     }
@@ -49,11 +48,11 @@ public class Team {
         return inPlayPieces;
     }
 
-    void falhou() {
+    void invalida() {
         this.numFalhadas++;
     }
 
-    void fino() {
+    void moveuSemComer() {
         this.numJogadas++;
     }
 
@@ -62,3 +61,4 @@ public class Team {
         this.numJogadas++;
     }
 }
+
