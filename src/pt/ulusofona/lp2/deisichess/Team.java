@@ -24,11 +24,11 @@ public class Team {
         teamPieces.put(newPiece.getId(), newPiece);
     }
 
-    void incrementarInPlay() {
+    public void incrementarInPlay() {
         this.inPlayPieces++;
     }
 
-    void decrementarInPlay() {
+    public void decrementarInPlay() {
         this.inPlayPieces--;
     }
 
@@ -48,15 +48,15 @@ public class Team {
         return inPlayPieces;
     }
 
-    void invalida() {
+    public void invalida() {
         this.numFalhadas++;
     }
 
-    void moveuSemComer() {
+    public void moveuSemComer() {
         this.numJogadas++;
     }
 
-    void comeu() {
+    public void comeu() {
         this.numCapturadas++;
         this.numJogadas++;
     }

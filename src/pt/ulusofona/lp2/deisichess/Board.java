@@ -72,7 +72,7 @@ public class Board {
     }
 
 
-    boolean validaMove(int oriX, int oriY, int destX, int destY) {
+    public boolean validaMove(int oriX, int oriY, int destX, int destY) {
         int deslocX = Math.abs(destX - oriX);
         int deslocY = Math.abs(destY - oriY);
 
@@ -81,11 +81,11 @@ public class Board {
     }
 
 
-    void tiraPecaOrigem(int origemX, int origemY) {
+    public void tiraPecaOrigem(int origemX, int origemY) {
         tabuleiro[origemX][origemY] = null;
     }
 
-    void metePecaDestino(Piece pecaMovida, int destX, int destY) {
+    public void metePecaDestino(Piece pecaMovida, int destX, int destY) {
         tabuleiro[destX][destY] = pecaMovida;
         pecaMovida.novaPos(destX, destY);
     }
