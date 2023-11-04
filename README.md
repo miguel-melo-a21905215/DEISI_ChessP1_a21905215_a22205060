@@ -26,7 +26,7 @@ saga que corresponderam a diferentes tipos de peças.
 
 # Diagrama UML
 <p align="center">
-  <img src="diagrama.png" alt="Diagrama UML">
+  <img src="Diagrama.png" alt="Diagrama UML">
 </p>
 
 

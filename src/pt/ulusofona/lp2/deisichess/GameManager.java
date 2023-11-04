@@ -1,5 +1,6 @@
 package pt.ulusofona.lp2.deisichess;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -242,6 +243,16 @@ public class GameManager {
         }
         board.falhou();
         return false;
+    }
+
+    public JPanel getAuthorsPanel() {
+        JPanel result = new JPanel();
+
+        ImageIcon gifIcon = new ImageIcon("src/images/SemJUNIT.gif");
+        JLabel gifLabel = new JLabel(gifIcon);
+
+        result.add(gifLabel);
+        return result;
     }
 
 }
