@@ -8,13 +8,9 @@ import java.util.Scanner;
 
 public class GameManager {
 
-    Board board;
+    Board board = new Board();
     String winnerMessage = ""; //a preencher pelo gameOver
 
-    public GameManager(Board board, String winner) {
-        this.board = board;
-        this.winnerMessage = winner;
-    }
 
     public GameManager() {
 
