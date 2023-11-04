@@ -98,10 +98,10 @@ public class TestGameManager {
         boolean validMove = gameManager.move(1, 0, 1, 1);
 
         // Obtenha a situação do tabuleiro após o movimento
-        String[] updatedSquareInfo = gameManager.getSquareInfo(1, 1);
+        String[] updatedResultInfo = gameManager.getSquareInfo(1, 1);
 
         // Verifique se o movimento foi válido (true)
         assertTrue(validMove);
-        assertNotEquals(initialSquareInfo, updatedSquareInfo); // Verifica se o ID da peça mudou
+        assertNotEquals(initialSquareInfo, updatedResultInfo); // Verifica se o ID da peça mudou
     }
 }
