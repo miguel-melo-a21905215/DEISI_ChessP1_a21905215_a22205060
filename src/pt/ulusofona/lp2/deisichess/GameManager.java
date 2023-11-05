@@ -43,23 +43,30 @@ public class GameManager {
             String linha = scanner.nextLine();
             String[] divisao = linha.split(":");
 
-            int id = Integer.parseInt(divisao[0].trim());
-            int type = Integer.parseInt(divisao[1].trim());
-            int team = Integer.parseInt(divisao[2].trim());
-            String nickname = (divisao[3].trim());
+            if (divisao.length == 4) {
+                int id = Integer.parseInt(divisao[0].trim());
+                int type = Integer.parseInt(divisao[1].trim());
+                int team = Integer.parseInt(divisao[2].trim());
+                String nickname = (divisao[3].trim());
 
-            Piece peca = new Piece(id, type, team, nickname);
+                Piece peca = new Piece(id, type, team, nickname);
 
-            board.getEquipas()[team].addPieceToHmap(peca);
-            board.getTotalPieces().add(peca);
-            // adiciona ao arraylist das peças na class board
+                board.getEquipas()[team].addPieceToHmap(peca);
+                board.getTotalPieces().add(peca);
+                // adiciona ao arraylist das peças na class board
+            } else {
+                return false;
+
+            }
         }
 
 
         for (int y = 0; y < board.getSize(); y++) {
             String linha = scanner.nextLine();
             String[] divisao = linha.split(":");
-
+            if (divisao.length > size) {
+                return false;
+            }
             for (int x = 0; x < divisao.length; x++) {
                 int id = Integer.parseInt(divisao[x]);
                 if (id != 0) {
@@ -73,6 +80,9 @@ public class GameManager {
                     }
 
                 }
+            }
+            if (y == size - 1 && scanner.hasNext()) {
+                return false;
             }
         }
         return true;
