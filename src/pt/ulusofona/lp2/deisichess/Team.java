@@ -64,5 +64,13 @@ public class Team {
         this.numCapturadas++;
         this.numJogadas++;
     }
+
+    public boolean verificaInPlay(int id) {
+        if (this.teamPieces.containsKey(id) && this.teamPieces.get(id).isInPlay()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 

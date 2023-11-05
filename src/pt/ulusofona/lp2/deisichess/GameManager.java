@@ -69,8 +69,7 @@ public class GameManager {
             }
             for (int x = 0; x < divisao.length; x++) {
                 int id = Integer.parseInt(divisao[x]);
-                if (id != 0 && !(board.getEquipas()[0].getTeamPieces().containsKey(id) ||
-                        board.getEquipas()[1].getTeamPieces().containsKey(id))) {     //verifica se a peca nao esta no tabuleiro ja
+                if (id != 0 && !(board.getEquipas()[0].verificaInPlay(id) || board.getEquipas()[1].verificaInPlay(id))) {     //verifica se a peca nao esta no tabuleiro ja
                     for (Piece piece : board.getTotalPieces()) {
                         if (piece.getId() == id) {
                             piece.novaPos(x, y);
