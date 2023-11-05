@@ -40,10 +40,6 @@ public class Team {
         return numFalhadas;
     }
 
-    public HashMap<Integer, Piece> getTeamPieces() {
-        return teamPieces;
-    }
-
     public int getNumCapturadas() {
         return numCapturadas;
     }
