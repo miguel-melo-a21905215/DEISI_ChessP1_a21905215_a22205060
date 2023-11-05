@@ -248,7 +248,7 @@ public class GameManager {
     public JPanel getAuthorsPanel() {
         JPanel result = new JPanel();
 
-        ImageIcon gifIcon = new ImageIcon("src/images/SemJUNIT.gif");
+        ImageIcon gifIcon = new ImageIcon("src/images/14outta14.gif");
         JLabel gifLabel = new JLabel(gifIcon);
 
         result.add(gifLabel);
