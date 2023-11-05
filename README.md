@@ -32,7 +32,7 @@ saga que corresponderam a diferentes tipos de peças.
 # Diagrama UML
 
 <p align="center">
-  <img src="src/images/Diagrama.png" alt="Diagrama UML">
+  <img src="diagrama.png" alt="Diagrama UML">
 </p>
 
 No desenvolvimento do nosso código tentámos ao máximo seguir o princípio do encapsulamento de modo que o código seja
