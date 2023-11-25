@@ -1,0 +1,58 @@
+----------------------------------------------------------------
+-                                                              -
+-                  LOGICAS A IMPLEMENTAR                       -
+-                                                              -
+----------------------------------------------------------------
+
+-Estrutura para utilizar na saveGame()
+    ->Depois dos dados do ficheiro
+    ->Deve conter todas as joagadas até ao momento de save
+    ->Adicionar na loadGame() um cilco de leitura desta estrutura
+
+----------------------------------------------------------------
+
+-Classe Piece passa a ser abstract
+    ->Criar classes de herança para cada tipo de peça
+    ->Cada classe filho deve ter:
+        ->Endereçado o PNG próprio
+        ->move Especifico
+        ->getHints especifico(?)
+
+----------------------------------------------------------------
+
+-Estrutura para guardar todas as joagadas até ao momento
+    ->Guardar apenas o tabueleiro com as peças?
+    ->Guardar os contadores e pontos de cada equipa
+    ->Guardar a equipa a jogar
+
+----------------------------------------------------------------
+-                                                              -
+-              ALTERAÇÕES AO CÓDIGO DA PARTE 1:                -
+-                                                              -
+----------------------------------------------------------------
+
+-loadGame passa a ser Void, erro passa a ser passado na IGIE
+-move especifico para cada tipo de peça
+-Equipas: 10|20
+
+----------------------------------------------------------------
+-                                                              -
+-                    DIVISAO DE TAREFAS                        -
+-                                                              -
+----------------------------------------------------------------
+
+BARATA
+
+-
+-
+-
+-
+
+----------------------------------------------------------------
+
+MELO
+
+-
+-
+-
+-
