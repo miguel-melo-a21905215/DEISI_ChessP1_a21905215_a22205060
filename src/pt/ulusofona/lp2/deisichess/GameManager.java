@@ -213,12 +213,10 @@ public class GameManager {
                 winnerMessage = "VENCERAM AS BRANCAS";
             }
             return true;
-        } else if (pecasPretas == 1 && pecasBrancas == 1) {
+        } else if ((pecasPretas == 1 && pecasBrancas == 1) || board.getConsecPassPlays() == 10) {
             winnerMessage = "EMPATE";
             return true;
-        } else if (board.getConsecPassPlays() == 10) {
-            winnerMessage = "EMPATE";
-            return true;
+
         } else {
             return false;
         }
@@ -227,28 +225,27 @@ public class GameManager {
     public boolean move(int oriX, int oriY, int destX, int destY) {
         if (board.temPeca(oriX, oriY) && (destX != oriX || destY != oriY)) {
             Piece pecaMovida = board.getPecaNaPos(oriX, oriY);
-            if (pecaMovida.isInPlay() && pecaMovida.getTeam() == board.isCurrentTeamNumb()) {
-                if (board.validaMove(oriX, oriY, destX, destY)) {                                           //MOVE VALIDO
-                    if (board.temPeca(destX, destY)) {
-                        if (board.getPecaNaPos(destX, destY).getTeam() != board.isCurrentTeamNumb()) {      //PECA NO DESTINO É DA EQUIPA CONTRÁRIA -> COME
+            if (pecaMovida.isInPlay() && pecaMovida.getTeam() == board.isCurrentTeamNumb() && (board.validaMove(oriX, oriY, destX, destY))) {                                           //MOVE VALIDO
+                if (board.temPeca(destX, destY)) {
+                    if (board.getPecaNaPos(destX, destY).getTeam() != board.isCurrentTeamNumb()) {      //PECA NO DESTINO É DA EQUIPA CONTRÁRIA -> COME
 
-                            board.getPecaNaPos(destX, destY).capturada();
-                            board.metePecaDestino(pecaMovida, destX, destY);
-                            board.comeu();
-                            board.tiraPecaOrigem(oriX, oriY);
-                            return true;
-
-                        } else {
-                            board.equipas[board.isCurrentTeamNumb()].invalida();
-                            return false;                                                                   //PECA NO DESTINO DA MESMA EQUIPA -> INVALIDO
-                        }
-                    } else if (!board.temPeca(destX, destY)) {                                              //SEM PECA NO DESTINO -> MOVE APENAS
-                        board.tiraPecaOrigem(oriX, oriY);
+                        board.getPecaNaPos(destX, destY).capturada();
                         board.metePecaDestino(pecaMovida, destX, destY);
-                        board.moveu();
+                        board.comeu();
+                        board.tiraPecaOrigem(oriX, oriY);
                         return true;
+
+                    } else {
+                        board.equipas[board.isCurrentTeamNumb()].invalida();
+                        return false;                                                                   //PECA NO DESTINO DA MESMA EQUIPA -> INVALIDO
                     }
+                } else if (!board.temPeca(destX, destY)) {                                              //SEM PECA NO DESTINO -> MOVE APENAS
+                    board.tiraPecaOrigem(oriX, oriY);
+                    board.metePecaDestino(pecaMovida, destX, destY);
+                    board.moveu();
+                    return true;
                 }
+
             }
         }
         board.falhou();

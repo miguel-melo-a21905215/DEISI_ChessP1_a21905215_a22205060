@@ -62,11 +62,7 @@ public class Team {
     }
 
     public boolean verificaInPlay(int id) {
-        if (this.teamPieces.containsKey(id) && this.teamPieces.get(id).isInPlay()) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.teamPieces.containsKey(id) && this.teamPieces.get(id).isInPlay();
     }
 }
 
