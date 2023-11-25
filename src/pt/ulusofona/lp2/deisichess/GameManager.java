@@ -21,6 +21,7 @@ public class GameManager {
 
     }
 
+    //TODO loadGame() passa a ser void e Erros são identificados com a nova classe
     public boolean loadGame(File file) {
         Scanner scanner = null;
 
@@ -86,6 +87,15 @@ public class GameManager {
             }
         }
         return true;
+    }
+
+    public void saveGame(File file){
+        /*TODO saveGame deve criar um ficheiro novo que começa com o formato DEFAULT
+           depois disso deve ter uma estrutura a definir - ver WhiteBoard*/
+    }
+
+    public void undo(){
+        /*TODO - Depois de criar a Estrutura onde guardar todas as jogadas*/
     }
 
     public String[] getPieceInfo(int id) {
@@ -158,6 +168,7 @@ public class GameManager {
             result[3] = String.valueOf(piece.getNickname());
 
             if (piece.getTeam() == 0) {
+                /*TODO CADA PEÇA TEM O SEU PNG - a atualizar na classe de cada peça*/
                 result[4] = "crazy_emoji_black.png";
 
             } else {
