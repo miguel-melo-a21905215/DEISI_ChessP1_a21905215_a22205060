@@ -24,6 +24,16 @@ public class Board {
         this.currentTeam = false;
     }
 
+    public Board(int size, Piece[][] tabuleiro, Team[] equipas, ArrayList<Piece> totalPieces, boolean currentTeam, int consecPassPlays, int numeroPecas) {
+        this.size = size;
+        this.tabuleiro = tabuleiro;
+        this.equipas = equipas;
+        this.totalPieces = totalPieces;
+        this.currentTeam = currentTeam;
+        this.consecPassPlays = consecPassPlays;
+        this.numeroPecas = numeroPecas;
+    }
+
     public Board() {
     }
 
@@ -53,19 +63,28 @@ public class Board {
 
     public int isCurrentTeamNumb() {
         if (currentTeam) {
-            return 1; //BRANCA
+            return 20; //BRANCA
         } else {
-            return 0; //PRETA
+            return 10; //PRETA
         }
     }
 
     public int isntCurrentTeamNumb() {
         if (!currentTeam) {
-            return 1; //PRETA
+            return 10; //PRETA
         } else {
-            return 0; //BRANCA
+            return 20; //BRANCA
         }
     }
+
+    public int convertNumEquipas(int num) {
+        if (num == 20) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
 
     public boolean temPeca(int x, int y) {
         return tabuleiro[x][y] != null;
@@ -95,13 +114,13 @@ public class Board {
     }
 
     public void falhou() {
-        equipas[isCurrentTeamNumb()].invalida();
+        equipas[convertNumEquipas(isCurrentTeamNumb())].invalida();
     }
 
     public void comeu() {
-        equipas[isCurrentTeamNumb()].comeu();
+        equipas[convertNumEquipas(isCurrentTeamNumb())].comeu();
         consecPassPlays = 0;
-        equipas[isntCurrentTeamNumb()].decrementarInPlay();
+        equipas[convertNumEquipas(isntCurrentTeamNumb())].decrementarInPlay();
         currentTeam = !currentTeam;
 
 
