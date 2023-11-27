@@ -4,7 +4,7 @@
 -                                                              -
 ----------------------------------------------------------------
 
--Estrutura para utilizar na saveGame()
+-Estrutura para utilizar na saveGame() -> estrutura criada, falta testar
     ->Depois dos dados do ficheiro
     ->Deve conter todas as joagadas até ao momento de save
     ->Adicionar na loadGame() um cilco de leitura desta estrutura
@@ -20,7 +20,7 @@
 
 ----------------------------------------------------------------
 
--Estrutura para guardar todas as joagadas até ao momento
+-Estrutura para guardar todas as joagadas até ao momento -> estrutura criada, falta testar
     ->Guardar apenas o tabueleiro com as peças?
     ->Guardar os contadores e pontos de cada equipa
     ->Guardar a equipa a jogar
@@ -31,9 +31,9 @@
 -                                                              -
 ----------------------------------------------------------------
 
--loadGame passa a ser void, erro passa a ser passado na IGIE
+-loadGame passa a ser void, erro passa a ser passado na IGIE -> feito
 -move especifico para cada tipo de peça
--Equipas: 10|20
+-Equipas: 10|20 -> feito
 
 ----------------------------------------------------------------
 -                                                              -
@@ -54,7 +54,9 @@ BARATA
 
 MELO
 
--save()
--undo()
--tratamento de "exceptions"
--
+-save() -> testar depois da move
+-undo() -> testar depois da move
+-tratamento de "exceptions" -> testar
+-atualizar Diagrama UML
+-atualizar README.md
+-imagens para peças
