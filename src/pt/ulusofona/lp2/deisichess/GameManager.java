@@ -2,10 +2,8 @@ package pt.ulusofona.lp2.deisichess;
 
 import javax.swing.*;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Scanner;
+import java.io.IOException;
+import java.util.*;
 
 public class GameManager {
 
@@ -22,79 +20,77 @@ public class GameManager {
     }
 
     //TODO loadGame() passa a ser void e Erros são identificados com a nova classe
-    public boolean loadGame(File file) {
-        Scanner scanner = null;
+    public void loadGame(File file) throws InvalidGameInputException, IOException {
 
-        try {
-            scanner = new Scanner(file);
-        } catch (FileNotFoundException e) {
-            return false;
-        }
+        try (Scanner scanner = new Scanner(file)) {
+            int boardSize;
+            int numPecas;
 
+            boardSize = Integer.parseInt((scanner.nextLine()));                  //size do tabuleiro
+            numPecas = Integer.parseInt(scanner.nextLine());                //numero de pecas presentes no tabuleiro
 
-        int size;
-        int numPecas;
+            this.board = new Board(boardSize, numPecas);
+            int currentLine = 0;
 
-        size = Integer.parseInt((scanner.nextLine()));                  //size do tabuleiro
-        numPecas = Integer.parseInt(scanner.nextLine());                //numero de pecas presentes no tabuleiro
+            for (int i = 0; i < numPecas; i++) {
+                String linha = scanner.nextLine();
+                String[] divisao = linha.split(":");
 
-        this.board = new Board(size, numPecas);
+                if (divisao.length == 4) {
+                    int id = Integer.parseInt(divisao[0].trim());
+                    int type = Integer.parseInt(divisao[1].trim());
+                    int team = Integer.parseInt(divisao[2].trim());
+                    String nickname = (divisao[3].trim());
 
-        for (int i = 0; i < numPecas; i++) {
-            String linha = scanner.nextLine();
-            String[] divisao = linha.split(":");
+                    Piece peca = new Piece(id, type, team, nickname);
 
-            if (divisao.length == 4) {
-                int id = Integer.parseInt(divisao[0].trim());
-                int type = Integer.parseInt(divisao[1].trim());
-                int team = Integer.parseInt(divisao[2].trim());
-                String nickname = (divisao[3].trim());
+                    board.getEquipas()[team].addPieceToHmap(peca);
+                    board.getTotalPieces().add(peca);
+                    // adiciona ao arraylist das peças na class board
+                } else if (divisao.length > 4) {
+                    throw new InvalidGameInputException(currentLine, divisao.length);
 
-                Piece peca = new Piece(id, type, team, nickname);
-
-                board.getEquipas()[team].addPieceToHmap(peca);
-                board.getTotalPieces().add(peca);
-                // adiciona ao arraylist das peças na class board
-            } else {
-                return false;
-
-            }
-        }
-
-
-        for (int y = 0; y < board.getSize(); y++) {
-            String linha = scanner.nextLine();
-            String[] divisao = linha.split(":");
-            if (divisao.length > size) {
-                return false;
-            }
-            for (int x = 0; x < divisao.length; x++) {
-                int id = Integer.parseInt(divisao[x]);
-                if (id != 0 && !(board.getEquipas()[0].verificaInPlay(id) || board.getEquipas()[1].verificaInPlay(id))) {     //verifica se a peca nao esta no tabuleiro ja
-                    for (Piece piece : board.getTotalPieces()) {
-                        if (piece.getId() == id) {
-                            piece.novaPos(x, y);
-                            board.metePecaDestino(piece, x, y);
-                            piece.marcaInPlay();
-                            board.getEquipas()[piece.getTeam()].incrementarInPlay();    //esta linha estava no sitio errado, causava o erro do gameOver
-                        }
-                    }
+                } else {
+                    throw new InvalidGameInputException(currentLine, divisao.length);
 
                 }
             }
-            if (y == size - 1 && scanner.hasNext()) {
-                return false;
+
+
+            for (int y = 0; y < board.getSize(); y++) {
+                String linha = scanner.nextLine();
+                String[] divisao = linha.split(":");
+                if (divisao.length == boardSize) {
+                    for (int x = 0; x < divisao.length; x++) {
+                        int id = Integer.parseInt(divisao[x]);
+                        if (id != 0 && !(board.getEquipas()[0].verificaInPlay(id) || board.getEquipas()[1].verificaInPlay(id))) {     //verifica se a peca nao esta no tabuleiro ja
+                            for (Piece piece : board.getTotalPieces()) {
+                                if (piece.getId() == id) {
+                                    piece.novaPos(x, y);
+                                    board.metePecaDestino(piece, x, y);
+                                    piece.marcaInPlay();
+                                    board.getEquipas()[piece.getTeam()].incrementarInPlay();
+
+                                }
+                            }
+                        }
+                    }
+                }
+
             }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
-        return true;
+
+
     }
 
-    public void saveGame(File file){
+    public void saveGame(File file) {
         /*TODO saveGame deve criar um ficheiro novo que começa com o formato DEFAULT
            depois disso deve ter uma estrutura a definir - ver WhiteBoard*/
     }
 
-    public void undo(){
+    public void undo() {
         /*TODO - Depois de criar a Estrutura onde guardar todas as jogadas*/
     }
 
@@ -185,9 +181,9 @@ public class GameManager {
 
     public int getCurrentTeamID() {
         if (board.isCurrentTeam()) {
-            return 1; //BRANCA
+            return 20; //BRANCA
         } else {
-            return 0; //PRETA
+            return 10; //PRETA
         }
     }
 
@@ -233,10 +229,12 @@ public class GameManager {
         }
     }
 
+
+    /*TODO - VERIFICAR MOVES CORRETOS DEPOIS DA CRIACAO DAS PECAS NOVAS*/
     public boolean move(int oriX, int oriY, int destX, int destY) {
         if (board.temPeca(oriX, oriY) && (destX != oriX || destY != oriY)) {
             Piece pecaMovida = board.getPecaNaPos(oriX, oriY);
-            if (pecaMovida.isInPlay() && pecaMovida.getTeam() == board.isCurrentTeamNumb() && (board.validaMove(oriX, oriY, destX, destY))) {                                           //MOVE VALIDO
+            if (pecaMovida.isInPlay() && pecaMovida.getTeam() == board.isCurrentTeamNumb() && (board.validaMove(oriX, oriY, destX, destY))) {  //MOVE VALIDO
                 if (board.temPeca(destX, destY)) {
                     if (board.getPecaNaPos(destX, destY).getTeam() != board.isCurrentTeamNumb()) {      //PECA NO DESTINO É DA EQUIPA CONTRÁRIA -> COME
 
@@ -261,6 +259,14 @@ public class GameManager {
         }
         board.falhou();
         return false;
+    }
+
+    public List<Comparable> getHints(int x, int y) throws IOException {
+        return null;
+    }
+
+    public Map<String, String> customizeBoard() {
+        return new HashMap<>();
     }
 
     public JPanel getAuthorsPanel() {
