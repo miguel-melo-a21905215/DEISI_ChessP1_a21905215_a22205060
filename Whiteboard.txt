@@ -31,7 +31,7 @@
 -                                                              -
 ----------------------------------------------------------------
 
--loadGame passa a ser Void, erro passa a ser passado na IGIE
+-loadGame passa a ser void, erro passa a ser passado na IGIE
 -move especifico para cada tipo de peça
 -Equipas: 10|20
 
@@ -43,7 +43,9 @@
 
 BARATA
 
--
+-Criacao de classes para as peças
+    ->Tipos de move
+    ->caracterisiticas especificas de cada peça
 -
 -
 -
@@ -52,7 +54,7 @@ BARATA
 
 MELO
 
--
--
--
+-save()
+-undo()
+-tratamento de "exceptions"
 -
