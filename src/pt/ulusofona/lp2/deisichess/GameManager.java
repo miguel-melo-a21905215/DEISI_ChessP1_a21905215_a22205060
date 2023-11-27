@@ -2,13 +2,18 @@ package pt.ulusofona.lp2.deisichess;
 
 import javax.swing.*;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
 public class GameManager {
 
     Board board = new Board();
-    String winnerMessage = ""; //a preencher pelo gameOver
+    String winnerMessage = "";
+    GameHistory gameHistory = new GameHistory();
+
+
+    //a preencher pelo gameOver
 
     public GameManager(Board board, String winner) {
         this.board = board;
@@ -78,6 +83,42 @@ public class GameManager {
                 }
 
             }
+            gameHistory.startingBoard(board);
+
+            if (scanner.hasNext() && Objects.equals(scanner.nextLine(), "---------MOVE HISTORY---------")) {
+                int playCount = 0;
+                while (scanner.hasNextLine()) {
+                    String line = scanner.nextLine();
+                    String[] split = line.split(":");
+                    if (line.equals("IDmovedPiece\t:oriX\t:oriY\t:destX\t:destY\t:capture\t:capturedID")) {
+                        playCount++;
+                    } else if (split.length == 6 && Objects.equals(split[5].trim(), "false")) {
+                        int movedID = Integer.parseInt(split[0].trim());
+                        int oriX = Integer.parseInt(split[1].trim());
+                        int oriY = Integer.parseInt(split[2].trim());
+                        int destX = Integer.parseInt(split[3].trim());
+                        int destY = Integer.parseInt(split[4].trim());
+
+                        /*TODO - EXECUTAR A move() COM OS DADOS LIDOS + CLONE DO TABULEIRO OBTIDO*/
+
+                        playCount++;
+
+                    } else if (split.length == 7 && Objects.equals(split[5].trim(), "true")) {
+                        int movedID = Integer.parseInt(split[0].trim());
+                        int oriX = Integer.parseInt(split[1].trim());
+                        int oriY = Integer.parseInt(split[2].trim());
+                        int destX = Integer.parseInt(split[3].trim());
+                        int destY = Integer.parseInt(split[4].trim());
+                        int capturedID = Integer.parseInt(split[6].trim());
+
+                        /*TODO - EXECUTAR A move() COM OS DADOS LIDOS + CLONE DO TABULEIRO OBTIDO*/
+
+
+                        playCount++;
+                    }
+
+                }
+            }
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -85,13 +126,38 @@ public class GameManager {
 
     }
 
-    public void saveGame(File file) {
-        /*TODO saveGame deve criar um ficheiro novo que começa com o formato DEFAULT
-           depois disso deve ter uma estrutura a definir - ver WhiteBoard*/
+    public void saveGame(File file) throws IOException {
+        /*TODO - VERIFICAR DEPOIS DA MOVE E IMPLEMENTAÇÃO DA CLONE*/
+
+        try (FileWriter writer = new FileWriter(file)) {
+            Board startingBoard = gameHistory.getStartingBoard();
+            writer.write(startingBoard.getSize() + "\n");
+            writer.write(startingBoard.getTotalPieces().size() + "\n");
+
+            /*---------DADOS DE CADA PECA---------*/
+            for (Piece piece : startingBoard.getTotalPieces()) {
+                writer.write(piece.getId() + ":" + piece.getType() + ":" + piece.getTeam() + ":" + piece.getNickname() + "\n");
+            }
+            /*---------TABULEIRO---------*/
+
+            for (int y = 0; y < startingBoard.getSize(); y++) {
+                for (int x = 0; x < startingBoard.getSize(); x++) {
+                    writer.write(startingBoard.getPecaNaPos(x, y).getId() + ":");
+                }
+                writer.write("\n");
+            }
+            /*---------MOVE HISTORY---------*/
+            for (String currentMove : gameHistory.getMoves()) {
+                writer.write(currentMove + "\n");
+
+            }
+        }
     }
 
     public void undo() {
-        /*TODO - Depois de criar a Estrutura onde guardar todas as jogadas*/
+        /*TODO - VERIFICAR DEPOIS DE TER A MOVE FEITA*/
+
+        this.board = gameHistory.getPreviousBoard();
     }
 
     public String[] getPieceInfo(int id) {
