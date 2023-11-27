@@ -31,8 +31,8 @@ public class GameManager {
             int boardSize;
             int numPecas;
 
-            boardSize = Integer.parseInt((scanner.nextLine()));                  //size do tabuleiro
-            numPecas = Integer.parseInt(scanner.nextLine());                //numero de pecas presentes no tabuleiro
+            boardSize = Integer.parseInt((scanner.nextLine()));                     //size do tabuleiro
+            numPecas = Integer.parseInt(scanner.nextLine());                        //numero de pecas presentes no tabuleiro
 
             this.board = new Board(boardSize, numPecas);
             int currentLine = 0;
@@ -52,12 +52,8 @@ public class GameManager {
                     board.getEquipas()[team].addPieceToHmap(peca);
                     board.getTotalPieces().add(peca);
                     // adiciona ao arraylist das peças na class board
-                } else if (divisao.length > 4) {
-                    throw new InvalidGameInputException(currentLine, divisao.length);
-
                 } else {
                     throw new InvalidGameInputException(currentLine, divisao.length);
-
                 }
             }
 
@@ -142,15 +138,26 @@ public class GameManager {
 
             for (int y = 0; y < startingBoard.getSize(); y++) {
                 for (int x = 0; x < startingBoard.getSize(); x++) {
-                    writer.write(startingBoard.getPecaNaPos(x, y).getId() + ":");
+                    Piece currentPiece = startingBoard.getPecaNaPos(x, y);
+                    if (currentPiece == null) {
+                        writer.write(0);
+                    } else {
+                        writer.write(startingBoard.getPecaNaPos(x, y).getId());
+                    }
+                    if (x < startingBoard.getSize() - 1) {
+                        writer.write(":");
+                    }
                 }
                 writer.write("\n");
             }
             /*---------MOVE HISTORY---------*/
-            for (String currentMove : gameHistory.getMoves()) {
-                writer.write(currentMove + "\n");
-
+            if (gameHistory.getMoves().size() > 1) {
+                for (String currentMove : gameHistory.getMoves()) {
+                    writer.write(currentMove + "\n");
+                }
             }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -162,7 +169,8 @@ public class GameManager {
 
     public String[] getPieceInfo(int id) {
 
-        //ID|tipo|Equipa|Alcunha|Estado|posX|posY
+        //ID|tipo(emString)|Pontos da Peca|Equipa|Alcunha|Estado|posX|posY
+
 
         String[] result = new String[7];
         result[0] = String.valueOf(id);
