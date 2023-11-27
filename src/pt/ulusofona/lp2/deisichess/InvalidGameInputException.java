@@ -1,21 +1,24 @@
 package pt.ulusofona.lp2.deisichess;
 
-public class InvalidGameInputException {
+public class InvalidGameInputException extends Exception {
+
+    private int lineWithError;
+
+    private int obtainedData;
+    private String problemDescription;
+
+    public InvalidGameInputException(int lineWithError, int obtainedData) {
+        this.lineWithError = lineWithError;
+        this.problemDescription = "DADOS A MAIS (Esperava 4 ; Obtive " + obtainedData;
+    }
 
 
     public int getLinewithError() {
-
-        /*RETORNA NUMERO DA LINHA DO FICHEIRO QUE TEM O PRIMEIRO ERRO*/
-
-
-        return 1;
+        return lineWithError;
     }
 
-    public String getProblemDescription(int problemType) {
-
-        /*RETORNA DESCRICAO DO ERRO*/
-
-        return "inshallah";
+    public String getProblemDescription() {
+        return problemDescription;
     }
 
 }
