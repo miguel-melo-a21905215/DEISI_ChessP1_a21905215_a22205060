@@ -131,4 +131,27 @@ public class Board {
         this.consecPassPlays++;
         this.currentTeam = !currentTeam;
     }
+
+    public boolean coordenadasDentroTabuleiro(int x, int y) {
+        return x >= 0 && x < getSize() && y >= 0 && y < getSize();
+    }
+
+    public boolean temPecaNoCaminho(int oriX, int oriY, int destX, int destY) {
+        int deltaX = Integer.compare(destX, oriX);
+        int deltaY = Integer.compare(destY, oriY);
+
+        int x = oriX + deltaX;
+        int y = oriY + deltaY;
+
+        while (x != destX || y != destY) {
+            if (temPeca(x, y)) {
+                return true; // peça no caminho
+            }
+            x += deltaX;
+            y += deltaY;
+        }
+
+        return false; // peça no caminho
+    }
+
 }

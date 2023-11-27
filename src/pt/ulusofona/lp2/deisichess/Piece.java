@@ -2,7 +2,7 @@ package pt.ulusofona.lp2.deisichess;
 
 import java.io.File;
 
-public class Piece {
+public abstract class Piece {
 
     int id;
     int team;
@@ -68,4 +68,9 @@ public class Piece {
         this.posX = posX;
         this.posY = posY;
     }
+
+    public void move(){
+
+    }
+
 }
