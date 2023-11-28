@@ -5,5 +5,7 @@ public class PoneiMagico extends Piece {
         super(id, type, team, nickname);
         this.pointsWorth = 5;
         this.pngLocation = "src/images/ponei.png";
+        this.inPlay = false;
+        this.typeStr = "Ponei Magico";
     }
 }

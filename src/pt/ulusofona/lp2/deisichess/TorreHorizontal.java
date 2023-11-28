@@ -5,5 +5,7 @@ public class TorreHorizontal extends Piece {
         super(id, type, team, nickname);
         this.pointsWorth = 3;
         this.pngLocation = "src/images/torreHorizontal.png";
+        this.inPlay = false;
+        this.typeStr = "Torre Horizontal";
     }
 }

@@ -5,5 +5,7 @@ public class HomerSimpson extends Piece {
         super(id, type, team, nickname);
         this.pointsWorth = 2;
         this.pngLocation = "src/images/HomerSimpson.png";
+        this.inPlay = false;
+        this.typeStr = "Homer Simpson";
     }
 }

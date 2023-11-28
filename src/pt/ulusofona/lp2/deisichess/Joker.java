@@ -5,5 +5,7 @@ public class Joker extends Piece {
         super(id, type, team, nickname);
         this.pointsWorth = 4;
         this.pngLocation = "src/images/Joker.png";
+        this.inPlay = false;
+        this.typeStr = "Joker";
     }
 }

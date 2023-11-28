@@ -2,6 +2,7 @@ package pt.ulusofona.lp2.deisichess;
 
 import javax.swing.*;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
@@ -24,7 +25,7 @@ public class GameManager {
 
     }
 
-    //TODO loadGame() passa a ser void e Erros são identificados com a nova classe
+    //TODO loadGame() FALTA SWITCH PARA CADA TIPO DE PEÇA QUANDO HOUVEREM TODAS AS CLASSES CRIADAS
     public void loadGame(File file) throws InvalidGameInputException, IOException {
 
         try (Scanner scanner = new Scanner(file)) {
@@ -47,10 +48,11 @@ public class GameManager {
                     int team = Integer.parseInt(divisao[2].trim());
                     String nickname = (divisao[3].trim());
 
-                    Piece peca = new Piece(id, type, team, nickname);
 
-                    board.getEquipas()[team].addPieceToHmap(peca);
-                    board.getTotalPieces().add(peca);
+                    Piece newPiece = pieceByType(id, type, team, nickname);
+
+                    board.getEquipas()[team].addPieceToHmap(newPiece);
+                    board.getTotalPieces().add(newPiece);
                     // adiciona ao arraylist das peças na class board
                 } else {
                     throw new InvalidGameInputException(currentLine, divisao.length);
@@ -79,6 +81,8 @@ public class GameManager {
                 }
 
             }
+
+
             gameHistory.startingBoard(board);
 
             if (scanner.hasNext() && Objects.equals(scanner.nextLine(), "---------MOVE HISTORY---------")) {
@@ -115,11 +119,9 @@ public class GameManager {
 
                 }
             }
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
+        } catch (FileNotFoundException | InvalidGameInputException e) {
+            throw new IOException("Erro ao ler ficheiro" + e.getMessage());
         }
-
-
     }
 
     public void saveGame(File file) throws IOException {
@@ -149,6 +151,8 @@ public class GameManager {
                     }
                 }
                 writer.write("\n");
+
+
             }
             /*---------MOVE HISTORY---------*/
             if (gameHistory.getMoves().size() > 1) {
@@ -163,8 +167,9 @@ public class GameManager {
 
     public void undo() {
         /*TODO - VERIFICAR DEPOIS DE TER A MOVE FEITA*/
-
-        this.board = gameHistory.getPreviousBoard();
+        if (gameHistory.getMoves().size() > 1) {
+            this.board = gameHistory.getPreviousBoard();
+        }
     }
 
     public String[] getPieceInfo(int id) {
@@ -172,25 +177,26 @@ public class GameManager {
         //ID|tipo(emString)|Pontos da Peca|Equipa|Alcunha|Estado|posX|posY
 
 
-        String[] result = new String[7];
+        String[] result = new String[8];
         result[0] = String.valueOf(id);
         while (!Objects.equals(result[1], "")) {
-            for (Piece piece : board.getTotalPieces()) {
-                if (id == piece.getId()) {
-                    result[1] = String.valueOf(piece.getType());
-                    result[2] = String.valueOf(piece.getTeam());
-                    result[3] = String.valueOf(piece.getNickname());
-                    if (piece.isInPlay()) {
-                        result[4] = "em jogo";
+            for (Piece consideredPiece : board.getTotalPieces()) {
+                if (id == consideredPiece.getId()) {
+                    result[1] = String.valueOf(consideredPiece.getTypeStr());
+                    result[2] = String.valueOf(consideredPiece.getPointsWorth());
+                    result[3] = String.valueOf(consideredPiece.getTeam());
+                    result[4] = String.valueOf(consideredPiece.getNickname());
+                    if (consideredPiece.isInPlay()) {
+                        result[5] = "em jogo";
                     } else {
-                        result[4] = "capturado";
+                        result[5] = "capturado";
                     }
-                    if (piece.isInPlay()) {
-                        result[5] = String.valueOf(piece.getPosX());
-                        result[6] = String.valueOf(piece.getPosY());
+                    if (consideredPiece.isInPlay()) {
+                        result[6] = String.valueOf(consideredPiece.getPosX());
+                        result[7] = String.valueOf(consideredPiece.getPosY());
                     } else {
-                        result[5] = "";
                         result[6] = "";
+                        result[7] = "";
                     }
                     return result;
                 }
@@ -205,20 +211,21 @@ public class GameManager {
         String[] pieceInfo = getPieceInfo(id);
 
         String result = "";
-        Piece peca = new Piece();
+        Piece consideredPiece = null;
 
         result += pieceInfo[0] + espBarra;              //ID
-        result += pieceInfo[1] + espBarra;              //Tipo
-        result += pieceInfo[2] + espBarra;              //team
-        result += pieceInfo[3] + " @ ";                 //nickname
+        result += pieceInfo[1] + espBarra;              //TipoStr
+        result += pieceInfo[2] + espBarra;              //PointsWorth
+        result += pieceInfo[3] + espBarra;              //team
+        result += pieceInfo[4] + " @ ";                 //nickname
         for (Piece piece : board.getTotalPieces()) {
             if (piece.getId() == id) {
-                peca = piece;
+                consideredPiece = piece;
             }
         }
-        if (peca.isInPlay()) {
-            result += '(' + pieceInfo[5];               //posX
-            result += ", " + pieceInfo[6] + ')';        //posY
+        if (consideredPiece != null && consideredPiece.isInPlay()) {
+            result += '(' + pieceInfo[6];               //posX
+            result += ", " + pieceInfo[7] + ')';        //posY
         } else {
             result += "(n/a)";
         }
@@ -227,17 +234,17 @@ public class GameManager {
     }
 
     public String[] getSquareInfo(int x, int y) {
-        Piece piece = board.getTabuleiro()[x][y];
-        if (piece == null) {
+        Piece consideredPiece = board.getTabuleiro()[x][y];
+        if (consideredPiece == null) {
             return new String[0];
         } else {
             String[] result = new String[5];
-            result[0] = String.valueOf(piece.getId());
-            result[1] = String.valueOf(piece.getType());
-            result[2] = String.valueOf(piece.getTeam());
-            result[3] = String.valueOf(piece.getNickname());
+            result[0] = String.valueOf(consideredPiece.getId());
+            result[1] = String.valueOf(consideredPiece.getType());
+            result[2] = String.valueOf(consideredPiece.getTeam());
+            result[3] = String.valueOf(consideredPiece.getNickname());
 
-            if (piece.getTeam() == 0) {
+            if (consideredPiece.getTeam() == 0) {
                 /*TODO CADA PEÇA TEM O SEU PNG - a atualizar na classe de cada peça*/
                 result[4] = "crazy_emoji_black.png";
 
@@ -353,6 +360,18 @@ public class GameManager {
         return result;
     }
 
-
+    public Piece pieceByType(int id, int type, int team, String nickname) {
+        return switch (type) {
+            case 0 -> new Rei(id, type, team, nickname);
+            case 1 -> new Rainha(id, type, team, nickname);
+            case 2 -> new PoneiMagico(id, type, team, nickname);
+            case 3 -> new PadreVila(id, type, team, nickname);
+            case 4 -> new TorreHorizontal(id, type, team, nickname);
+            case 5 -> new TorreVertical(id, type, team, nickname);
+            case 6 -> new HomerSimpson(id, type, team, nickname);
+            case 7 -> new Joker(id, type, team, nickname);
+            default -> null;
+        };
+    }
 
 }

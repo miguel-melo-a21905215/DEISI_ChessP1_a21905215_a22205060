@@ -5,5 +5,6 @@ public class PadreVila extends Piece {
         super(id, type, team, nickname);
         this.pointsWorth = 3;
         this.pngLocation = "src/images/padreVila.png";
+        this.inPlay = false;
     }
 }

@@ -6,5 +6,7 @@ public class Rei extends Piece {
         super(id, type, team, nickname);
         this.pointsWorth = 1000;
         this.pngLocation = "src/images/rei.png";
+        this.inPlay = false;
+        this.typeStr = "Rei";
     }
 }

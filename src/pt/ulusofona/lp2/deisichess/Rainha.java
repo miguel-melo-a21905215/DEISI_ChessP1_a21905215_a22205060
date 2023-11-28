@@ -6,6 +6,8 @@ public class Rainha extends Piece {
         super(id, type, team, nickname);
         this.pointsWorth = 8;
         this.pngLocation = "src/images/rainha.png";
+        this.inPlay = false;
+        this.typeStr = "Rainha";
     }
 
     /*@Override

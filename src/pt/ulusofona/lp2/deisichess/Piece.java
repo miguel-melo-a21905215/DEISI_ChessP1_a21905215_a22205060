@@ -11,9 +11,10 @@ public abstract class Piece {
     int posY;
     String nickname;
     File icon;
-    boolean inPlay;
+    boolean inPlay = false;
     int pointsWorth;
     String pngLocation;
+    String typeStr;
 
     protected Piece(int id, int type, int team, String nickname) {
         this.id = id;
@@ -24,6 +25,18 @@ public abstract class Piece {
     }
 
     protected Piece() {
+    }
+
+    public int getPointsWorth() {
+        return pointsWorth;
+    }
+
+    public String getPngLocation() {
+        return pngLocation;
+    }
+
+    public String getTypeStr() {
+        return typeStr;
     }
 
     public int getTeam() {
