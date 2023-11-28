@@ -6,8 +6,8 @@ import java.util.ArrayList;
 public class GameHistory {
 
 
-    ArrayList<String> moves = new ArrayList<>();
-    ArrayList<Board> history = new ArrayList<>();
+    ArrayList<String> moves;
+    ArrayList<Board> history;
 
 
     public GameHistory() {
@@ -26,10 +26,11 @@ public class GameHistory {
     }
 
     public void startingBoard(Board currentBoard) {
-        history.add(currentBoard);
+        history.add(currentBoard.cloneBoard(currentBoard));
 
         moves.add("---------MOVE HISTORY---------\n" +
                 "IDmovedPiece\t:oriX\t:oriY\t:destX\t:destY\t:capture\t:capturedID");
+
     }
 
     public Board getStartingBoard() {
@@ -45,13 +46,16 @@ public class GameHistory {
 
     public void addNewMove(String move, Board currentBoard) {
         moves.add(move);
-        history.add(currentBoard);
+        history.add(currentBoard.cloneBoard(currentBoard));
     }
 
     public void removeLastMove() {
-        moves.remove(moves.size() - 1);
-        history.remove(history.size() - 1);
+        if (history.size() > 1 && moves.size() > 1) {
+            moves.remove(moves.size() - 1);
+            history.remove(history.size() - 1);
+        }
     }
+
 
     public ArrayList<String> getMoves() {
         return moves;

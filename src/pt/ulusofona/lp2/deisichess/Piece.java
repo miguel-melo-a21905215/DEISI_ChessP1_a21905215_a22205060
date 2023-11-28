@@ -88,4 +88,25 @@ public abstract class Piece {
 
     }
 
+    public Piece newPieceByType(int id, int type, int team, String nickname) {
+        return switch (type) {
+            case 0 -> new Rei(id, type, team, nickname);
+            case 1 -> new Rainha(id, type, team, nickname);
+            case 2 -> new PoneiMagico(id, type, team, nickname);
+            case 3 -> new PadreVila(id, type, team, nickname);
+            case 4 -> new TorreHorizontal(id, type, team, nickname);
+            case 5 -> new TorreVertical(id, type, team, nickname);
+            case 6 -> new HomerSimpson(id, type, team, nickname);
+            case 7 -> new Joker(id, type, team, nickname);
+            default -> null;
+        };
+    }
+
+    public Piece clonePiece(int id, int type, int team, String nickname, int posX, int posY) {
+        Piece clonedPiece = newPieceByType(id, type, team, nickname);
+        clonedPiece.novaPos(posX, posY);
+        return clonedPiece;
+    }
+
+
 }

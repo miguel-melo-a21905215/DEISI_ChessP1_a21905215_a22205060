@@ -18,8 +18,8 @@ public class Board {
         this.consecPassPlays = -1000;
         this.tabuleiro = new Piece[size][size];
         this.equipas = new Team[2];
-        this.equipas[0] = new Team(0);
-        this.equipas[1] = new Team(1);
+        this.equipas[0] = new Team(10);
+        this.equipas[1] = new Team(20);
         this.totalPieces = new ArrayList<>();
         this.currentTeam = false;
     }
@@ -34,8 +34,10 @@ public class Board {
         this.numeroPecas = numeroPecas;
     }
 
+
     public Board() {
     }
+
 
     public Piece[][] getTabuleiro() {
         return tabuleiro;
@@ -154,4 +156,22 @@ public class Board {
         return false; // peça no caminho
     }
 
+
+    public Board cloneBoard(Board origBoard) {
+        Board clonedBoard = new Board(origBoard.getSize(), origBoard.getTotalPieces().size());
+
+        clonedBoard.currentTeam = origBoard.isCurrentTeam();
+        clonedBoard.consecPassPlays = origBoard.getConsecPassPlays();
+
+        for (Piece consideredPiece : origBoard.getTotalPieces()) {
+            Piece clonedPiece = consideredPiece.clonePiece(consideredPiece.getId(), consideredPiece.getType(), consideredPiece.getTeam(),
+                    consideredPiece.getNickname(), consideredPiece.getPosX(), consideredPiece.getPosY());
+
+            clonedBoard.totalPieces.add(clonedPiece);
+            clonedBoard.equipas[clonedPiece.getTeam()].addPieceToHmap(clonedPiece);
+            clonedBoard.getTabuleiro()[consideredPiece.getPosX()][consideredPiece.getPosY()] = clonedPiece;
+
+        }
+        return clonedBoard;
+    }
 }
