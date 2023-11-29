@@ -10,7 +10,7 @@ public class Rainha extends Piece {
         this.typeStr = "Rainha";
     }
 
-    /*@Override
+    @Override
     public boolean move(int oriX, int oriY, int destX, int destY, Board board) {
 
         if (!board.coordenadasDentroTabuleiro(oriX, oriY) || !board.coordenadasDentroTabuleiro(destX, destY)) {
@@ -51,13 +51,15 @@ public class Rainha extends Piece {
                     }
                 } else {
 
-                    if (Math.abs(destX - oriX) <= 5 && Math.abs(destY - oriY) <= 5 &&
+                    if ((destX - oriX) <= 5 && (destX - oriX) >= -5 &&
+                            (destY - oriY) <= 5 && (destY - oriY) >= -5 &&
                             !board.temPecaNoCaminho(oriX, oriY, destX, destY)) {
 
                         board.tiraPecaOrigem(oriX, oriY);
                         board.metePecaDestino(pecaMovida, destX, destY);
                         board.moveu();
                         return true;
+                    
                     } else {
                         board.falhou();
                         return false;
@@ -68,5 +70,5 @@ public class Rainha extends Piece {
 
         board.falhou();
         return false;
-    }*/
+    }
 }

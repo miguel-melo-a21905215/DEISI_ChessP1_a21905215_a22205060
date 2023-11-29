@@ -84,8 +84,8 @@ public abstract class Piece {
         this.posY = posY;
     }
 
-    public void move() {
-
+    public boolean move(int oriX, int oriY, int destX, int destY, Board board){
+        return true;
     }
 
     public Piece newPieceByType(int id, int type, int team, String nickname) {
