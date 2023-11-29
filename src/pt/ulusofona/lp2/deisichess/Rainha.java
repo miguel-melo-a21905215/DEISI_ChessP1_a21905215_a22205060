@@ -33,7 +33,8 @@ public class Rainha extends Piece {
 
                     if (pecaNoDestino.getTeam() != board.isCurrentTeamNumb()) {
 
-                        if (Math.abs(destX - oriX) <= 5 && Math.abs(destY - oriY) <= 5 &&
+                        if ((destX - oriX <= 5 || oriX - destX <= 5) &&
+                                (destY - oriY <= 5 || oriY - destY <= 5) &&
                                 !board.temPecaNoCaminho(oriX, oriY, destX, destY)) {
 
                             pecaNoDestino.capturada();
@@ -41,6 +42,7 @@ public class Rainha extends Piece {
                             board.comeu();
                             board.tiraPecaOrigem(oriX, oriY);
                             return true;
+                        
                         } else {
                             board.falhou();
                             return false;
