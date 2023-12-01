@@ -11,9 +11,13 @@ public class Rainha extends Piece {
     }
 
     @Override
-    public boolean move(int oriX, int oriY, int destX, int destY, Board board) {
+    public boolean specificMoveValidation(int oriX, int oriY, int destX, int destY, Piece[][] tabuleiro) {
 
-        if (!board.coordenadasDentroTabuleiro(oriX, oriY) || !board.coordenadasDentroTabuleiro(destX, destY)) {
+        /*NAO PRECISAMOS DE TER AQUI A VERIFICA COORDENADAS DENTRO DO TABULEIRO,
+         * PASSEI PARA A CHAMADA DO MOVE NA GAMEMANAGER PORQUE É COMUM A TODAS AS
+         * PEÇAS. ADICIONEI MAIS CONDIÇÕES QUE TAMBÉM SÃO COMUNS*/
+
+       /*if (!board.coordenadasDentroTabuleiro(oriX, oriY) || !board.coordenadasDentroTabuleiro(destX, destY)) {
             board.falhou();
             return false;
         }
@@ -24,7 +28,7 @@ public class Rainha extends Piece {
 
 
             if (pecaMovida.isInPlay() && pecaMovida.getTeam() == board.isCurrentTeamNumb() &&
-                    (board.validaMove(oriX, oriY, destX, destY))) {
+                    (board.validaMoveGeral(oriX, oriY, destX, destY))) {
 
 
                 if (board.temPeca(destX, destY)) {
@@ -42,7 +46,7 @@ public class Rainha extends Piece {
                             board.comeu();
                             board.tiraPecaOrigem(oriX, oriY);
                             return true;
-                        
+
                         } else {
                             board.falhou();
                             return false;
@@ -61,7 +65,7 @@ public class Rainha extends Piece {
                         board.metePecaDestino(pecaMovida, destX, destY);
                         board.moveu();
                         return true;
-                    
+
                     } else {
                         board.falhou();
                         return false;
@@ -70,7 +74,7 @@ public class Rainha extends Piece {
             }
         }
 
-        board.falhou();
+        board.falhou();*/
         return false;
     }
 }
