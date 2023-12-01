@@ -25,7 +25,7 @@ public class GameManager {
 
     }
 
-    //TODO loadGame() FALTA SWITCH PARA CADA TIPO DE PEÇA QUANDO HOUVEREM TODAS AS CLASSES CRIADAS
+    //TODO loadGame() VERIFICAR DEPOIS DE TER O SAVE FEITO
     public void loadGame(File file) throws InvalidGameInputException, IOException {
 
         try (Scanner scanner = new Scanner(file)) {
@@ -216,7 +216,7 @@ public class GameManager {
         result += pieceInfo[0] + espBarra;              //ID
         result += pieceInfo[1] + espBarra;              //TipoStr
         if (Objects.equals(pieceInfo[2], "1000")) {
-            result += "(infinito)" + espBarra;            //SE FOR O REI DEVE ESCREVER INFINTIO EM VEZ DE MIL
+            result += "(infinito)" + espBarra;          //SE FOR O REI DEVE ESCREVER INFINTIO EM VEZ DE MIL
         } else {
             result += pieceInfo[2] + espBarra;          //PointsWorth
         }
@@ -315,38 +315,28 @@ public class GameManager {
     }
 
 
-    /*TODO - VERIFICAR MOVES CORRETOS DEPOIS DA CRIACAO DAS PECAS NOVAS*/
+    /*TODO - VERIFICAR MOVES CORRETOS DEPOIS DA CRIACAO DAS PECAS NOVAS + ADICIONAR ALTERAÇÃO DE PONTOS
+    *  PARA A ESTATISTICA -> QUANDO COME +X PONTOS PARA !CURRENTTEAM -> ADICIONAR NA COMEU(?)*/
     public boolean move(int oriX, int oriY, int destX, int destY) {
 
-        if (board.generalMoveValidation(oriX, oriY, destX, destY)) {
+        if (board.generalMoveValidation(oriX, oriY, destX, destY)) {                                    //COORD. DENTRO TABULEIRO + PEÇA VALIDA + DESTINO VALIDO
             Piece pecaMovida = board.getPecaNaPos(oriX, oriY);
-            pecaMovida.specificMoveValidation(oriX, oriY, destX, destY, board.getTabuleiro());
-        } else return false;
-
-
-        if (board.temPeca(oriX, oriY) && (destX != oriX || destY != oriY)) {
-            Piece pecaMovida = board.getPecaNaPos(oriX, oriY);
-            if (pecaMovida.isInPlay() && pecaMovida.getTeam() == board.isCurrentTeamNumb() && (board.generalMoveValidation(oriX, oriY, destX, destY))) {  //MOVE VALIDO
+            if (pecaMovida.specificMoveValidation(oriX, oriY, destX, destY, board.getTabuleiro())) {    //CAMINHO LIVRE + CUMPRE LIMITES MOVE ESPECIFICO
+                /*COMEU - JA FOI VERIFICADO SE A PEÇA NO DESTINO É DA EQUIPA CONTRÁRIA NA generalMoveValidation()*/
                 if (board.temPeca(destX, destY)) {
-                    if (board.getPecaNaPos(destX, destY).getTeam() != board.isCurrentTeamNumb()) {      //PECA NO DESTINO É DA EQUIPA CONTRÁRIA -> COME
+                    int pointsWorth = board.getPecaNaPos(destX, destY).getPointsWorth();                //TODO -> VER PARTE ESTATISTICA
+                    board.tiraPecaOrigem(oriX, oriY);
+                    board.getPecaNaPos(destX, destY).capturada();
+                    board.metePecaDestino(pecaMovida, destX, destY);
+                    board.comeu();
+                    return true;
 
-                        board.getPecaNaPos(destX, destY).capturada();
-                        board.metePecaDestino(pecaMovida, destX, destY);
-                        board.comeu();
-                        board.tiraPecaOrigem(oriX, oriY);
-                        return true;
-
-                    } else {
-                        board.equipas[board.isCurrentTeamNumb()].invalida();
-                        return false;                                                                   //PECA NO DESTINO DA MESMA EQUIPA -> INVALIDO
-                    }
-                } else if (!board.temPeca(destX, destY)) {                                              //SEM PECA NO DESTINO -> MOVE APENAS
+                } else {
                     board.tiraPecaOrigem(oriX, oriY);
                     board.metePecaDestino(pecaMovida, destX, destY);
                     board.moveu();
                     return true;
                 }
-
             }
         }
         board.falhou();

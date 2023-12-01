@@ -10,6 +10,7 @@ public class Board {
     boolean currentTeam;
     int consecPassPlays;
     int numeroPecas;
+    boolean firstCapture;
 
 
     public Board(int size, int numeroPecas) {
@@ -22,6 +23,8 @@ public class Board {
         this.equipas[1] = new Team(20);
         this.totalPieces = new ArrayList<>();
         this.currentTeam = false;
+        this.firstCapture = true;
+
     }
 
     public Board(int size, Piece[][] tabuleiro, Team[] equipas, ArrayList<Piece> totalPieces, boolean currentTeam, int consecPassPlays, int numeroPecas) {
@@ -32,6 +35,7 @@ public class Board {
         this.currentTeam = currentTeam;
         this.consecPassPlays = consecPassPlays;
         this.numeroPecas = numeroPecas;
+        this.firstCapture = true;
     }
 
 
@@ -103,19 +107,23 @@ public class Board {
          */
 
         if (oriX == destX && oriY == destY) {
+            this.equipas[convertNumEquipas(isCurrentTeamNumb())].invalida();
             return false;
         }
         if (!temPeca(oriX, oriY) || !coordenadasDentroTabuleiro(destX, destY) || coordenadasDentroTabuleiro(oriX, oriY)) {
+            this.equipas[convertNumEquipas(isCurrentTeamNumb())].invalida();
             return false;
         }
 
         Piece pecaMovida = getPecaNaPos(oriX, oriY);
         if (pecaMovida.getTeam() != isCurrentTeamNumb() || !pecaMovida.isInPlay()) {
+            this.equipas[convertNumEquipas(isCurrentTeamNumb())].invalida();
             return false;
         }
 
-        if (temPeca(destX, destY)) {
-            return (getPecaNaPos(destX, destY).getTeam() != isCurrentTeamNumb() && getPecaNaPos(destX, destY).isInPlay());
+        if (temPeca(destX, destY) && (getPecaNaPos(destX, destY).getTeam() == isCurrentTeamNumb())) {
+            this.equipas[convertNumEquipas(isCurrentTeamNumb())].invalida();
+            return false;
         }
 
         return true;
@@ -144,14 +152,19 @@ public class Board {
         consecPassPlays = 0;
         equipas[convertNumEquipas(isntCurrentTeamNumb())].decrementarInPlay();
         currentTeam = !currentTeam;
+        if (firstCapture) {
+            firstCapture = false;
+        }
 
 
     }
 
     public void moveu() {
         equipas[isCurrentTeamNumb()].moveuSemComer();
-        this.consecPassPlays++;
         this.currentTeam = !currentTeam;
+        if (!firstCapture) {
+            this.consecPassPlays++;
+        }
     }
 
     public boolean coordenadasDentroTabuleiro(int x, int y) {
