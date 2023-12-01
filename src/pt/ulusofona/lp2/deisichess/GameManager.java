@@ -215,7 +215,11 @@ public class GameManager {
 
         result += pieceInfo[0] + espBarra;              //ID
         result += pieceInfo[1] + espBarra;              //TipoStr
-        result += pieceInfo[2] + espBarra;              //PointsWorth
+        if (Objects.equals(pieceInfo[2], "1000")) {
+            result += "(infinito)" + espBarra;            //SE FOR O REI DEVE ESCREVER INFINTIO EM VEZ DE MIL
+        } else {
+            result += pieceInfo[2] + espBarra;          //PointsWorth
+        }
         result += pieceInfo[3] + espBarra;              //team
         result += pieceInfo[4] + " @ ";                 //nickname
         for (Piece piece : board.getTotalPieces()) {
@@ -313,9 +317,16 @@ public class GameManager {
 
     /*TODO - VERIFICAR MOVES CORRETOS DEPOIS DA CRIACAO DAS PECAS NOVAS*/
     public boolean move(int oriX, int oriY, int destX, int destY) {
+
+        if (board.generalMoveValidation(oriX, oriY, destX, destY)) {
+            Piece pecaMovida = board.getPecaNaPos(oriX, oriY);
+            pecaMovida.specificMoveValidation(oriX, oriY, destX, destY, board.getTabuleiro());
+        } else return false;
+
+
         if (board.temPeca(oriX, oriY) && (destX != oriX || destY != oriY)) {
             Piece pecaMovida = board.getPecaNaPos(oriX, oriY);
-            if (pecaMovida.isInPlay() && pecaMovida.getTeam() == board.isCurrentTeamNumb() && (board.validaMove(oriX, oriY, destX, destY))) {  //MOVE VALIDO
+            if (pecaMovida.isInPlay() && pecaMovida.getTeam() == board.isCurrentTeamNumb() && (board.generalMoveValidation(oriX, oriY, destX, destY))) {  //MOVE VALIDO
                 if (board.temPeca(destX, destY)) {
                     if (board.getPecaNaPos(destX, destY).getTeam() != board.isCurrentTeamNumb()) {      //PECA NO DESTINO É DA EQUIPA CONTRÁRIA -> COME
 
@@ -372,6 +383,14 @@ public class GameManager {
             case 7 -> new Joker(id, type, team, nickname);
             default -> null;
         };
+    }
+
+    enum StatType {
+        TOP_5_CAPTURAS,
+        TOP_5_PONTOS,
+        PECAS_MAIS_CAPTURADAS,
+        PECAS_MAIS_BARALHADAS,
+        TIPOS_MAIS_CAPTURADOS
     }
 
 }
