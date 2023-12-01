@@ -93,12 +93,32 @@ public class Board {
     }
 
 
-    public boolean validaMove(int oriX, int oriY, int destX, int destY) {
-        int deslocX = Math.abs(destX - oriX);
-        int deslocY = Math.abs(destY - oriY);
+    public boolean generalMoveValidation(int oriX, int oriY, int destX, int destY) {
 
+        /*Verifica:
+        ->destino e diferente da origem
+        ->as coordenadas de origem e destino estão dentro do tabuleiro
+        ->tem peça na origem e se essa peça é da equipa a jogar
+        ->tem peça no destino e se essa peça é da equipa contrária
+         */
 
-        return (deslocX == 1 && deslocY == 0) || (deslocX == 0 && deslocY == 1) || (deslocX == 1 && deslocY == 1);
+        if (oriX == destX && oriY == destY) {
+            return false;
+        }
+        if (!temPeca(oriX, oriY) || !coordenadasDentroTabuleiro(destX, destY) || coordenadasDentroTabuleiro(oriX, oriY)) {
+            return false;
+        }
+
+        Piece pecaMovida = getPecaNaPos(oriX, oriY);
+        if (pecaMovida.getTeam() != isCurrentTeamNumb() || !pecaMovida.isInPlay()) {
+            return false;
+        }
+
+        if (temPeca(destX, destY)) {
+            return (getPecaNaPos(destX, destY).getTeam() != isCurrentTeamNumb() && getPecaNaPos(destX, destY).isInPlay());
+        }
+
+        return true;
     }
 
 
@@ -138,6 +158,7 @@ public class Board {
         return x >= 0 && x < getSize() && y >= 0 && y < getSize();
     }
 
+    //TODO - NAO PODE SER FEITO ASSIM, TEM QUE SER ESPECIFICO A CADA PEÇA
     public boolean temPecaNoCaminho(int oriX, int oriY, int destX, int destY) {
         int deltaX = Integer.compare(destX, oriX);
         int deltaY = Integer.compare(destY, oriY);
