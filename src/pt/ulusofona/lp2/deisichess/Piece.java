@@ -84,9 +84,62 @@ public abstract class Piece {
         this.posY = posY;
     }
 
-    public boolean move(int oriX, int oriY, int destX, int destY, Board board){
+    public boolean specificMoveValidation(int oriX, int oriY, int destX, int destY, Piece[][] tabuleiro) {
+        return false;
+    }
+
+    public boolean lineCheckForPieces(int oriX, int oriY, int destX, Piece[][] tabuleiro) {
+        int xIncrement = (destX > oriX) ? 1 : -1;
+
+        int x = oriX + xIncrement;
+
+        while (x != destX) {
+            if (tabuleiro[oriY][x] != null) {
+                return false;
+            }
+            x += xIncrement;
+        }
+
         return true;
     }
+
+    public boolean columnCheckForPieces(int oriX, int oriY, int destY, Piece[][] tabuleiro) {
+        int yIncrement = (destY > oriY) ? 1 : -1;
+
+        int y = oriY + yIncrement;
+
+        while (y != destY) {
+            if (tabuleiro[y][oriX] != null) {
+                return false;
+            }
+            y += yIncrement;
+        }
+
+        return true;
+    }
+
+
+    public boolean diagonalCheckForPieces(int oriX, int oriY, int destX, int destY, Piece[][] tabuleiro) {
+        int deltaX = destX - oriX;
+        int deltaY = destY - oriY;
+
+        int xIncrement = (deltaX > 0) ? 1 : -1;
+        int yIncrement = (deltaY > 0) ? 1 : -1;
+
+        int x = oriX + xIncrement;
+        int y = oriY + yIncrement;
+
+        while (x != destX && y != destY) {
+            if (tabuleiro[y][x] != null) {
+                return false;
+            }
+            x += xIncrement;
+            y += yIncrement;
+        }
+
+        return true;
+    }
+
 
     public Piece newPieceByType(int id, int type, int team, String nickname) {
         return switch (type) {
