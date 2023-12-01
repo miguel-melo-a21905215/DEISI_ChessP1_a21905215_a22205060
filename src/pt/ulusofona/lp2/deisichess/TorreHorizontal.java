@@ -8,4 +8,15 @@ public class TorreHorizontal extends Piece {
         this.inPlay = false;
         this.typeStr = "Torre Horizontal";
     }
+
+    @Override
+    public boolean specificMoveValidation(int oriX, int oriY, int destX, int destY, Piece[][] tabuleiro) {
+        int deltaX = Math.abs(destX - oriX);
+        if (deltaX < 6 && deltaX > 0 && oriY == destY) {
+            return lineCheckForPieces(oriX, oriY, destX, tabuleiro);
+        }
+
+        return false;
+    }
+
 }
