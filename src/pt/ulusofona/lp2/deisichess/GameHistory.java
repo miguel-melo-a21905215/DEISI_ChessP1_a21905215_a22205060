@@ -15,21 +15,23 @@ public class GameHistory {
         this.history = new ArrayList<>();
     }
 
-    public String moveToString(int oriX, int oriY, int destX, int destY, boolean capture, Piece movedPiece, Piece capturedPiece) {
-        String result = "";
-        result += movedPiece.getId() + "\t:" + oriX + "\t:" + oriY + "\t:" + destX + "\t:" + destY + "\t:" + capture;
-        if (capture) {
-            result += "\t:" + capturedPiece.getId();
-        }
+
+    public String moveToString(int oriX, int oriY, int destX, int destY) {
+        String result = moves.size() + "\t\t:";
+        result += oriX + "\t\t:" + oriY + "\t\t:" + destX + "\t\t:" + destY;
+
 
         return result;
     }
 
     public void startingBoard(Board currentBoard) {
-        history.add(currentBoard.cloneBoard(currentBoard));
+        this.history = new ArrayList<>();
+        this.moves = new ArrayList<>();
+
+        history.add(currentBoard.cloneBoard());
 
         moves.add("---------MOVE HISTORY---------\n" +
-                "IDmovedPiece\t:oriX\t:oriY\t:destX\t:destY\t:capture\t:capturedID");
+                "moveID\t:oriX\t:oriY\t:destX\t:destY");
 
     }
 
@@ -38,7 +40,7 @@ public class GameHistory {
     }
 
     public Board getPreviousBoard() {
-        Board result = history.get(history.size() - 1);
+        Board result = history.get(history.size() - 2);
         removeLastMove();
         return result;
 
@@ -46,7 +48,7 @@ public class GameHistory {
 
     public void addNewMove(String move, Board currentBoard) {
         moves.add(move);
-        history.add(currentBoard.cloneBoard(currentBoard));
+        history.add(currentBoard.cloneBoard());
     }
 
     public void removeLastMove() {

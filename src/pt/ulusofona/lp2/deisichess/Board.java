@@ -110,7 +110,7 @@ public class Board {
             this.equipas[convertNumEquipas(isCurrentTeamNumb())].invalida();
             return false;
         }
-        if (!temPeca(oriX, oriY) || !coordenadasDentroTabuleiro(destX, destY) || coordenadasDentroTabuleiro(oriX, oriY)) {
+        if (!temPeca(oriX, oriY) || !coordenadasDentroTabuleiro(destX, destY) || !coordenadasDentroTabuleiro(oriX, oriY)) {
             this.equipas[convertNumEquipas(isCurrentTeamNumb())].invalida();
             return false;
         }
@@ -160,7 +160,7 @@ public class Board {
     }
 
     public void moveu() {
-        equipas[isCurrentTeamNumb()].moveuSemComer();
+        equipas[convertNumEquipas(isCurrentTeamNumb())].moveuSemComer();
         this.currentTeam = !currentTeam;
         if (!firstCapture) {
             this.consecPassPlays++;
@@ -191,18 +191,17 @@ public class Board {
     }
 
 
-    public Board cloneBoard(Board origBoard) {
-        Board clonedBoard = new Board(origBoard.getSize(), origBoard.getTotalPieces().size());
+    public Board cloneBoard() {
+        Board clonedBoard = new Board(this.size, this.totalPieces.size());
 
-        clonedBoard.currentTeam = origBoard.isCurrentTeam();
-        clonedBoard.consecPassPlays = origBoard.getConsecPassPlays();
+        clonedBoard.currentTeam = this.currentTeam;
+        clonedBoard.consecPassPlays = this.consecPassPlays;
 
-        for (Piece consideredPiece : origBoard.getTotalPieces()) {
-            Piece clonedPiece = consideredPiece.clonePiece(consideredPiece.getId(), consideredPiece.getType(), consideredPiece.getTeam(),
-                    consideredPiece.getNickname(), consideredPiece.getPosX(), consideredPiece.getPosY());
+        for (Piece consideredPiece : this.totalPieces) {
+            Piece clonedPiece = consideredPiece.clonePiece();
 
             clonedBoard.totalPieces.add(clonedPiece);
-            clonedBoard.equipas[clonedPiece.getTeam()].addPieceToHmap(clonedPiece);
+            clonedBoard.equipas[convertNumEquipas(clonedPiece.getTeam())].addPieceToHmap(clonedPiece);
             clonedBoard.getTabuleiro()[consideredPiece.getPosX()][consideredPiece.getPosY()] = clonedPiece;
 
         }

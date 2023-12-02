@@ -155,8 +155,9 @@ public abstract class Piece {
         };
     }
 
-    public Piece clonePiece(int id, int type, int team, String nickname, int posX, int posY) {
-        Piece clonedPiece = newPieceByType(id, type, team, nickname);
+    public Piece clonePiece() {
+        Piece clonedPiece = newPieceByType(this.id, this.type, this.team, this.nickname);
+        clonedPiece.marcaInPlay();
         clonedPiece.novaPos(posX, posY);
         return clonedPiece;
     }

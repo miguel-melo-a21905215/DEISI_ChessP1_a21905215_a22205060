@@ -1,10 +1,7 @@
 package pt.ulusofona.lp2.deisichess;
 
 import javax.swing.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 public class GameManager {
@@ -19,6 +16,7 @@ public class GameManager {
     public GameManager(Board board, String winner) {
         this.board = board;
         this.winnerMessage = winner;
+        this.gameHistory = new GameHistory();
     }
 
     public GameManager() {
@@ -41,6 +39,7 @@ public class GameManager {
             for (int i = 0; i < numPecas; i++) {
                 String linha = scanner.nextLine();
                 String[] divisao = linha.split(":");
+                currentLine++;
 
                 if (divisao.length == 4) {
                     int id = Integer.parseInt(divisao[0].trim());
@@ -51,7 +50,7 @@ public class GameManager {
 
                     Piece newPiece = pieceByType(id, type, team, nickname);
 
-                    board.getEquipas()[team].addPieceToHmap(newPiece);
+                    board.getEquipas()[board.convertNumEquipas(team)].addPieceToHmap(newPiece);
                     board.getTotalPieces().add(newPiece);
                     // adiciona ao arraylist das peças na class board
                 } else {
@@ -60,7 +59,7 @@ public class GameManager {
             }
 
 
-            for (int y = 0; y < board.getSize(); y++) {
+            for (int y = 0; y < this.board.getSize(); y++) {
                 String linha = scanner.nextLine();
                 String[] divisao = linha.split(":");
                 if (divisao.length == boardSize) {
@@ -72,7 +71,7 @@ public class GameManager {
                                     piece.novaPos(x, y);
                                     board.metePecaDestino(piece, x, y);
                                     piece.marcaInPlay();
-                                    board.getEquipas()[piece.getTeam()].incrementarInPlay();
+                                    board.getEquipas()[board.convertNumEquipas(piece.getTeam())].incrementarInPlay();
 
                                 }
                             }
@@ -82,7 +81,6 @@ public class GameManager {
 
             }
 
-
             gameHistory.startingBoard(board);
 
             if (scanner.hasNext() && Objects.equals(scanner.nextLine(), "---------MOVE HISTORY---------")) {
@@ -90,31 +88,18 @@ public class GameManager {
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
                     String[] split = line.split(":");
-                    if (line.equals("IDmovedPiece\t:oriX\t:oriY\t:destX\t:destY\t:capture\t:capturedID")) {
+                    if (line.equals("moveID\t:oriX\t:oriY\t:destX\t:destY")) {
                         playCount++;
-                    } else if (split.length == 6 && Objects.equals(split[5].trim(), "false")) {
-                        int movedID = Integer.parseInt(split[0].trim());
+                    } else if (split.length == 5) {
                         int oriX = Integer.parseInt(split[1].trim());
                         int oriY = Integer.parseInt(split[2].trim());
                         int destX = Integer.parseInt(split[3].trim());
                         int destY = Integer.parseInt(split[4].trim());
 
-                        /*TODO - EXECUTAR A move() COM OS DADOS LIDOS + CLONE DO TABULEIRO OBTIDO*/
+                        move(oriX, oriY, destX, destY);
 
                         playCount++;
 
-                    } else if (split.length == 7 && Objects.equals(split[5].trim(), "true")) {
-                        int movedID = Integer.parseInt(split[0].trim());
-                        int oriX = Integer.parseInt(split[1].trim());
-                        int oriY = Integer.parseInt(split[2].trim());
-                        int destX = Integer.parseInt(split[3].trim());
-                        int destY = Integer.parseInt(split[4].trim());
-                        int capturedID = Integer.parseInt(split[6].trim());
-
-                        /*TODO - EXECUTAR A move() COM OS DADOS LIDOS + CLONE DO TABULEIRO OBTIDO*/
-
-
-                        playCount++;
                     }
 
                 }
@@ -124,10 +109,9 @@ public class GameManager {
         }
     }
 
-    public void saveGame(File file) throws IOException {
-        /*TODO - VERIFICAR DEPOIS DA MOVE E IMPLEMENTAÇÃO DA CLONE*/
 
-        try (FileWriter writer = new FileWriter(file)) {
+    public void saveGame(File file) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             Board startingBoard = gameHistory.getStartingBoard();
             writer.write(startingBoard.getSize() + "\n");
             writer.write(startingBoard.getTotalPieces().size() + "\n");
@@ -142,17 +126,15 @@ public class GameManager {
                 for (int x = 0; x < startingBoard.getSize(); x++) {
                     Piece currentPiece = startingBoard.getPecaNaPos(x, y);
                     if (currentPiece == null) {
-                        writer.write(0);
+                        writer.write(0 + "");
                     } else {
-                        writer.write(startingBoard.getPecaNaPos(x, y).getId());
+                        writer.write(String.valueOf(startingBoard.getPecaNaPos(x, y).getId()));
                     }
                     if (x < startingBoard.getSize() - 1) {
                         writer.write(":");
                     }
                 }
                 writer.write("\n");
-
-
             }
             /*---------MOVE HISTORY---------*/
             if (gameHistory.getMoves().size() > 1) {
@@ -160,10 +142,12 @@ public class GameManager {
                     writer.write(currentMove + "\n");
                 }
             }
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
+            // No need to explicitly close the BufferedWriter when using try-with-resources
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: " + file.getPath());
         }
     }
+
 
     public void undo() {
         /*TODO - VERIFICAR DEPOIS DE TER A MOVE FEITA*/
@@ -247,14 +231,16 @@ public class GameManager {
             result[1] = String.valueOf(consideredPiece.getType());
             result[2] = String.valueOf(consideredPiece.getTeam());
             result[3] = String.valueOf(consideredPiece.getNickname());
+            result[4] = null;
+            /*TODO CADA PEÇA TEM O SEU PNG - a atualizar na classe de cada peça*/
 
-            if (consideredPiece.getTeam() == 0) {
-                /*TODO CADA PEÇA TEM O SEU PNG - a atualizar na classe de cada peça*/
-                result[4] = "crazy_emoji_black.png";
+            // if (consideredPiece.getTeam() == 0) {
+            //   result[4] = "crazy_emoji_black.png";
 
-            } else {
-                result[4] = "crazy_emoji_white.png";
-            }
+            // } else {
+            //    result[4] = "crazy_emoji_white.png";
+            //  }
+            //
 
             return result;
         }
@@ -316,7 +302,8 @@ public class GameManager {
 
 
     /*TODO - VERIFICAR MOVES CORRETOS DEPOIS DA CRIACAO DAS PECAS NOVAS + ADICIONAR ALTERAÇÃO DE PONTOS
-     *  PARA A ESTATISTICA -> QUANDO COME +X PONTOS PARA !CURRENTTEAM -> ADICIONAR NA COMEU(?)*/
+     *  PARA A ESTATISTICA -> QUANDO COME +X PONTOS PARA !CURRENTTEAM -> ADICIONAR NA COMEU(?)
+     * ADICIONAR CLONAGEM DO TABULEIRO + REGISTO DO MOVE PARA A GAME HISTORY*/
     public boolean move(int oriX, int oriY, int destX, int destY) {
 
         if (board.generalMoveValidation(oriX, oriY, destX, destY)) {                                    //COORD. DENTRO TABULEIRO + PEÇA VALIDA + DESTINO VALIDO
@@ -329,14 +316,20 @@ public class GameManager {
                     board.getPecaNaPos(destX, destY).capturada();
                     board.metePecaDestino(pecaMovida, destX, destY);
                     board.comeu();
-                    return true;
+
+                    String moveStr = gameHistory.moveToString(oriX, oriY, destX, destY);
+                    gameHistory.addNewMove(moveStr, this.board);
 
                 } else {
                     board.tiraPecaOrigem(oriX, oriY);
                     board.metePecaDestino(pecaMovida, destX, destY);
                     board.moveu();
-                    return true;
+
+                    String moveStr = gameHistory.moveToString(oriX, oriY, destX, destY);
+                    gameHistory.addNewMove(moveStr, this.board);
                 }
+                return true;
+
             }
         }
         board.falhou();
@@ -375,12 +368,5 @@ public class GameManager {
         };
     }
 
-    enum StatType {
-        TOP_5_CAPTURAS,
-        TOP_5_PONTOS,
-        PECAS_MAIS_CAPTURADAS,
-        PECAS_MAIS_BARALHADAS,
-        TIPOS_MAIS_CAPTURADOS
-    }
 
 }
