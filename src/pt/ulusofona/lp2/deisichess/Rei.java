@@ -5,7 +5,11 @@ public class Rei extends Piece {
     public Rei(int id, int type, int team, String nickname) {
         super(id, type, team, nickname);
         this.pointsWorth = 1000;
-        this.pngLocation = "src/images/rei.png";
+        if (team == 10) {
+            this.pngLocation = "crazy_emoji_black.png";
+        } else if (team == 20) {
+            this.pngLocation = "crazy_emoji_white.png";
+        }
         this.inPlay = false;
         this.typeStr = "Rei";
     }

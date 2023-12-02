@@ -4,7 +4,11 @@ public class TorreHorizontal extends Piece {
     public TorreHorizontal(int id, int type, int team, String nickname) {
         super(id, type, team, nickname);
         this.pointsWorth = 3;
-        this.pngLocation = "src/images/torreHorizontal.png";
+        if (team == 10) {
+            this.pngLocation = "torre_h_black.png";
+        } else if (team == 20) {
+            this.pngLocation = "torre_h_white.png";
+        }
         this.inPlay = false;
         this.typeStr = "Torre Horizontal";
     }
