@@ -12,4 +12,17 @@ public class PoneiMagico extends Piece {
         this.inPlay = false;
         this.typeStr = "Ponei Magico";
     }
+
+    public boolean specificMoveValidation(int oriX, int oriY, int destX, int destY, Piece[][] tabuleiro) {
+
+        int deltaX = Math.abs(destX - oriX);
+        int deltaY = Math.abs(destY - oriY);
+
+
+        if ((deltaX == 2 && deltaY == 2) && ((oriX + destX) % 2 == 0) && ((oriY + destY) % 2 == 0)) {
+            return true;
+        }
+
+        return false;
+    }
 }
