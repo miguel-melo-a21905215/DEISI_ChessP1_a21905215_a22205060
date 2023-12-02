@@ -11,6 +11,7 @@ public class Board {
     int consecPassPlays;
     int numeroPecas;
     boolean firstCapture;
+    int turn;
 
 
     public Board(int size, int numeroPecas) {
@@ -24,6 +25,7 @@ public class Board {
         this.totalPieces = new ArrayList<>();
         this.currentTeam = false;
         this.firstCapture = true;
+        this.turn = 0;
 
     }
 

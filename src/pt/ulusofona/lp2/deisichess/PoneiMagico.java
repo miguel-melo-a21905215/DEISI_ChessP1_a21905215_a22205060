@@ -12,7 +12,7 @@ public class PoneiMagico extends Piece {
         this.inPlay = false;
         this.typeStr = "Ponei Magico";
     }
-
+    @Override
     public boolean specificMoveValidation(int oriX, int oriY, int destX, int destY, Piece[][] tabuleiro) {
 
         int deltaX = Math.abs(destX - oriX);

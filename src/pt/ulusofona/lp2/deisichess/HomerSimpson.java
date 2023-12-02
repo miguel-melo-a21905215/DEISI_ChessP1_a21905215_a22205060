@@ -12,4 +12,18 @@ public class HomerSimpson extends Piece {
         this.inPlay = false;
         this.typeStr = "Homer Simpson";
     }
+
+    public boolean specificMoveValidation(int oriX, int oriY, int destX, int destY, Piece[][] tabuleiro) {
+
+        // falta validar os turnos que ele dorme
+
+        int deltaX = Math.abs(destX - oriX);
+        int deltaY = Math.abs(destY - oriY);
+
+        if (deltaX == 1 && deltaY == 1) {
+            return diagonalCheckForPieces(oriX, oriY, destX, destY, tabuleiro);
+        }
+
+        return false;
+    }
 }
