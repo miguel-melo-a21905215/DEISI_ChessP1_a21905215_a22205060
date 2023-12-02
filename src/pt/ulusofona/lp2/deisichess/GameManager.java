@@ -231,16 +231,7 @@ public class GameManager {
             result[1] = String.valueOf(consideredPiece.getType());
             result[2] = String.valueOf(consideredPiece.getTeam());
             result[3] = String.valueOf(consideredPiece.getNickname());
-            result[4] = null;
-            /*TODO CADA PEÇA TEM O SEU PNG - a atualizar na classe de cada peça*/
-
-            // if (consideredPiece.getTeam() == 0) {
-            //   result[4] = "crazy_emoji_black.png";
-
-            // } else {
-            //    result[4] = "crazy_emoji_white.png";
-            //  }
-            //
+            result[4] = String.valueOf(consideredPiece.getPngLocation());
 
             return result;
         }
