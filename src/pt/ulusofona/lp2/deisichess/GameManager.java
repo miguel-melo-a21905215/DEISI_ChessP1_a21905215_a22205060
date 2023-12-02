@@ -104,7 +104,7 @@ public class GameManager {
 
                 }
             }
-        } catch (IOException e) {
+        } catch (FileNotFoundException e) {
             throw new IOException("Erro ao ler ficheiro" + e.getMessage());
         }
     }
@@ -143,8 +143,8 @@ public class GameManager {
                 }
             }
             // No need to explicitly close the BufferedWriter when using try-with-resources
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found: " + file.getPath());
+        } catch (IOException e) {
+            throw new IOException("File not found: " + file.getPath());
         }
     }
 
