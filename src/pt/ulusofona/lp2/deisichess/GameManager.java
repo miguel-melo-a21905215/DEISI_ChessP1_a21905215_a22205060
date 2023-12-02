@@ -26,7 +26,8 @@ public class GameManager {
     //TODO loadGame() VERIFICAR DEPOIS DE TER O SAVE FEITO
     public void loadGame(File file) throws InvalidGameInputException, IOException {
 
-        try (Scanner scanner = new Scanner(file)) {
+        try {
+            Scanner scanner = new Scanner(file);
             int boardSize;
             int numPecas;
 
@@ -54,6 +55,7 @@ public class GameManager {
                     board.getTotalPieces().add(newPiece);
                     // adiciona ao arraylist das peças na class board
                 } else {
+
                     throw new InvalidGameInputException(currentLine, divisao.length);
                 }
             }
