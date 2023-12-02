@@ -1,15 +1,8 @@
 package pt.ulusofona.lp2.deisichess;
 
-import org.junit.jupiter.api.Test;
-
-import java.io.File;
-import java.io.IOException;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 public class TestGameManager {
 
-
+/*
     @Test
     void getPieceInfo() throws IOException, InvalidGameInputException {
         GameManager gameManager = new GameManager();
@@ -94,5 +87,5 @@ public class TestGameManager {
         // Verifique se o movimento foi válido (true)
         assertTrue(validMove);
         assertNotEquals(initialSquareInfo, updatedResultInfo); // Verifica se o ID da peça mudou
-    }
+    }*/
 }

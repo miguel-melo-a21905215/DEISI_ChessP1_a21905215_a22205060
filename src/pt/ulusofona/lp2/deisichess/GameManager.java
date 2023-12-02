@@ -26,7 +26,8 @@ public class GameManager {
     //TODO loadGame() VERIFICAR DEPOIS DE TER O SAVE FEITO
     public void loadGame(File file) throws InvalidGameInputException, IOException {
 
-        try (Scanner scanner = new Scanner(file)) {
+        try {
+            Scanner scanner = new Scanner(file);
             int boardSize;
             int numPecas;
 
@@ -35,7 +36,7 @@ public class GameManager {
 
             this.board = new Board(boardSize, numPecas);
             int currentLine = 0;
-
+            //LEITURA DADOS DAS PEÇAS
             for (int i = 0; i < numPecas; i++) {
                 String linha = scanner.nextLine();
                 String[] divisao = linha.split(":");
@@ -54,11 +55,11 @@ public class GameManager {
                     board.getTotalPieces().add(newPiece);
                     // adiciona ao arraylist das peças na class board
                 } else {
+
                     throw new InvalidGameInputException(currentLine, divisao.length);
                 }
             }
-
-
+            //LEITURA DO TABULEIRO
             for (int y = 0; y < this.board.getSize(); y++) {
                 String linha = scanner.nextLine();
                 String[] divisao = linha.split(":");
@@ -104,7 +105,7 @@ public class GameManager {
 
                 }
             }
-        } catch (IOException e) {
+        } catch (FileNotFoundException e) {
             throw new IOException("Erro ao ler ficheiro" + e.getMessage());
         }
     }
@@ -143,8 +144,8 @@ public class GameManager {
                 }
             }
             // No need to explicitly close the BufferedWriter when using try-with-resources
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found: " + file.getPath());
+        } catch (IOException e) {
+            throw new IOException("File not found: " + file.getPath());
         }
     }
 
