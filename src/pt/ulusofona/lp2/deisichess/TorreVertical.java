@@ -12,4 +12,16 @@ public class TorreVertical extends Piece {
         this.inPlay = false;
         this.typeStr = "Torre Vertical";
     }
+
+    @Override
+    public boolean specificMoveValidation(int oriX, int oriY, int destX, int destY, Piece[][] tabuleiro) {
+        int deltaY = Math.abs(destY - oriY);
+
+        if (deltaY < 6 && deltaY > 0 && oriX == destX) {
+            return columnCheckForPieces(oriX, oriY, destY, tabuleiro);
+        }
+
+        return false;
+    }
+
 }
