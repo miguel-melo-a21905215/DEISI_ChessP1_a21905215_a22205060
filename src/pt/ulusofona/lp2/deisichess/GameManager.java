@@ -104,7 +104,7 @@ public class GameManager {
 
                 }
             }
-        } catch (FileNotFoundException | InvalidGameInputException e) {
+        } catch (IOException e) {
             throw new IOException("Erro ao ler ficheiro" + e.getMessage());
         }
     }
