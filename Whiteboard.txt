@@ -4,7 +4,7 @@
 -                                                              -
 ----------------------------------------------------------------
 
--Estrutura para utilizar na saveGame() -> estrutura criada, falta testar
+-Estrutura para utilizar na saveGame() -> estrutura criada, falta testar com todoos os moves
     ->Depois dos dados do ficheiro
     ->Deve conter todas as joagadas até ao momento de save
     ->Adicionar na loadGame() um cilco de leitura desta estrutura
@@ -46,7 +46,8 @@ BARATA
 -Criacao de classes para as peças
     ->Tipos de move
     ->caracterisiticas especificas de cada peça
--
+-Estatistica -> Parte em kotlin
+-atualizar Diagrama UML
 -
 -
 
@@ -54,9 +55,8 @@ BARATA
 
 MELO
 
--save() -> testar depois da move
--undo() -> testar depois da move
--tratamento de "exceptions" -> testar
--atualizar Diagrama UML
+-save() -> feito
+-undo() -> feito
+-tratamento de "exceptions" -> feito
 -atualizar README.md
 -imagens para peças
