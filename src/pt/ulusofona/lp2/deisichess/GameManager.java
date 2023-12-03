@@ -371,4 +371,8 @@ public class GameManager {
     public GameHistory getGameHistory() {
         return gameHistory;
     }
+
+    public ArrayList<String> holderMethod() {
+        return new ArrayList<>();
+    }
 }
