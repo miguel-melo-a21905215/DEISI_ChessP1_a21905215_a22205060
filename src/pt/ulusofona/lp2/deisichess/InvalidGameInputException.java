@@ -9,9 +9,9 @@ public class InvalidGameInputException extends Exception {
     public InvalidGameInputException(int lineWithError, int obtainedData) {
         this.lineWithError = lineWithError;
         if (obtainedData > 4) {
-            this.problemDescription = "DADOS A MAIS (Esperava 4 ; Obtive: " + obtainedData + ")";
+            this.problemDescription = "DADOS A MAIS (Esperava: 4 ; Obtive: " + obtainedData + ")";
         } else {
-            this.problemDescription = "DADOS A MENOS (Esperava 4 ; Obtive: " + obtainedData + ")";
+            this.problemDescription = "DADOS A MENOS (Esperava: 4 ; Obtive: " + obtainedData + ")";
         }
 
     }

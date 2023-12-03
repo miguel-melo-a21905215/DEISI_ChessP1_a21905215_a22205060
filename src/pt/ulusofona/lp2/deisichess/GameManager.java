@@ -9,6 +9,7 @@ public class GameManager {
     Board board = new Board();
     String winnerMessage = "";
     GameHistory gameHistory = new GameHistory();
+    int turn = 0;
 
 
     //a preencher pelo gameOver
@@ -17,6 +18,7 @@ public class GameManager {
         this.board = board;
         this.winnerMessage = winner;
         this.gameHistory = new GameHistory();
+        this.turn = 0;
     }
 
     public GameManager() {
@@ -295,7 +297,8 @@ public class GameManager {
 
     /*TODO - VERIFICAR MOVES CORRETOS DEPOIS DA CRIACAO DAS PECAS NOVAS + ADICIONAR ALTERAÇÃO DE PONTOS
      *  PARA A ESTATISTICA -> QUANDO COME +X PONTOS PARA !CURRENTTEAM -> ADICIONAR NA COMEU(?)
-     * ADICIONAR CLONAGEM DO TABULEIRO + REGISTO DO MOVE PARA A GAME HISTORY*/
+     * ADICIONAR CLONAGEM DO TABULEIRO + REGISTO DO MOVE PARA A GAME HISTORY
+     * FALTA VALIDAÇÃO DO JOKER*/
     public boolean move(int oriX, int oriY, int destX, int destY) {
 
         if (board.generalMoveValidation(oriX, oriY, destX, destY)) {                                    //COORD. DENTRO TABULEIRO + PEÇA VALIDA + DESTINO VALIDO
@@ -309,6 +312,9 @@ public class GameManager {
                     board.metePecaDestino(pecaMovida, destX, destY);
                     board.comeu();
 
+                    turn++;
+                    board.homerClock(turn);
+
                     String moveStr = gameHistory.moveToString(oriX, oriY, destX, destY);
                     gameHistory.addNewMove(moveStr, this.board);
 
@@ -316,6 +322,9 @@ public class GameManager {
                     board.tiraPecaOrigem(oriX, oriY);
                     board.metePecaDestino(pecaMovida, destX, destY);
                     board.moveu();
+
+                    turn++;
+                    board.homerClock(turn);
 
                     String moveStr = gameHistory.moveToString(oriX, oriY, destX, destY);
                     gameHistory.addNewMove(moveStr, this.board);
