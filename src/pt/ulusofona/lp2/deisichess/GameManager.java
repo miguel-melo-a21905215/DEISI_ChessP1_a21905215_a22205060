@@ -170,6 +170,9 @@ public class GameManager {
             for (Piece consideredPiece : board.getTotalPieces()) {
                 if (id == consideredPiece.getId()) {
                     result[1] = String.valueOf(consideredPiece.getType());
+                    if (result[1].equals("Joker")){
+                        result[1] += "/" + consideredPiece.getCopyMoveFrom();
+                    }
                     result[2] = String.valueOf(consideredPiece.getPointsWorth());
                     result[3] = String.valueOf(consideredPiece.getTeam());
                     result[4] = String.valueOf(consideredPiece.getNickname());
