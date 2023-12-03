@@ -63,7 +63,7 @@ public class TestGameManager {
         InvalidGameInputException exception = assertThrows(InvalidGameInputException.class, () -> gameManager.loadGame(file));
 
         assertEquals(13, exception.getLineWithError());
-        assertEquals("DADOS A MAIS (Esperava 4 ; Obtive: 5)", exception.getProblemDescription());
+        assertEquals("DADOS A MAIS (Esperava: 4 ; Obtive: 5)", exception.getProblemDescription());
     }
 
     @Test
@@ -74,17 +74,27 @@ public class TestGameManager {
         InvalidGameInputException exception = assertThrows(InvalidGameInputException.class, () -> gameManager.loadGame(file));
 
         assertEquals(13, exception.getLineWithError());
-        assertEquals("DADOS A MENOS (Esperava 4 ; Obtive: 3)", exception.getProblemDescription());
+        assertEquals("DADOS A MENOS (Esperava 4: ; Obtive: 3)", exception.getProblemDescription());
     }
 
 
     @Test
-    void getPieceInfoReiEmJogo() throws IOException, InvalidGameInputException {
+    void getPieceInfoReiBrancoEmJogo() throws IOException, InvalidGameInputException {
         GameManager gameManager = new GameManager();
         File file = new File("test-files/8x8.txt");
         gameManager.loadGame(file);
         String[] actualArray = gameManager.getPieceInfo(1);
-        String[] expectedArray = {"1", "Rei", "1000", "10", "O Poderoso Chefao", "em jogo", "0", "0"};
+        String[] expectedArray = {"1", "Rei", "1000", "10", "O Poderoso Chefao", "em jogo", "00"};
+        assertArrayEquals(expectedArray, actualArray);
+    }
+
+    @Test
+    void getPieceInfoRainhaPretaEmJogo() throws IOException, InvalidGameInputException {
+        GameManager gameManager = new GameManager();
+        File file = new File("test-files/8x8.txt");
+        gameManager.loadGame(file);
+        String[] actualArray = gameManager.getPieceInfo(2);
+        String[] expectedArray = {"2", "Rainha", "8", "10", "A Dama Selvagem", "em jogo", "10"};
         assertArrayEquals(expectedArray, actualArray);
     }
 

@@ -164,7 +164,7 @@ public class GameManager {
         //ID|tipo(emString)|Pontos da Peca|Equipa|Alcunha|Estado|posX|posY
 
 
-        String[] result = new String[8];
+        String[] result = new String[7];
         result[0] = String.valueOf(id);
         while (!Objects.equals(result[1], "")) {
             for (Piece consideredPiece : board.getTotalPieces()) {
@@ -180,10 +180,9 @@ public class GameManager {
                     }
                     if (consideredPiece.isInPlay()) {
                         result[6] = String.valueOf(consideredPiece.getPosX());
-                        result[7] = String.valueOf(consideredPiece.getPosY());
+                        result[6] += String.valueOf(consideredPiece.getPosY());
                     } else {
                         result[6] = "";
-                        result[7] = "";
                     }
                     return result;
                 }
@@ -215,8 +214,8 @@ public class GameManager {
             }
         }
         if (consideredPiece != null && consideredPiece.isInPlay()) {
-            result += '(' + pieceInfo[6];               //posX
-            result += ", " + pieceInfo[7] + ')';        //posY
+            result += '(' + String.valueOf(pieceInfo[6].charAt(0));               //posX
+            result += ", " + pieceInfo[6].charAt(1) + ')';        //posY
         } else {
             result += "(n/a)";
         }
