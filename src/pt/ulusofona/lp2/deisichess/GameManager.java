@@ -290,11 +290,14 @@ public class GameManager {
         int pecasBrancas = board.getEquipas()[1].getInPlayPieces();
         int pecasPretas = board.getEquipas()[0].getInPlayPieces();
 
-        if (!board.getEquipas()[0].isKingAlive()) {
+        if (!board.getEquipas()[0].isKingAlive() && board.getEquipas()[1].isKingAlive()) {
             winnerMessage = "VENCERAM AS PRETAS";
             return true;
-        } else if (!board.getEquipas()[1].isKingAlive()) {
+        } else if (!board.getEquipas()[1].isKingAlive() && board.getEquipas()[0].isKingAlive()) {
             winnerMessage = "VENCERAM AS BRANCAS";
+            return true;
+        } else if (!board.getEquipas()[0].isKingAlive() && !board.getEquipas()[1].isKingAlive()) {
+            winnerMessage = "EMPATE";
             return true;
         }
 
