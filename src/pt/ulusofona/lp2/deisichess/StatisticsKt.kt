@@ -1,8 +1,12 @@
 package pt.ulusofona.lp2.deisichess
 
 class StatisticsKt {
-    fun getStatsCalculator(type: StatType): (GameManager) -> ArrayList<String> {
-        return GameManager::holderMethod
+    companion object {
+        @JvmStatic
+        fun getStatsCalculator(type: StatType): (GameManager) -> ArrayList<String> {
+            return GameManager::holderMethod
 
+        }
     }
+
 }
