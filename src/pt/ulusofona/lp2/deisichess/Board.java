@@ -209,4 +209,22 @@ public class Board {
         }
         return clonedBoard;
     }
+
+    public void homerClock(int turn){
+        if (turn % 3 == 0){
+            for (Piece consideredPiece : totalPieces) {
+                if (consideredPiece.getTypeStr().equals("Homer Simpson")) {
+                    consideredPiece.goSleep();
+                }
+            }
+        }else {
+            for (Piece consideredPiece : totalPieces) {
+                if (consideredPiece.getTypeStr().equals("Homer Simpson")) {
+                    consideredPiece.awake();
+                }
+            }
+        }
+    }
+
+
 }

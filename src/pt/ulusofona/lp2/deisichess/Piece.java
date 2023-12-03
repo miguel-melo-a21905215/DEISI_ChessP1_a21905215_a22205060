@@ -162,4 +162,9 @@ public abstract class Piece {
         return clonedPiece;
     }
 
+    public void goSleep() {
+    }
+
+    public void awake() {
+    }
 }
