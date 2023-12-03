@@ -106,7 +106,19 @@ public class TestGameManager {
 
         String actualResult = gameManager.getPieceInfoAsString(1);
         String expectedResult = "1 | Rei | (infinito) | 10 | O Poderoso Chefao @ (0, 0)";
-        assertEquals(actualResult, expectedResult);
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void getPieceInfoAsStringJokerPreto() throws IOException, InvalidGameInputException {
+        GameManager gameManager = new GameManager();
+        File file = new File("test-files/8x8.txt");
+        gameManager.loadGame(file);
+
+        String actualResult = gameManager.getPieceInfoAsString(8);
+        String expectedResult = "8 | Joker/Rainha | 4 | 10 | O Beberolas @ (7, 0)";
+        assertEquals(expectedResult, actualResult);
 
     }
 
@@ -116,10 +128,10 @@ public class TestGameManager {
         File file = new File("test-files/8x8.txt");
         gameManager.loadGame(file);
 
-        String ActualResult = gameManager.getPieceInfoAsString(3);
+        String actualResult = gameManager.getPieceInfoAsString(3);
         String expectedResult = "3 | Ponei Magico | 5 | 10 | O Grande Artista @ (2, 0)";
 
-        assertEquals(ActualResult, expectedResult);
+        assertEquals(expectedResult, actualResult);
 
     }
 
@@ -129,10 +141,10 @@ public class TestGameManager {
         File file = new File("test-files/8x8.txt");
         gameManager.loadGame(file);
 
-        String ActualResult = gameManager.getPieceInfoAsString(2);
+        String actualResult = gameManager.getPieceInfoAsString(2);
         String expectedResult = "2 | Rainha | 8 | 10 | A Dama Selvagem @ (1, 0)";
 
-        assertEquals(ActualResult, expectedResult);
+        assertEquals(expectedResult, actualResult);
 
     }
 
@@ -144,7 +156,7 @@ public class TestGameManager {
 
         String actualResult = gameManager.getPieceInfoAsString(9);
         String expectedResult = "9 | Rei | (infinito) | 20 | Chefe dos Indios @ (0, 7)";
-        assertEquals(actualResult, expectedResult);
+        assertEquals(expectedResult, actualResult);
 
     }
 
@@ -154,10 +166,10 @@ public class TestGameManager {
         File file = new File("test-files/8x8.txt");
         gameManager.loadGame(file);
 
-        String ActualResult = gameManager.getPieceInfoAsString(11);
+        String actualResult = gameManager.getPieceInfoAsString(11);
         String expectedResult = "11 | Ponei Magico | 5 | 20 | My Little Pony @ (2, 7)";
 
-        assertEquals(ActualResult, expectedResult);
+        assertEquals(expectedResult, actualResult);
 
     }
 
@@ -167,10 +179,10 @@ public class TestGameManager {
         File file = new File("test-files/8x8.txt");
         gameManager.loadGame(file);
 
-        String ActualResult = gameManager.getPieceInfoAsString(10);
+        String actualResult = gameManager.getPieceInfoAsString(10);
         String expectedResult = "10 | Rainha | 8 | 20 | A Barulhenta do Bairro @ (1, 7)";
 
-        assertEquals(ActualResult, expectedResult);
+        assertEquals(expectedResult, actualResult);
 
     }
 

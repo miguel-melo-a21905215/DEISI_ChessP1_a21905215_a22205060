@@ -13,14 +13,16 @@ public class Joker extends Piece {
         }
         this.inPlay = false;
         this.typeStr = "Joker";
+        this.copyMoveFrom = "Rainha";
     }
 
     @Override
     public String getCopyMoveFrom() {
-        return copyMoveFrom;
+        return this.copyMoveFrom;
     }
 
-    public void setLastTypeMoved(int turn) {
+    @Override
+    public void setCopyMoveFrom(int turn) {
         if (turn % 6 == 0) {
             this.copyMoveFrom = "Homer Simpson";
         } else if (turn % 5 == 0) {

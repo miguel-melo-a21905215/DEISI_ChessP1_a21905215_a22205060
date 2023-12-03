@@ -43,16 +43,13 @@ public abstract class Piece {
         return team;
     }
 
-
     public int getType() {
         return type;
     }
 
-
     public String getNickname() {
         return nickname;
     }
-
 
     public boolean isInPlay() {
         return inPlay;
@@ -65,7 +62,6 @@ public abstract class Piece {
     public int getId() {
         return id;
     }
-
 
     public int getPosX() {
         return posX;
@@ -171,5 +167,9 @@ public abstract class Piece {
 
     public String getCopyMoveFrom() {
         return null;
+    }
+
+    public void setCopyMoveFrom(int turn) {
+
     }
 }

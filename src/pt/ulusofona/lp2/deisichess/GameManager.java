@@ -170,9 +170,7 @@ public class GameManager {
             for (Piece consideredPiece : board.getTotalPieces()) {
                 if (id == consideredPiece.getId()) {
                     result[1] = String.valueOf(consideredPiece.getType());
-                    if (result[1].equals("Joker")){
-                        result[1] += "/" + consideredPiece.getCopyMoveFrom();
-                    }
+
                     result[2] = String.valueOf(consideredPiece.getPointsWorth());
                     result[3] = String.valueOf(consideredPiece.getTeam());
                     result[4] = String.valueOf(consideredPiece.getNickname());
@@ -200,17 +198,21 @@ public class GameManager {
         String[] pieceInfo = getPieceInfo(id);
 
         String result = "";
-        Piece consideredPiece = null;
+        Piece consideredPiece = board.totalPieces.get(id-1);
 
-        result += pieceInfo[0] + espBarra;              //ID
-        result += pieceTypeStr(Integer.parseInt(pieceInfo[1])) + espBarra;              //TipoStr
-        if (Objects.equals(pieceInfo[2], "1000")) {
-            result += "(infinito)" + espBarra;          //SE FOR O REI DEVE ESCREVER INFINTIO EM VEZ DE MIL
-        } else {
-            result += pieceInfo[2] + espBarra;          //PointsWorth
+        result += pieceInfo[0] + espBarra;                  //ID
+        result += pieceTypeStr(Integer.parseInt(pieceInfo[1]));
+        if (pieceInfo[1].equals("7")) {                     //TipoStr
+            result += "/" + consideredPiece.getCopyMoveFrom();
         }
-        result += pieceInfo[3] + espBarra;              //team
-        result += pieceInfo[4] + " @ ";                 //nickname
+        result += espBarra;
+        if (Objects.equals(pieceInfo[2], "1000")) {
+            result += "(infinito)" + espBarra;              //SE FOR O REI DEVE ESCREVER INFINTIO EM VEZ DE MIL
+        } else {
+            result += pieceInfo[2] + espBarra;              //PointsWorth
+        }
+        result += pieceInfo[3] + espBarra;                  //team
+        result += pieceInfo[4] + " @ ";                     //nickname
         for (Piece piece : board.getTotalPieces()) {
             if (piece.getId() == id) {
                 consideredPiece = piece;
@@ -347,6 +349,7 @@ public class GameManager {
 
                     turn++;
                     board.homerClock(turn);
+                    board.jokerClock(turn);
 
                     String moveStr = gameHistory.moveToString(oriX, oriY, destX, destY);
                     gameHistory.addNewMove(moveStr, this.board);
@@ -358,6 +361,7 @@ public class GameManager {
 
                     turn++;
                     board.homerClock(turn);
+                    board.jokerClock(turn);
 
                     String moveStr = gameHistory.moveToString(oriX, oriY, destX, destY);
                     gameHistory.addNewMove(moveStr, this.board);
