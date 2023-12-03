@@ -35,7 +35,7 @@ public class GameManager {
             numPecas = Integer.parseInt(scanner.nextLine());                        //numero de pecas presentes no tabuleiro
 
             this.board = new Board(boardSize, numPecas);
-            int currentLine = 0;
+            int currentLine = 2;
             //LEITURA DADOS DAS PEÇAS
             for (int i = 0; i < numPecas; i++) {
                 String linha = scanner.nextLine();
@@ -84,7 +84,7 @@ public class GameManager {
 
             gameHistory.startingBoard(board);
 
-            if (scanner.hasNext() && Objects.equals(scanner.nextLine(), "---------MOVE HISTORY---------")) {
+            if (scanner.hasNext() && Objects.equals(scanner.nextLine().trim(), "---------MOVE HISTORY---------")) {
                 int playCount = 0;
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
@@ -106,7 +106,7 @@ public class GameManager {
                 }
             }
         } catch (FileNotFoundException e) {
-            throw new IOException("Erro ao ler ficheiro" + e.getMessage());
+            throw new FileNotFoundException("Erro ao ler ficheiro");
         }
     }
 
@@ -143,7 +143,7 @@ public class GameManager {
                     writer.write(currentMove + "\n");
                 }
             }
-            // No need to explicitly close the BufferedWriter when using try-with-resources
+
         } catch (IOException e) {
             throw new IOException("File not found: " + file.getPath());
         }
@@ -328,7 +328,7 @@ public class GameManager {
         return false;
     }
 
-    public List<Comparable> getHints(int x, int y) throws IOException {
+    public List<Comparable> getHints(int x, int y) {
         return null;
     }
 
@@ -360,5 +360,15 @@ public class GameManager {
         };
     }
 
+    public Board getBoard() {
+        return board;
+    }
 
+    public String getWinnerMessage() {
+        return winnerMessage;
+    }
+
+    public GameHistory getGameHistory() {
+        return gameHistory;
+    }
 }
