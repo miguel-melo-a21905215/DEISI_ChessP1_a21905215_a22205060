@@ -169,7 +169,7 @@ public class GameManager {
         while (!Objects.equals(result[1], "")) {
             for (Piece consideredPiece : board.getTotalPieces()) {
                 if (id == consideredPiece.getId()) {
-                    result[1] = String.valueOf(consideredPiece.getTypeStr());
+                    result[1] = String.valueOf(consideredPiece.getType());
                     result[2] = String.valueOf(consideredPiece.getPointsWorth());
                     result[3] = String.valueOf(consideredPiece.getTeam());
                     result[4] = String.valueOf(consideredPiece.getNickname());
@@ -200,7 +200,7 @@ public class GameManager {
         Piece consideredPiece = null;
 
         result += pieceInfo[0] + espBarra;              //ID
-        result += pieceInfo[1] + espBarra;              //TipoStr
+        result += pieceTypeStr(Integer.parseInt(pieceInfo[1])) + espBarra;              //TipoStr
         if (Objects.equals(pieceInfo[2], "1000")) {
             result += "(infinito)" + espBarra;          //SE FOR O REI DEVE ESCREVER INFINTIO EM VEZ DE MIL
         } else {
@@ -221,6 +221,20 @@ public class GameManager {
         }
 
         return result;
+    }
+
+    private String pieceTypeStr(int type) {
+        return switch (type) {
+            case 0 -> "Rei";
+            case 1 -> "Rainha";
+            case 2 -> "Ponei Magico";
+            case 3 -> "Padre da Vila";
+            case 4 -> "Torre Horizontal";
+            case 5 -> "Torre Vertical";
+            case 6 -> "Homer Simpson";
+            case 7 -> "Joker";
+            default -> null;
+        };
     }
 
     public String[] getSquareInfo(int x, int y) {

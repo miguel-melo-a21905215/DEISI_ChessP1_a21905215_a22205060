@@ -155,6 +155,8 @@ public abstract class Piece {
         };
     }
 
+
+
     public Piece clonePiece() {
         Piece clonedPiece = newPieceByType(this.id, this.type, this.team, this.nickname);
         clonedPiece.marcaInPlay();

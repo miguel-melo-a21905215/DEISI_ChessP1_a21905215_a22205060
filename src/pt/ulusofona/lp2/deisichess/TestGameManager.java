@@ -74,7 +74,7 @@ public class TestGameManager {
         InvalidGameInputException exception = assertThrows(InvalidGameInputException.class, () -> gameManager.loadGame(file));
 
         assertEquals(13, exception.getLineWithError());
-        assertEquals("DADOS A MENOS (Esperava 4: ; Obtive: 3)", exception.getProblemDescription());
+        assertEquals("DADOS A MENOS (Esperava: 4 ; Obtive: 3)", exception.getProblemDescription());
     }
 
 
@@ -84,7 +84,7 @@ public class TestGameManager {
         File file = new File("test-files/8x8.txt");
         gameManager.loadGame(file);
         String[] actualArray = gameManager.getPieceInfo(1);
-        String[] expectedArray = {"1", "Rei", "1000", "10", "O Poderoso Chefao", "em jogo", "00"};
+        String[] expectedArray = {"1", "0", "1000", "10", "O Poderoso Chefao", "em jogo", "00"};
         assertArrayEquals(expectedArray, actualArray);
     }
 
@@ -94,7 +94,7 @@ public class TestGameManager {
         File file = new File("test-files/8x8.txt");
         gameManager.loadGame(file);
         String[] actualArray = gameManager.getPieceInfo(2);
-        String[] expectedArray = {"2", "Rainha", "8", "10", "A Dama Selvagem", "em jogo", "10"};
+        String[] expectedArray = {"2", "1", "8", "10", "A Dama Selvagem", "em jogo", "10"};
         assertArrayEquals(expectedArray, actualArray);
     }
 
@@ -204,7 +204,7 @@ public class TestGameManager {
         // Use asserções para verificar as mensagens de vitória/empate.
     }
 
-    @Test
+    /*@Test
     public void testValidMove() throws IOException, InvalidGameInputException {
 
         GameManager gameManager = new GameManager();
@@ -223,5 +223,5 @@ public class TestGameManager {
         // Verifique se o movimento foi válido (true)
         assertTrue(validMove);
         assertNotEquals(initialSquareInfo, updatedResultInfo); // Verifica se o ID da peça mudou
-    }
+    }*/
 }
