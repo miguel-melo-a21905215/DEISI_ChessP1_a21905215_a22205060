@@ -63,7 +63,7 @@ public class TestGameManager {
         InvalidGameInputException exception = assertThrows(InvalidGameInputException.class, () -> gameManager.loadGame(file));
 
         assertEquals(13, exception.getLineWithError());
-        assertEquals("DADOS A MAIS (Esperava 4 ; Obtive 5)", exception.getProblemDescription());
+        assertEquals("DADOS A MAIS (Esperava 4 ; Obtive: 5)", exception.getProblemDescription());
     }
 
     @Test
@@ -74,7 +74,7 @@ public class TestGameManager {
         InvalidGameInputException exception = assertThrows(InvalidGameInputException.class, () -> gameManager.loadGame(file));
 
         assertEquals(13, exception.getLineWithError());
-        assertEquals("DADOS A MENOS (Esperava 4 ; Obtive 3)", exception.getProblemDescription());
+        assertEquals("DADOS A MENOS (Esperava 4 ; Obtive: 3)", exception.getProblemDescription());
     }
 
 
