@@ -290,6 +290,13 @@ public class GameManager {
         int pecasBrancas = board.getEquipas()[1].getInPlayPieces();
         int pecasPretas = board.getEquipas()[0].getInPlayPieces();
 
+        if (!board.getEquipas()[0].isKingAlive()) {
+            winnerMessage = "VENCERAM AS PRETAS";
+            return true;
+        } else if (!board.getEquipas()[1].isKingAlive()) {
+            winnerMessage = "VENCERAM AS BRANCAS";
+            return true;
+        }
 
         if (pecasBrancas == 0 || pecasPretas == 0) {
             if (pecasBrancas == 0) {
@@ -319,11 +326,18 @@ public class GameManager {
             if (pecaMovida.specificMoveValidation(oriX, oriY, destX, destY, board.getTabuleiro())) {    //CAMINHO LIVRE + CUMPRE LIMITES MOVE ESPECIFICO
                 /*COMEU - JA FOI VERIFICADO SE A PEÇA NO DESTINO É DA EQUIPA CONTRÁRIA NA generalMoveValidation()*/
                 if (board.temPeca(destX, destY)) {
-                    int pointsWorth = board.getPecaNaPos(destX, destY).getPointsWorth();                //TODO -> VER PARTE ESTATISTICA
+                    Piece pecaNoDestino = board.getPecaNaPos(destX, destY);
+                    pecaNoDestino.getPointsWorth();                                                     //TODO -> VER PARTE ESTATISTICA
+
                     board.tiraPecaOrigem(oriX, oriY);
-                    board.getPecaNaPos(destX, destY).capturada();
+                    pecaNoDestino.capturada();
                     board.metePecaDestino(pecaMovida, destX, destY);
                     board.comeu();
+
+                    if (Objects.equals(pecaNoDestino.getTypeStr(), "Rei")) {
+                        board.getEquipas()[board.convertNumEquipas(pecaMovida.getTeam())].killKing();
+                        return true;
+                    }
 
                     turn++;
                     board.homerClock(turn);

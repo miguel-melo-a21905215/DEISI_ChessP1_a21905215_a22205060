@@ -1,6 +1,7 @@
 package pt.ulusofona.lp2.deisichess;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class Team {
     int idEquipa;
@@ -9,6 +10,7 @@ public class Team {
     int numCapturadas;
     HashMap<Integer, Piece> teamPieces;
     int inPlayPieces;
+    boolean kingAlive;
 
     public Team(int idEquipa) {
         this.idEquipa = idEquipa;
@@ -17,10 +19,14 @@ public class Team {
         this.numCapturadas = 0;
         this.inPlayPieces = 0;
         this.teamPieces = new HashMap<>();
+        this.kingAlive = false;
     }
 
 
     public void addPieceToHmap(Piece newPiece) {
+        if (Objects.equals(newPiece.getTypeStr(), "Rei")) {
+            this.kingAlive = true;
+        }
         teamPieces.put(newPiece.getId(), newPiece);
     }
 
@@ -72,6 +78,14 @@ public class Team {
 
     public boolean verificaInPlay(int id) {
         return this.teamPieces.containsKey(id) && this.teamPieces.get(id).isInPlay();
+    }
+
+    public boolean isKingAlive() {
+        return kingAlive;
+    }
+
+    public void killKing() {
+        this.kingAlive = false;
     }
 }
 
