@@ -34,6 +34,9 @@ public class HomerSimpson extends Piece {
     }
 
     public boolean isSleep() {
+        if (sleep) {
+            System.out.println("Doh! zzzzzz");
+        }
         return sleep;
     }
 
