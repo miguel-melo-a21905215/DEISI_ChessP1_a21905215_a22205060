@@ -294,35 +294,26 @@ public class GameManager {
     }
 
     public boolean gameOver() {
+        int whitePieces = board.getEquipas()[1].getInPlayPieces();
+        int blackPieces = board.getEquipas()[0].getInPlayPieces();
+        boolean isWhiteKingAlive = board.getEquipas()[1].isKingAlive();
+        boolean isBlackKingAlive = board.getEquipas()[0].isKingAlive();
 
-        int pecasBrancas = board.getEquipas()[1].getInPlayPieces();
-        int pecasPretas = board.getEquipas()[0].getInPlayPieces();
-
-        if (!board.getEquipas()[0].isKingAlive() && board.getEquipas()[1].isKingAlive()) {
+        if (!isBlackKingAlive && isWhiteKingAlive) {
             winnerMessage = "VENCERAM AS BRANCAS";
-            return true;
-        } else if (!board.getEquipas()[1].isKingAlive() && board.getEquipas()[0].isKingAlive()) {
+        } else if (!isWhiteKingAlive && isBlackKingAlive) {
             winnerMessage = "VENCERAM AS PRETAS";
-            return true;
-        } else if (!board.getEquipas()[0].isKingAlive() && !board.getEquipas()[1].isKingAlive()) {
+        } else if (!isWhiteKingAlive && !isBlackKingAlive || whitePieces == 0 && blackPieces == 0) {
             winnerMessage = "EMPATE";
-            return true;
-        }
-
-        if (pecasBrancas == 0 || pecasPretas == 0) {
-            if (pecasBrancas == 0) {
-                winnerMessage = "VENCERAM AS PRETAS";
-            } else {
-                winnerMessage = "VENCERAM AS BRANCAS";
-            }
-            return true;
-        } else if ((pecasPretas == 1 && pecasBrancas == 1) || board.getConsecPassPlays() == 10) {
+        } else if (whitePieces == 0 || blackPieces == 0) {
+            winnerMessage = whitePieces == 0 ? "VENCERAM AS PRETAS" : "VENCERAM AS BRANCAS";
+        } else if ((blackPieces == 1 && whitePieces == 1) || board.getConsecPassPlays() == 10) {
             winnerMessage = "EMPATE";
-            return true;
-
         } else {
             return false;
         }
+
+        return true;
     }
 
 
@@ -377,9 +368,29 @@ public class GameManager {
         return false;
     }
 
-    public List<Comparable> getHints(int x, int y) {
-        return null;
+    public List<Comparable> getHints(int oriX, int oriY) {
+        Piece movingPiece = this.board.getPecaNaPos(oriX, oriY);
+        int size = this.getBoardSize();
+        Piece[][] tabuleiro = this.board.getTabuleiro();
+
+        List<Comparable> hints = new ArrayList<>();
+
+        for (int destY = 0; destY < size; destY++) {
+            for (int destX = 0; destX < size; destX++) {
+                if (board.generalMoveValidation(oriX, oriY, destX, destY) && movingPiece.specificMoveValidation(oriX, oriY, destX, destY, tabuleiro)) {
+                    int pointsWorthMove = 0;
+                    if (board.getPecaNaPos(destX, destY) != null) {
+                        pointsWorthMove = board.getPecaNaPos(destX, destY).getPointsWorth();
+                    }
+                    hints.add("(" + destX + ", " + destY + ") ->" + pointsWorthMove);
+                }
+            }
+        }
+
+        hints.sort(Comparator.comparing(pointsWorthMove -> Integer.parseInt(pointsWorthMove.toString().split("->")[1].trim())));
+        return hints;
     }
+
 
     public Map<String, String> customizeBoard() {
         return new HashMap<>();
