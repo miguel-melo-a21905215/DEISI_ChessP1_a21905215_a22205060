@@ -10,7 +10,7 @@ public class PoneiMagico extends Piece {
             this.pngLocation = "ponei_magico_white.png";
         }
         this.inPlay = false;
-        this.typeStr = "Ponei Magico";
+        this.typeStr = "Ponei Mágico";
     }
     @Override
     public boolean specificMoveValidation(int oriX, int oriY, int destX, int destY, Piece[][] tabuleiro) {
