@@ -133,7 +133,7 @@ public class TestGameManager {
         gameManager.loadGame(file);
 
         String actualResult = gameManager.getPieceInfoAsString(3);
-        String expectedResult = "3 | Ponei Magico | 5 | 10 | O Grande Artista @ (2, 0)";
+        String expectedResult = "3 | Ponei Mágico | 5 | 10 | O Grande Artista @ (2, 0)";
 
         assertEquals(expectedResult, actualResult);
 
@@ -171,7 +171,7 @@ public class TestGameManager {
         gameManager.loadGame(file);
 
         String actualResult = gameManager.getPieceInfoAsString(11);
-        String expectedResult = "11 | Ponei Magico | 5 | 20 | My Little Pony @ (2, 7)";
+        String expectedResult = "11 | Ponei Mágico | 5 | 20 | My Little Pony @ (2, 7)";
 
         assertEquals(expectedResult, actualResult);
 
@@ -244,11 +244,67 @@ public class TestGameManager {
     /*--------------------------------- TESTES GAME OVER --------------------------------------*/
 
     @Test
-    void gameOver() throws IOException, InvalidGameInputException {
-        GameManager gameManager = new GameManager();
-        File file = new File("test-files/4x4.txt");
-        gameManager.loadGame(file);
+    void gameOverVitoriaBrancasLeitura() throws IOException, InvalidGameInputException {
         /*TODO - LER FICHEIRO TERMINADO || MOVER PARA COMER REI*2 || COMER + 10 PASSIVAS*/
+        GameManager gameManager = new GameManager();
+        File file = new File("test-files/8x8_No_Black_King.txt");
+        gameManager.loadGame(file);
+        assertTrue(gameManager.gameOver());
+        assertEquals("VENCERAM AS BRANCAS", gameManager.getWinnerMessage());
+        assertEquals("JOGO DE CRAZY CHESS", gameManager.getGameResults().get(0));
+        assertEquals("Resultado: VENCERAM AS BRANCAS", gameManager.getGameResults().get(1));
+        assertEquals("---", gameManager.getGameResults().get(2));
+        assertEquals("Equipa das Pretas", gameManager.getGameResults().get(3));
+        assertEquals("0", gameManager.getGameResults().get(4));
+        assertEquals("0", gameManager.getGameResults().get(5));
+        assertEquals("0", gameManager.getGameResults().get(6));
+        assertEquals("Equipa das Brancas", gameManager.getGameResults().get(7));
+        assertEquals("0", gameManager.getGameResults().get(8));
+        assertEquals("0", gameManager.getGameResults().get(9));
+        assertEquals("0", gameManager.getGameResults().get(10));
+
+    }
+
+    @Test
+    void gameOverVitoriaPretasLeitura() throws IOException, InvalidGameInputException {
+        /*TODO - MOVER PARA COMER REI*2 || COMER + 10 PASSIVAS*/
+        GameManager gameManager = new GameManager();
+        File file = new File("test-files/8x8_No_White_King.txt");
+        gameManager.loadGame(file);
+        assertTrue(gameManager.gameOver());
+        assertEquals("VENCERAM AS PRETAS", gameManager.getWinnerMessage());
+        assertEquals("JOGO DE CRAZY CHESS", gameManager.getGameResults().get(0));
+        assertEquals("Resultado: VENCERAM AS PRETAS", gameManager.getGameResults().get(1));
+        assertEquals("---", gameManager.getGameResults().get(2));
+        assertEquals("Equipa das Pretas", gameManager.getGameResults().get(3));
+        assertEquals("0", gameManager.getGameResults().get(4));
+        assertEquals("0", gameManager.getGameResults().get(5));
+        assertEquals("0", gameManager.getGameResults().get(6));
+        assertEquals("Equipa das Brancas", gameManager.getGameResults().get(7));
+        assertEquals("0", gameManager.getGameResults().get(8));
+        assertEquals("0", gameManager.getGameResults().get(9));
+        assertEquals("0", gameManager.getGameResults().get(10));
+
+    }    @Test
+    void gameOverEmpateLeitura() throws IOException, InvalidGameInputException {
+        /*TODO - MOVER PARA COMER REI*2 || COMER + 10 PASSIVAS*/
+        GameManager gameManager = new GameManager();
+        File file = new File("test-files/8x8_No_Kings.txt");
+        gameManager.loadGame(file);
+        assertTrue(gameManager.gameOver());
+        assertEquals("EMPATE", gameManager.getWinnerMessage());
+        assertEquals("JOGO DE CRAZY CHESS", gameManager.getGameResults().get(0));
+        assertEquals("Resultado: EMPATE", gameManager.getGameResults().get(1));
+        assertEquals("---", gameManager.getGameResults().get(2));
+        assertEquals("Equipa das Pretas", gameManager.getGameResults().get(3));
+        assertEquals("0", gameManager.getGameResults().get(4));
+        assertEquals("0", gameManager.getGameResults().get(5));
+        assertEquals("0", gameManager.getGameResults().get(6));
+        assertEquals("Equipa das Brancas", gameManager.getGameResults().get(7));
+        assertEquals("0", gameManager.getGameResults().get(8));
+        assertEquals("0", gameManager.getGameResults().get(9));
+        assertEquals("0", gameManager.getGameResults().get(10));
+
     }
 
 

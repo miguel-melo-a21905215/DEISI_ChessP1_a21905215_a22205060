@@ -24,9 +24,7 @@ public class Team {
 
 
     public void addPieceToHmap(Piece newPiece) {
-        if (Objects.equals(newPiece.getTypeStr(), "Rei")) {
-            this.kingAlive = true;
-        }
+
         teamPieces.put(newPiece.getId(), newPiece);
     }
 
@@ -86,6 +84,9 @@ public class Team {
 
     public void killKing() {
         this.kingAlive = false;
+    }
+    public void setKingAlive() {
+        this.kingAlive = true;
     }
 }
 

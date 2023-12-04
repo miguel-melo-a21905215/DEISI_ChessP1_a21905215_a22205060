@@ -75,6 +75,9 @@ public class GameManager {
                                     board.metePecaDestino(piece, x, y);
                                     piece.marcaInPlay();
                                     board.getEquipas()[board.convertNumEquipas(piece.getTeam())].incrementarInPlay();
+                                    if (Objects.equals(piece.getTypeStr(), "Rei")) {
+                                        board.getEquipas()[board.convertNumEquipas(piece.getTeam())].setKingAlive();
+                                    }
 
                                 }
                             }
@@ -232,7 +235,7 @@ public class GameManager {
         return switch (type) {
             case 0 -> "Rei";
             case 1 -> "Rainha";
-            case 2 -> "Ponei Magico";
+            case 2 -> "Ponei Mágico";
             case 3 -> "Padre da Vila";
             case 4 -> "TorreHor";
             case 5 -> "TorreVert";
@@ -296,10 +299,10 @@ public class GameManager {
         int pecasPretas = board.getEquipas()[0].getInPlayPieces();
 
         if (!board.getEquipas()[0].isKingAlive() && board.getEquipas()[1].isKingAlive()) {
-            winnerMessage = "VENCERAM AS PRETAS";
+            winnerMessage = "VENCERAM AS BRANCAS";
             return true;
         } else if (!board.getEquipas()[1].isKingAlive() && board.getEquipas()[0].isKingAlive()) {
-            winnerMessage = "VENCERAM AS BRANCAS";
+            winnerMessage = "VENCERAM AS PRETAS";
             return true;
         } else if (!board.getEquipas()[0].isKingAlive() && !board.getEquipas()[1].isKingAlive()) {
             winnerMessage = "EMPATE";
