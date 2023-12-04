@@ -19,6 +19,7 @@ public class HomerSimpson extends Piece {
     public boolean specificMoveValidation(int oriX, int oriY, int destX, int destY, Piece[][] tabuleiro) {
 
         if (isSleep()) {
+            System.out.println("Doh! zzzzzz");
             return false;
         }
 
