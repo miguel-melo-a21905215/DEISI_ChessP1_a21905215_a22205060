@@ -225,6 +225,7 @@ public class Board {
             }
         }
     }
+
     public void jokerClock(int turn) {
         for (Piece piece : totalPieces) {
             if (piece.getTypeStr().equals("Joker")) {
@@ -232,7 +233,6 @@ public class Board {
             }
         }
     }
-
 
 
 }

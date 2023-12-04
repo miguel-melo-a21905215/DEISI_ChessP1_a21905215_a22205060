@@ -198,7 +198,7 @@ public class GameManager {
         String[] pieceInfo = getPieceInfo(id);
 
         String result = "";
-        Piece consideredPiece = board.totalPieces.get(id-1);
+        Piece consideredPiece = board.totalPieces.get(id - 1);
 
         result += pieceInfo[0] + espBarra;                  //ID
         result += pieceTypeStr(Integer.parseInt(pieceInfo[1]));
@@ -234,8 +234,8 @@ public class GameManager {
             case 1 -> "Rainha";
             case 2 -> "Ponei Magico";
             case 3 -> "Padre da Vila";
-            case 4 -> "Torre Horizontal";
-            case 5 -> "Torre Vertical";
+            case 4 -> "TorreHor";
+            case 5 -> "TorreVert";
             case 6 -> "Homer Simpson";
             case 7 -> "Joker";
             default -> null;

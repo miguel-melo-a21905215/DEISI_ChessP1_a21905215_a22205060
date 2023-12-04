@@ -10,7 +10,7 @@ public class TorreVertical extends Piece {
             this.pngLocation = "torre_v_white.png";
         }
         this.inPlay = false;
-        this.typeStr = "Torre Vertical";
+        this.typeStr = "TorreVer";
     }
 
     @Override

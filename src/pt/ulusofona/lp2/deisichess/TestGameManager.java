@@ -10,6 +10,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestGameManager {
 
+
+    /*--------------------------------- TESTES LOADGAME - EXCEPTIONS ---------------------------------*/
+
     @Test
     void loadGameGeneralData() throws IOException, InvalidGameInputException {
         GameManager gameManager = new GameManager();
@@ -78,6 +81,7 @@ public class TestGameManager {
     }
 
 
+    /*--------------------------------- TESTES PIECEINFO + PIECEINFOASSTRING ---------------------------------*/
     @Test
     void getPieceInfoReiBrancoEmJogo() throws IOException, InvalidGameInputException {
         GameManager gameManager = new GameManager();
@@ -85,16 +89,6 @@ public class TestGameManager {
         gameManager.loadGame(file);
         String[] actualArray = gameManager.getPieceInfo(1);
         String[] expectedArray = {"1", "0", "1000", "10", "O Poderoso Chefao", "em jogo", "00"};
-        assertArrayEquals(expectedArray, actualArray);
-    }
-
-    @Test
-    void getPieceInfoRainhaPretaEmJogo() throws IOException, InvalidGameInputException {
-        GameManager gameManager = new GameManager();
-        File file = new File("test-files/8x8.txt");
-        gameManager.loadGame(file);
-        String[] actualArray = gameManager.getPieceInfo(2);
-        String[] expectedArray = {"2", "1", "8", "10", "A Dama Selvagem", "em jogo", "10"};
         assertArrayEquals(expectedArray, actualArray);
     }
 
@@ -108,6 +102,16 @@ public class TestGameManager {
         String expectedResult = "1 | Rei | (infinito) | 10 | O Poderoso Chefao @ (0, 0)";
         assertEquals(expectedResult, actualResult);
 
+    }
+
+    @Test
+    void getPieceInfoRainhaPretaEmJogo() throws IOException, InvalidGameInputException {
+        GameManager gameManager = new GameManager();
+        File file = new File("test-files/8x8.txt");
+        gameManager.loadGame(file);
+        String[] actualArray = gameManager.getPieceInfo(2);
+        String[] expectedArray = {"2", "1", "8", "10", "A Dama Selvagem", "em jogo", "10"};
+        assertArrayEquals(expectedArray, actualArray);
     }
 
     @Test
@@ -186,6 +190,35 @@ public class TestGameManager {
 
     }
 
+    @Test
+    void getPieceInfoAsStringTorreVBranca() throws IOException, InvalidGameInputException {
+        GameManager gameManager = new GameManager();
+        File file = new File("test-files/8x8.txt");
+        gameManager.loadGame(file);
+
+        String actualResult = gameManager.getPieceInfoAsString(14);
+        String expectedResult = "14 | TorreVert | 3 | 20 | Torre Trapalhona @ (5, 7)";
+
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void getPieceInfoAsStringTorreHBranca() throws IOException, InvalidGameInputException {
+        GameManager gameManager = new GameManager();
+        File file = new File("test-files/8x8.txt");
+        gameManager.loadGame(file);
+
+        String actualResult = gameManager.getPieceInfoAsString(13);
+        String expectedResult = "13 | TorreHor | 3 | 20 | Torre Poderosa @ (4, 7)";
+
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+
+
+    /*--------------------------------- TESTES BOARD - GETTERS ---------------------------------*/
 
     @Test
     void getBoardSize() throws IOException, InvalidGameInputException {
@@ -207,14 +240,19 @@ public class TestGameManager {
         assertEquals(10, currentTeamID);
     }
 
+
+    /*--------------------------------- TESTES GAME OVER --------------------------------------*/
+
     @Test
     void gameOver() throws IOException, InvalidGameInputException {
         GameManager gameManager = new GameManager();
         File file = new File("test-files/4x4.txt");
         gameManager.loadGame(file);
-        // Implemente testes que verifiquem se o jogo acabou em diferentes cenários (vitória das Pretas, vitória das Brancas, empate).
-        // Use asserções para verificar as mensagens de vitória/empate.
+        /*TODO - LER FICHEIRO TERMINADO || MOVER PARA COMER REI*2 || COMER + 10 PASSIVAS*/
     }
+
+
+    /*------------------------ TESTES MOVE ESPECIFICOS + GERAIS  ---------------------------------*/
 
     /*@Test
     public void testValidMove() throws IOException, InvalidGameInputException {
