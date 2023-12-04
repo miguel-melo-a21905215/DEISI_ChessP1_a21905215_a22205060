@@ -13,6 +13,10 @@ public class TorreVertical extends Piece {
         this.typeStr = "TorreVer";
     }
 
+    public TorreVertical() {
+
+    }
+
     @Override
     public boolean specificMoveValidation(int oriX, int oriY, int destX, int destY, Piece[][] tabuleiro) {
         int deltaY = Math.abs(destY - oriY);

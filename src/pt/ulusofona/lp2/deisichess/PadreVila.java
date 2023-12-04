@@ -13,6 +13,10 @@ public class PadreVila extends Piece {
         this.typeStr = "Padre da Vila";
     }
 
+    public PadreVila() {
+
+    }
+
     @Override
     public boolean specificMoveValidation(int oriX, int oriY, int destX, int destY, Piece[][] tabuleiro) {
 

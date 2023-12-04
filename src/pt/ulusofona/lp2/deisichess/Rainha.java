@@ -14,6 +14,10 @@ public class Rainha extends Piece {
         this.typeStr = "Rainha";
     }
 
+    public Rainha() {
+
+    }
+
     @Override
     public boolean specificMoveValidation(int oriX, int oriY, int destX, int destY, Piece[][] tabuleiro) {
 

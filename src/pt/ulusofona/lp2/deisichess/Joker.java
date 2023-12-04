@@ -26,37 +26,55 @@ public class Joker extends Piece {
         if (turn % 6 == 0) {
             this.copyMoveFrom = "Homer Simpson";
         } else if (turn % 5 == 0) {
-            this.copyMoveFrom = "Torre Vertical";
+            this.copyMoveFrom = "TorreVert";
         } else if (turn % 4 == 0) {
-            this.copyMoveFrom = "Torre Horizontal";
+            this.copyMoveFrom = "TorreHor";
         } else if (turn % 3 == 0) {
             this.copyMoveFrom = "Padre da Vila";
         } else if (turn % 2 == 0) {
-            this.copyMoveFrom = "Ponei Magico";
+            this.copyMoveFrom = "Ponei Mágico";
         } else {
             this.copyMoveFrom = "Rainha";
         }
     }
 
-   /* @Override
+    @Override
     public boolean specificMoveValidation(int oriX, int oriY, int destX, int destY, Piece[][] tabuleiro) {
         return switch (this.copyMoveFrom) {
-            case "Homer Simpson" -> HomerSimpson.specificMoveValidation(oriX, oriY, destX, destY, tabuleiro);
+            case "Homer Simpson" -> {
+                HomerSimpson tempHomer = new HomerSimpson();
+                yield tempHomer.specificMoveValidation(oriX, oriY, destX, destY, tabuleiro);
+            }
 
-            case "Torre Vertical" -> TorreVertical.specificMoveValidation(oriX, oriY, destX, destY, tabuleiro);
+            case "Torre Vertical" -> {
+                TorreVertical tempTorreVert = new TorreVertical();
+                yield tempTorreVert.specificMoveValidation(oriX, oriY, destX, destY, tabuleiro);
+            }
 
-            case "Torre Horizontal" -> TorreHorizontal.specificMoveValidation(oriX, oriY, destX, destY, tabuleiro);
+            case "Torre Horizontal" -> {
+                TorreHorizontal tempTorreHor = new TorreHorizontal();
+                yield tempTorreHor.specificMoveValidation(oriX, oriY, destX, destY, tabuleiro);
+            }
 
-            case "Padre da Vila" -> PadreVila.specificMoveValidation(oriX, oriY, destX, destY, tabuleiro);
+            case "Padre da Vila" -> {
+                PadreVila tempPadreVila = new PadreVila();
+                yield tempPadreVila.specificMoveValidation(oriX, oriY, destX, destY, tabuleiro);
+            }
 
-            case "Ponei Magico" -> PoneiMagico.specificMoveValidation(oriX, oriY, destX, destY, tabuleiro);
+            case "Ponei Magico" -> {
+                PoneiMagico tempPoneiMagico = new PoneiMagico();
+                yield tempPoneiMagico.specificMoveValidation(oriX, oriY, destX, destY, tabuleiro);
+            }
 
-            case "Rainha" -> Rainha.specificMoveValidation(oriX, oriY, destX, destY, tabuleiro);
+            case "Rainha" -> {
+                Rainha tempRainha = new Rainha();
+                yield tempRainha.specificMoveValidation(oriX, oriY, destX, destY, tabuleiro);
+            }
 
             default -> false;
 
         };
-    }*/
+    }
 
 
 }

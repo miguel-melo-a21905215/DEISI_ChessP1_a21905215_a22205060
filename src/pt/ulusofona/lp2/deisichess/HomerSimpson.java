@@ -16,6 +16,9 @@ public class HomerSimpson extends Piece {
         this.sleep = true;
     }
 
+    public HomerSimpson() {
+    }
+
     public boolean specificMoveValidation(int oriX, int oriY, int destX, int destY, Piece[][] tabuleiro) {
 
         if (isSleep()) {

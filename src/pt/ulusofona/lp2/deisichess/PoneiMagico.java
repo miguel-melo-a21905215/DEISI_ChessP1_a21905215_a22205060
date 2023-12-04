@@ -12,6 +12,11 @@ public class PoneiMagico extends Piece {
         this.inPlay = false;
         this.typeStr = "Ponei Mágico";
     }
+
+    public PoneiMagico() {
+
+    }
+
     @Override
     public boolean specificMoveValidation(int oriX, int oriY, int destX, int destY, Piece[][] tabuleiro) {
 
