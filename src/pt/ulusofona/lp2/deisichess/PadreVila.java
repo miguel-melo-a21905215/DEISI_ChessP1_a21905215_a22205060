@@ -12,4 +12,17 @@ public class PadreVila extends Piece {
         this.inPlay = false;
         this.typeStr = "Padre da Vila";
     }
+
+    @Override
+    public boolean specificMoveValidation(int oriX, int oriY, int destX, int destY, Piece[][] tabuleiro) {
+
+        int deltaX = Math.abs(destX - oriX);
+        int deltaY = Math.abs(destY - oriY);
+
+        if (deltaX == deltaY && deltaX <= 3) {
+            return diagonalCheckForPieces(oriX, oriY, destX, destY, tabuleiro);
+        }
+
+        return false;
+    }
 }
