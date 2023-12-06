@@ -387,7 +387,10 @@ public class GameManager {
             }
         }
 
-        hints.sort(Comparator.comparing(pointsWorthMove -> Integer.parseInt(pointsWorthMove.toString().split("->")[1].trim())));
+        hints.sort(Comparator
+                .comparing(pointsWorthMove -> Integer.parseInt(pointsWorthMove.toString().split("->")[1].trim()))
+                .reversed());
+
         return hints;
     }
 
