@@ -88,7 +88,7 @@ public class TestGameManager {
         File file = new File("test-files/8x8.txt");
         gameManager.loadGame(file);
         String[] actualArray = gameManager.getPieceInfo(1);
-        String[] expectedArray = {"1", "0", "10", "1000", "O Poderoso Chefao", "em jogo", "00"};
+        String[] expectedArray = {"1", "0", "1000", "10", "O Poderoso Chefao", "em jogo", "00"};
         assertArrayEquals(expectedArray, actualArray);
     }
 
@@ -110,7 +110,7 @@ public class TestGameManager {
         File file = new File("test-files/8x8.txt");
         gameManager.loadGame(file);
         String[] actualArray = gameManager.getPieceInfo(2);
-        String[] expectedArray = {"2", "1", "10", "8", "A Dama Selvagem", "em jogo", "10"};
+        String[] expectedArray = {"2", "1", "8", "10", "A Dama Selvagem", "em jogo", "10"};
         assertArrayEquals(expectedArray, actualArray);
     }
 
