@@ -22,19 +22,29 @@ public class Joker extends Piece {
     }
 
     @Override
-    public void setCopyMoveFrom(int turn) {
-        if (turn % 6 == 0) {
-            this.copyMoveFrom = "Homer Simpson";
-        } else if (turn % 5 == 0) {
-            this.copyMoveFrom = "TorreVert";
-        } else if (turn % 4 == 0) {
-            this.copyMoveFrom = "TorreHor";
-        } else if (turn % 3 == 0) {
-            this.copyMoveFrom = "Padre da Vila";
-        } else if (turn % 2 == 0) {
-            this.copyMoveFrom = "Ponei Mágico";
-        } else {
-            this.copyMoveFrom = "Rainha";
+    public void setCopyMoveFrom(String copyMoveFrom) {
+
+
+        switch (this.copyMoveFrom) {
+            case "Homer Simpson" -> {
+                this.copyMoveFrom = "Rainha";
+            }
+
+            case "TorreVert" -> {
+                this.copyMoveFrom = "Homer Simpson";
+            }
+
+            case "TorreHor" -> {
+                this.copyMoveFrom = "TorreVert";
+            }
+
+            case "Padre da Vila" -> {
+                this.copyMoveFrom = "TorreHor";
+            }
+            case "Ponei Mágico" -> {
+                this.copyMoveFrom = "Padre da Vila";
+            }
+            case "Rainha" -> this.copyMoveFrom = "Ponei Mágico";
         }
     }
 

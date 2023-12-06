@@ -169,7 +169,7 @@ public abstract class Piece {
         return null;
     }
 
-    public void setCopyMoveFrom(int turn) {
+    public void setCopyMoveFrom(String copyMoveFrom) {
 
     }
 }

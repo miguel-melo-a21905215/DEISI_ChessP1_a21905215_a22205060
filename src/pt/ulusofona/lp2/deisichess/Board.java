@@ -229,10 +229,19 @@ public class Board {
     public void jokerClock(int turn) {
         for (Piece piece : totalPieces) {
             if (piece.getTypeStr().equals("Joker")) {
-                piece.setCopyMoveFrom(turn);
+                piece.setCopyMoveFrom(piece.getCopyMoveFrom());
             }
         }
     }
 
+
+    public Piece getPieceByID(int id) {
+        for (Piece piece : totalPieces) {
+            if (piece.getId() == id) {
+                return piece;
+            }
+        }
+        return null;
+    }
 
 }

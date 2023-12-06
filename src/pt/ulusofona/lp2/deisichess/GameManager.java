@@ -201,7 +201,7 @@ public class GameManager {
         String[] pieceInfo = getPieceInfo(id);
 
         String result = "";
-        Piece consideredPiece = board.totalPieces.get(id - 1);
+        Piece consideredPiece = board.getPieceByID(id);
 
         result += pieceInfo[0] + espBarra;                  //ID
         result += pieceTypeStr(Integer.parseInt(pieceInfo[1]));
@@ -222,8 +222,8 @@ public class GameManager {
             }
         }
         if (consideredPiece != null && consideredPiece.isInPlay()) {
-            result += '(' + String.valueOf(pieceInfo[6].charAt(0));               //posX
-            result += ", " + pieceInfo[6].charAt(1) + ')';        //posY
+            result += '(' + String.valueOf(pieceInfo[6].charAt(0));                 //posX
+            result += ", " + pieceInfo[6].charAt(1) + ')';                          //posY
         } else {
             result += "(n/a)";
         }
