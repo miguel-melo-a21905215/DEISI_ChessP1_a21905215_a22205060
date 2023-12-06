@@ -164,7 +164,7 @@ public class GameManager {
 
     public String[] getPieceInfo(int id) {
 
-        //ID|tipo(emString)|Pontos da Peca|Equipa|Alcunha|Estado|posX|posY
+        //ID|tipo(emString)|Equipa|Alcunha|Estado|posX|posY
 
 
         String[] result = new String[7];
@@ -173,18 +173,18 @@ public class GameManager {
             for (Piece consideredPiece : board.getTotalPieces()) {
                 if (id == consideredPiece.getId()) {
                     result[1] = String.valueOf(consideredPiece.getType());
-                    result[2] = String.valueOf(consideredPiece.getPointsWorth());
-                    result[3] = String.valueOf(consideredPiece.getTeam());
-                    result[4] = String.valueOf(consideredPiece.getNickname());
+                    result[2] = String.valueOf(consideredPiece.getTeam());
+                    result[3] = String.valueOf(consideredPiece.getNickname());
                     if (consideredPiece.isInPlay()) {
-                        result[5] = "em jogo";
+                        result[4] = "em jogo";
                     } else {
-                        result[5] = "capturado";
+                        result[4] = "capturado";
                     }
                     if (consideredPiece.isInPlay()) {
-                        result[6] = String.valueOf(consideredPiece.getPosX());
-                        result[6] += String.valueOf(consideredPiece.getPosY());
+                        result[5] = String.valueOf(consideredPiece.getPosX());
+                        result[6] = String.valueOf(consideredPiece.getPosY());
                     } else {
+                        result[5] = "";
                         result[6] = "";
                     }
                     return result;
@@ -201,6 +201,7 @@ public class GameManager {
 
         String result = "";
         Piece consideredPiece = board.getPieceByID(id);
+        String points = String.valueOf(consideredPiece.getPointsWorth());
 
         result += pieceInfo[0] + espBarra;                  //ID
         result += pieceTypeStr(Integer.parseInt(pieceInfo[1]));
@@ -208,21 +209,21 @@ public class GameManager {
             result += "/" + consideredPiece.getCopyMoveFrom();
         }
         result += espBarra;
-        if (Objects.equals(pieceInfo[2], "1000")) {
+        if (Objects.equals(points, "1000")) {
             result += "(infinito)" + espBarra;              //SE FOR O REI DEVE ESCREVER INFINTIO EM VEZ DE MIL
         } else {
-            result += pieceInfo[2] + espBarra;              //PointsWorth
+            result += points + espBarra;              //PointsWorth
         }
-        result += pieceInfo[3] + espBarra;                  //team
-        result += pieceInfo[4] + " @ ";                     //nickname
+        result += pieceInfo[2] + espBarra;                  //team
+        result += pieceInfo[3] + " @ ";                     //nickname
         for (Piece piece : board.getTotalPieces()) {
             if (piece.getId() == id) {
                 consideredPiece = piece;
             }
         }
         if (consideredPiece != null && consideredPiece.isInPlay()) {
-            result += '(' + String.valueOf(pieceInfo[6].charAt(0));                 //posX
-            result += ", " + pieceInfo[6].charAt(1) + ')';                          //posY
+            result += '(' + String.valueOf(pieceInfo[5]);                 //posX
+            result += ", " + pieceInfo[6] + ')';                          //posY
         } else {
             result += "(n/a)";
         }
