@@ -19,23 +19,21 @@ public class Rainha extends Piece {
 
     @Override
     public boolean specificMoveValidation(int oriX, int oriY, int destX, int destY, Piece[][] tabuleiro) {
-
         int deltaX = Math.abs(destX - oriX);
         int deltaY = Math.abs(destY - oriY);
 
-        if ((deltaX == 0 && deltaY <= 5) || (deltaY == 0 && deltaX <= 5)) {
-
+        if ((deltaX == 0 && deltaY <= 5) || (deltaY == 0 && deltaX <= 5) || (deltaX == deltaY && deltaX <= 5)) {
             if (deltaX > 0) {
                 return lineCheckForPieces(oriX, oriY, destX, tabuleiro);
             } else if (deltaY > 0) {
                 return columnCheckForPieces(oriX, oriY, destY, tabuleiro);
+            } else {
+                return diagonalCheckForPieces(oriX, oriY, destX, destY, tabuleiro);
             }
-
-        } else if (deltaX == deltaY && deltaX <= 5) {
-
-            return diagonalCheckForPieces(oriX, oriY, destX, destY, tabuleiro);
         }
 
         return false;
     }
+
+
 }

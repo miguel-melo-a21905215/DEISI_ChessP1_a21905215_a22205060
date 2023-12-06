@@ -9,4 +9,22 @@ class StatisticsKt {
         }
     }
 
+    fun getTopPontos (gameManager: GameManager): ArrayList<String> {
+
+        val pieces = gameManager.board.totalPieces
+            .filter { it.pointsWorth >= 1 }
+            .sortedByDescending { it.nickname }
+            .sortedByDescending { it.numCapturas }
+            .take(5)
+            .map { piece -> "${piece.nickname} (${piece.team}) tem ${piece.getNumCapturas()} capturas"  }
+            .toCollection(ArrayList())
+
+        return pieces;
+
+
+    }
+
+
+
+
 }

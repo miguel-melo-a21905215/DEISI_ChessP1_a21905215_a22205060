@@ -4,6 +4,8 @@ import java.io.File;
 
 public abstract class Piece {
 
+
+    private int numCapturas;
     private int id;
     private int team;
     private int type;
@@ -217,5 +219,13 @@ public abstract class Piece {
 
     public void setCopyMoveFrom(String copyMoveFrom) {
 
+    }
+
+    public int getNumCapturas() {
+        return numCapturas;
+    }
+
+    public void setNumCapturas(int numCapturas) {
+        this.numCapturas = numCapturas;
     }
 }
