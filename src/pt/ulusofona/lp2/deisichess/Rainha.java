@@ -19,21 +19,50 @@ public class Rainha extends Piece {
 
     @Override
     public boolean specificMoveValidation(int oriX, int oriY, int destX, int destY, Piece[][] tabuleiro) {
+
         int deltaX = Math.abs(destX - oriX);
         int deltaY = Math.abs(destY - oriY);
 
-        if ((deltaX == 0 && deltaY <= 5) || (deltaY == 0 && deltaX <= 5) || (deltaX == deltaY && deltaX <= 5)) {
+
+        if (destX < 0 || destX >= tabuleiro.length || destY < 0 || destY >= tabuleiro[0].length) {
+            return false;
+        }
+
+
+        if (deltaX == 0 && deltaY == 0) {
+            return false;
+        }
+
+        if ((deltaX <= 5 && deltaY == 0) || (deltaY <= 5 && deltaX == 0) || (deltaX <= 5 && deltaY <= 5 && deltaX == deltaY)) {
             if (deltaX > 0) {
-                return lineCheckForPieces(oriX, oriY, destX, tabuleiro);
+                return lineCheckForPieces(oriX, oriY, destX, tabuleiro) && canCaptureQueen(tabuleiro[destX][destY]);
             } else if (deltaY > 0) {
-                return columnCheckForPieces(oriX, oriY, destY, tabuleiro);
+                return columnCheckForPieces(oriX, oriY, destY, tabuleiro) && canCaptureQueen(tabuleiro[destX][destY]);
             } else {
-                return diagonalCheckForPieces(oriX, oriY, destX, destY, tabuleiro);
+                return diagonalCheckForPieces(oriX, oriY, destX, destY, tabuleiro) && canCaptureQueen(tabuleiro[destX][destY]);
             }
         }
 
         return false;
     }
+
+
+    public boolean canCaptureQueen(Piece targetPiece) {
+
+        if(targetPiece == null) {
+            return true;
+        }
+
+        if(targetPiece.getTypeStr().equals("Rainha") && this.getTeam() == targetPiece.getTeam()) {
+            return false;
+        }
+
+        return true;
+    }
+
+
+
+
 
 
 }
