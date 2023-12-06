@@ -1,18 +1,17 @@
 package pt.ulusofona.lp2.deisichess;
 
 public class Joker extends Piece {
-    String copyMoveFrom;
+    private String copyMoveFrom;
 
     public Joker(int id, int type, int team, String nickname) {
         super(id, type, team, nickname);
-        this.pointsWorth = 4;
+        setPointsWorth(4);
         if (team == 10) {
-            this.pngLocation = "joker_black.png";
+            setPngLocation("joker_black.png");
         } else if (team == 20) {
-            this.pngLocation = "joker_white.png";
+            setPngLocation("joker_white.png");
         }
-        this.inPlay = false;
-        this.typeStr = "Joker";
+        setTypeStr("Joker");
         this.copyMoveFrom = "Rainha";
     }
 
@@ -23,7 +22,6 @@ public class Joker extends Piece {
 
     @Override
     public void setCopyMoveFrom(String copyMoveFrom) {
-
 
         switch (this.copyMoveFrom) {
             case "Homer Simpson" -> {

@@ -1,16 +1,23 @@
 package pt.ulusofona.lp2.deisichess;
 
 import java.util.HashMap;
-import java.util.Objects;
 
 public class Team {
-    int idEquipa;
-    int numJogadas;
-    int numFalhadas;
-    int numCapturadas;
-    HashMap<Integer, Piece> teamPieces;
-    int inPlayPieces;
-    boolean kingAlive;
+    private int idEquipa;
+    private int numJogadas;
+    private int numFalhadas;
+    private int numCapturadas;
+    private HashMap<Integer, Piece> teamPieces;
+    private int inPlayPieces;
+    private boolean kingAlive;
+
+    public int getIdEquipa() {
+        return idEquipa;
+    }
+
+    public HashMap<Integer, Piece> getTeamPieces() {
+        return teamPieces;
+    }
 
     public Team(int idEquipa) {
         this.idEquipa = idEquipa;
@@ -85,6 +92,7 @@ public class Team {
     public void killKing() {
         this.kingAlive = false;
     }
+
     public void setKingAlive() {
         this.kingAlive = true;
     }

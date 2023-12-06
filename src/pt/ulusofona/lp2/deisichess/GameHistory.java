@@ -6,8 +6,8 @@ import java.util.ArrayList;
 public class GameHistory {
 
 
-    ArrayList<String> moves;
-    ArrayList<Board> history;
+    private ArrayList<String> moves;
+    private  ArrayList<Board> history;
 
 
     public GameHistory() {

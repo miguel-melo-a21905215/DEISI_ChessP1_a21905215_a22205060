@@ -6,10 +6,10 @@ import java.util.*;
 
 public class GameManager {
 
-    Board board = new Board();
-    String winnerMessage = "";
-    GameHistory gameHistory = new GameHistory();
-    int turn = 0;
+    private Board board = new Board();
+    private String winnerMessage = "";
+    private GameHistory gameHistory = new GameHistory();
+    private int turn = 0;
 
 
     //a preencher pelo gameOver
@@ -303,7 +303,7 @@ public class GameManager {
             winnerMessage = "VENCERAM AS BRANCAS";
         } else if (!isWhiteKingAlive && isBlackKingAlive) {
             winnerMessage = "VENCERAM AS PRETAS";
-        } else if (!isWhiteKingAlive && !isBlackKingAlive || whitePieces == 0 && blackPieces == 0) {
+        } else if ((!isWhiteKingAlive && !isBlackKingAlive) || (whitePieces == 0 && blackPieces == 0)) {
             winnerMessage = "EMPATE";
         } else if (whitePieces == 0 || blackPieces == 0) {
             winnerMessage = whitePieces == 0 ? "VENCERAM AS PRETAS" : "VENCERAM AS BRANCAS";

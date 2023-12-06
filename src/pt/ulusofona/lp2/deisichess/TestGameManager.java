@@ -24,15 +24,15 @@ public class TestGameManager {
         assertEquals(16, gameManager.getBoard().getTotalPieces().size());
         assertEquals(2, gameManager.getBoard().getEquipas().length);
 
-        assertEquals(10, gameManager.getBoard().getEquipas()[0].idEquipa);
-        assertEquals(20, gameManager.getBoard().getEquipas()[1].idEquipa);
+        assertEquals(10, gameManager.getBoard().getEquipas()[0].getIdEquipa());
+        assertEquals(20, gameManager.getBoard().getEquipas()[1].getIdEquipa());
 
-        assertEquals(8, gameManager.getBoard().getEquipas()[0].teamPieces.size());
-        assertEquals(8, gameManager.getBoard().getEquipas()[1].teamPieces.size());
+        assertEquals(8, gameManager.getBoard().getEquipas()[0].getTeamPieces().size());
+        assertEquals(8, gameManager.getBoard().getEquipas()[1].getTeamPieces().size());
 
         boolean containsWhitePieces = false;
         boolean containsBlackPieces = false;
-        for (Piece blackPiece : gameManager.getBoard().getEquipas()[0].teamPieces.values()) {
+        for (Piece blackPiece : gameManager.getBoard().getEquipas()[0].getTeamPieces().values()) {
             if (blackPiece.getTeam() == 20) {
                 containsWhitePieces = true;
                 break;
@@ -40,7 +40,7 @@ public class TestGameManager {
 
         }
 
-        for (Piece whitePiece : gameManager.getBoard().getEquipas()[1].teamPieces.values()) {
+        for (Piece whitePiece : gameManager.getBoard().getEquipas()[1].getTeamPieces().values()) {
             if (whitePiece.getTeam() == 10) {
                 containsWhitePieces = true;
                 break;
@@ -285,7 +285,9 @@ public class TestGameManager {
         assertEquals("0", gameManager.getGameResults().get(9));
         assertEquals("0", gameManager.getGameResults().get(10));
 
-    }    @Test
+    }
+
+    @Test
     void gameOverEmpateLeitura() throws IOException, InvalidGameInputException {
         /*TODO - MOVER PARA COMER REI*2 || COMER + 10 PASSIVAS*/
         GameManager gameManager = new GameManager();
@@ -308,7 +310,7 @@ public class TestGameManager {
     }
 
     @Test
-    void main(){
+    void main() {
         assertEquals("MY PRECIOUS", Main.precious());
     }
 

@@ -4,14 +4,13 @@ public class Rainha extends Piece {
 
     public Rainha(int id, int type, int team, String nickname) {
         super(id, type, team, nickname);
-        this.pointsWorth = 8;
+        setPointsWorth(8);
         if (team == 10) {
-            this.pngLocation = "rainha_black.png";
+            setPngLocation("rainha_black.png");
         } else if (team == 20) {
-            this.pngLocation = "rainha_white.png";
+            setPngLocation("rainha_white.png");
         }
-        this.inPlay = false;
-        this.typeStr = "Rainha";
+        setTypeStr("Rainha");
     }
 
     public Rainha() {
