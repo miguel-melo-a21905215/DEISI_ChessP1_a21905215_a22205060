@@ -9,8 +9,8 @@ import java.util.Scanner;
 
 public class GameManager {
 
-    Board board = new Board();
-    String winnerMessage = ""; //a preencher pelo gameOver
+    private Board board = new Board();
+    private String winnerMessage = ""; //a preencher pelo gameOver
 
     public GameManager(Board board, String winner) {
         this.board = board;
@@ -239,7 +239,8 @@ public class GameManager {
                             return true;
 
                         } else {
-                            board.equipas[board.isCurrentTeamNumb()].invalida();
+                            /*QUEBRA DE ENCAPSULAMENTO ->board.equipas[board.isCurrentTeamNumb()].invalida();*/
+                            board.getEquipas()[board.isCurrentTeamNumb()].invalida();
                             return false;                                                                   //PECA NO DESTINO DA MESMA EQUIPA -> INVALIDO
                         }
                     } else if (!board.temPeca(destX, destY)) {                                              //SEM PECA NO DESTINO -> MOVE APENAS

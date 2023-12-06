@@ -4,14 +4,14 @@ import java.io.File;
 
 public class Piece {
 
-    int id;
-    int team;
-    int type;
-    int posX;
-    int posY;
-    String nickname;
-    File icon;
-    boolean inPlay;
+    private int id;
+    private int team;
+    private int type;
+    private int posX;
+    private int posY;
+    private String nickname;
+    private File icon;
+    private boolean inPlay;
 
     public Piece(int id, int type, int team, String nickname) {
         this.id = id;

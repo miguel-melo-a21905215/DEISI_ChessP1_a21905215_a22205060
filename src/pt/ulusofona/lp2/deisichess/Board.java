@@ -3,13 +3,13 @@ package pt.ulusofona.lp2.deisichess;
 import java.util.ArrayList;
 
 public class Board {
-    int size;
-    Piece[][] tabuleiro;
-    Team[] equipas;
-    ArrayList<Piece> totalPieces;
-    boolean currentTeam;
-    int consecPassPlays;
-    int numeroPecas;
+    private int size;
+    private Piece[][] tabuleiro;
+    private Team[] equipas;
+    private ArrayList<Piece> totalPieces;
+    private boolean currentTeam;
+    private int consecPassPlays;
+    private int numeroPecas;
 
 
     public Board(int size, int numeroPecas) {

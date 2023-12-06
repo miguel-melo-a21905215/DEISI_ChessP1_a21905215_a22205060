@@ -3,12 +3,12 @@ package pt.ulusofona.lp2.deisichess;
 import java.util.HashMap;
 
 public class Team {
-    int idEquipa;
-    int numJogadas;
-    int numFalhadas;
-    int numCapturadas;
-    HashMap<Integer, Piece> teamPieces;
-    int inPlayPieces;
+    private int idEquipa;
+    private int numJogadas;
+    private int numFalhadas;
+    private int numCapturadas;
+    private HashMap<Integer, Piece> teamPieces;
+    private  int inPlayPieces;
 
     public Team(int idEquipa) {
         this.idEquipa = idEquipa;
