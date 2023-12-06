@@ -173,9 +173,8 @@ public class GameManager {
             for (Piece consideredPiece : board.getTotalPieces()) {
                 if (id == consideredPiece.getId()) {
                     result[1] = String.valueOf(consideredPiece.getType());
-
-                    result[2] = String.valueOf(consideredPiece.getPointsWorth());
-                    result[3] = String.valueOf(consideredPiece.getTeam());
+                    result[2] = String.valueOf(consideredPiece.getTeam());
+                    result[3] = String.valueOf(consideredPiece.getPointsWorth());
                     result[4] = String.valueOf(consideredPiece.getNickname());
                     if (consideredPiece.isInPlay()) {
                         result[5] = "em jogo";
@@ -209,12 +208,12 @@ public class GameManager {
             result += "/" + consideredPiece.getCopyMoveFrom();
         }
         result += espBarra;
-        if (Objects.equals(pieceInfo[2], "1000")) {
+        if (Objects.equals(pieceInfo[3], "1000")) {
             result += "(infinito)" + espBarra;              //SE FOR O REI DEVE ESCREVER INFINTIO EM VEZ DE MIL
         } else {
-            result += pieceInfo[2] + espBarra;              //PointsWorth
+            result += pieceInfo[3] + espBarra;              //PointsWorth
         }
-        result += pieceInfo[3] + espBarra;                  //team
+        result += pieceInfo[2] + espBarra;                  //team
         result += pieceInfo[4] + " @ ";                     //nickname
         for (Piece piece : board.getTotalPieces()) {
             if (piece.getId() == id) {
