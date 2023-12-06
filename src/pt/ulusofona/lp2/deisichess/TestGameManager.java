@@ -307,6 +307,11 @@ public class TestGameManager {
 
     }
 
+    @Test
+    void main(){
+        assertEquals("MY PRECIOUS", Main.precious());
+    }
+
 
     /*------------------------ TESTES MOVE ESPECIFICOS + GERAIS  ---------------------------------*/
 
