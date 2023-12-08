@@ -329,6 +329,11 @@ public class GameManager {
                 /*COMEU - JA FOI VERIFICADO SE A PEÇA NO DESTINO É DA EQUIPA CONTRÁRIA NA generalMoveValidation()*/
                 if (board.temPeca(destX, destY)) {
                     Piece pecaNoDestino = board.getPecaNaPos(destX, destY);
+
+                    if (pecaMovida.getTypeStr().equals("Rainha") && pecaNoDestino.getTypeStr().equals("Rainha")) {
+                        return false; // Queens cannot capture each other
+                    }
+
                     pecaNoDestino.getPointsWorth();                                                     //TODO -> VER PARTE ESTATISTICA
 
                     board.tiraPecaOrigem(oriX, oriY);
