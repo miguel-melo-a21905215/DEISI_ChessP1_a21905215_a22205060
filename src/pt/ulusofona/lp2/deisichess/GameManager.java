@@ -331,7 +331,7 @@ public class GameManager {
                     Piece pecaNoDestino = board.getPecaNaPos(destX, destY);
 
                     if (pecaMovida.getTypeStr().equals("Rainha") && pecaNoDestino.getTypeStr().equals("Rainha")) {
-                        return false; // Queens cannot capture each other
+                        return false;
                     }
 
                     pecaNoDestino.getPointsWorth();                                                     //TODO -> VER PARTE ESTATISTICA
