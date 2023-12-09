@@ -38,6 +38,8 @@ public class Rainha extends Piece {
                 return lineCheckForPieces(oriX, oriY, destX, tabuleiro) && canCaptureQueen(tabuleiro[destX][destY]);
             } else if (deltaY > 0) {
                 return columnCheckForPieces(oriX, oriY, destY, tabuleiro) && canCaptureQueen(tabuleiro[destX][destY]);
+            } else if (deltaX == 0 && deltaY > 0) {
+                return columnCheckForPieces(oriX, oriY, destY, tabuleiro) && canCaptureQueen(tabuleiro[destX][destY]);
             } else {
                 return diagonalCheckForPieces(oriX, oriY, destX, destY, tabuleiro) && canCaptureQueen(tabuleiro[destX][destY]);
             }
@@ -48,23 +50,20 @@ public class Rainha extends Piece {
 
 
     public boolean canCaptureQueen(Piece targetPiece) {
-
-        if(targetPiece == null) {
+        if (targetPiece == null) {
             return true;
         }
 
-        if(targetPiece instanceof Joker) {
-
+        if (targetPiece.getTypeStr() == "Joker") {
             Joker joker = (Joker) targetPiece;
-
-            if(joker.getCopyMoveFrom().equals("Rainha")) {
+            if (joker.getCopyMoveFrom().equals("Rainha")) {
                 return false;
             } else {
                 return true;
             }
         }
 
-        if(targetPiece.getTypeStr().equals("Rainha") && this.getTeam() == targetPiece.getTeam()) {
+        if (targetPiece.getTypeStr() == "Rainha" && this.getTeam() == targetPiece.getTeam()) {
             return false;
         }
 
