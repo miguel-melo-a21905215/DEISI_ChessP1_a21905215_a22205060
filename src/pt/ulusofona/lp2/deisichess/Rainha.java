@@ -53,16 +53,23 @@ public class Rainha extends Piece {
             return true;
         }
 
+        if(targetPiece instanceof Joker) {
+
+            Joker joker = (Joker) targetPiece;
+
+            if(joker.getCopyMoveFrom().equals("Rainha")) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
         if(targetPiece.getTypeStr().equals("Rainha") && this.getTeam() == targetPiece.getTeam()) {
             return false;
         }
 
         return true;
     }
-
-
-
-
 
 
 }
