@@ -304,9 +304,9 @@ public class GameManager {
         boolean isBlackKingAlive = board.getEquipas()[0].isKingAlive();
 
         if (!isBlackKingAlive && isWhiteKingAlive) {
-            winnerMessage = "VENCERAM AS BRANCAS";
-        } else if (!isWhiteKingAlive && isBlackKingAlive) {
             winnerMessage = "VENCERAM AS PRETAS";
+        } else if (!isWhiteKingAlive && isBlackKingAlive) {
+            winnerMessage = "VENCERAM AS BRANCAS";
         } else if ((!isWhiteKingAlive && !isBlackKingAlive) || (whitePieces == 0 && blackPieces == 0)) {
             winnerMessage = "EMPATE";
         } else if (whitePieces == 0 || blackPieces == 0) {
