@@ -5,18 +5,18 @@ import java.io.File;
 public abstract class Piece {
 
 
-    private int numCapturas;
-    private int id;
-    private int team;
-    private int type;
-    private int posX;
-    private int posY;
-    private String nickname;
-    private File icon;
-    private boolean inPlay = false;
-    private int pointsWorth;
-    private String pngLocation;
-    private String typeStr;
+    protected int numCapturas;
+    protected int id;
+    protected int team;
+    protected int type;
+    protected int posX;
+    protected int posY;
+    protected String nickname;
+    protected File icon;
+    protected boolean inPlay = false;
+    protected int pointsWorth;
+    protected String pngLocation;
+    protected String typeStr;
 
     protected Piece(int id, int type, int team, String nickname) {
         this.id = id;
@@ -138,7 +138,7 @@ public abstract class Piece {
         int x = oriX + xIncrement;
 
         while (x != destX) {
-            if (tabuleiro[oriY][x] != null) {
+            if (tabuleiro[x][oriY] != null) {
                 return false;
             }
             x += xIncrement;
@@ -153,7 +153,7 @@ public abstract class Piece {
         int y = oriY + yIncrement;
 
         while (y != destY) {
-            if (tabuleiro[y][oriX] != null) {
+            if (tabuleiro[oriX][y] != null) {
                 return false;
             }
             y += yIncrement;
