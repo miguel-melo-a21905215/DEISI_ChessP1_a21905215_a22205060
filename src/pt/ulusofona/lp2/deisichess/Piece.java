@@ -228,4 +228,8 @@ public abstract class Piece {
     public void setNumCapturas(int numCapturas) {
         this.numCapturas = numCapturas;
     }
+
+    public Boolean isSleeping() {
+        return true;
+    }
 }

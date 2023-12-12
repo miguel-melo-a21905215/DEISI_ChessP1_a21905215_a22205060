@@ -33,17 +33,19 @@ public class HomerSimpson extends Piece {
         return false;
     }
 
+    @Override
+    public Boolean isSleeping() {
+        return sleep;
+    }
+
 
     @Override
     public void goSleep() {
-        setTypeStr("Doh! zzzzzz");
         this.sleep = true;
     }
 
     @Override
     public void awake() {
-
-        setTypeStr("Homer Simpson");
         this.sleep = false;
     }
 }
