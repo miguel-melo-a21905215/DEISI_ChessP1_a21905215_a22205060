@@ -11,7 +11,7 @@ public class HomerSimpson extends Piece {
         } else if (team == 20) {
             setPngLocation("homer_white.png");
         }
-        setTypeStr("Homer Simpson");
+        setTypeStr("Doh! zzzzzz");
         this.sleep = true;
     }
 
@@ -20,35 +20,30 @@ public class HomerSimpson extends Piece {
 
     public boolean specificMoveValidation(int oriX, int oriY, int destX, int destY, Piece[][] tabuleiro) {
 
-        if (isSleep()) {
-            System.out.println("Doh! zzzzzz");
-            return false;
+        if (!sleep) {
+
+            int deltaX = Math.abs(destX - oriX);
+            int deltaY = Math.abs(destY - oriY);
+
+            if (deltaX == 1 && deltaY == 1) {
+                return diagonalCheckForPieces(oriX, oriY, destX, destY, tabuleiro);
+            }
+
         }
-
-        int deltaX = Math.abs(destX - oriX);
-        int deltaY = Math.abs(destY - oriY);
-
-        if (deltaX == 1 && deltaY == 1) {
-            return diagonalCheckForPieces(oriX, oriY, destX, destY, tabuleiro);
-        }
-
         return false;
     }
 
-    public boolean isSleep() {
-        if (sleep) {
-            System.out.println("Doh! zzzzzz");
-        }
-        return sleep;
-    }
 
     @Override
     public void goSleep() {
+        setTypeStr("Doh! zzzzzz");
         this.sleep = true;
     }
 
     @Override
     public void awake() {
+
+        setTypeStr("Homer Simpson");
         this.sleep = false;
     }
 }
