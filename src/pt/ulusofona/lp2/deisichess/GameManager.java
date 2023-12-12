@@ -310,7 +310,7 @@ public class GameManager {
         } else if ((!isWhiteKingAlive && !isBlackKingAlive) || (whitePieces == 0 && blackPieces == 0)) {
             winnerMessage = "EMPATE";
         } else if (whitePieces == 0 || blackPieces == 0) {
-            winnerMessage = whitePieces == 0 ? "VENCERAM AS BRANCAS" : "VENCERAM AS PRETAS";
+            winnerMessage = whitePieces == 0 ? "VENCERAM AS PRETAS" : "VENCERAM AS BRANCAS";
         } else if ((blackPieces == 1 && whitePieces == 1) || board.getConsecPassPlays() == 10) {
             winnerMessage = "EMPATE";
         } else {
