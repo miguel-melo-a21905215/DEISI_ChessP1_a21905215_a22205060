@@ -18,6 +18,7 @@ public class HomerSimpson extends Piece {
     public HomerSimpson() {
     }
 
+    @Override
     public boolean specificMoveValidation(int oriX, int oriY, int destX, int destY, Piece[][] tabuleiro) {
 
         if (!sleep) {
