@@ -24,51 +24,21 @@ public class Rainha extends Piece {
         int deltaY = Math.abs(destY - oriY);
 
 
-        if (destX < 0 || destX >= tabuleiro.length || destY < 0 || destY >= tabuleiro[0].length) {
+        if (destX < 0 || destX >= tabuleiro.length || destY < 0 || destY >= tabuleiro[0].length || deltaX > 5 || deltaY > 5 || (deltaX == 0 && deltaY == 0)) {
             return false;
         }
 
 
-        if (deltaX == 0 && deltaY == 0) {
-            return false;
-        }
-
-        if ((deltaX <= 5 && deltaY == 0) || (deltaY <= 5 && deltaX == 0) || (deltaX <= 5 && deltaY <= 5 && deltaX == deltaY)) {
-            if (deltaX > 0) {
-                return lineCheckForPieces(oriX, oriY, destX, tabuleiro) && canCaptureQueen(tabuleiro[destX][destY]);
-            } else if (deltaY > 0) {
-                return columnCheckForPieces(oriX, oriY, destY, tabuleiro) && canCaptureQueen(tabuleiro[destX][destY]);
-            } else if (deltaX == 0 && deltaY > 0) {
-                return columnCheckForPieces(oriX, oriY, destY, tabuleiro) && canCaptureQueen(tabuleiro[destX][destY]);
-            } else {
-                return diagonalCheckForPieces(oriX, oriY, destX, destY, tabuleiro) && canCaptureQueen(tabuleiro[destX][destY]);
-            }
+        if (deltaY == 0) {
+            return lineCheckForPieces(oriX, oriY, destX, tabuleiro);
+        } else if (deltaX == 0) {
+            return columnCheckForPieces(oriX, oriY, destY, tabuleiro);
+        } else if (deltaX == deltaY) {
+            return diagonalCheckForPieces(oriX, oriY, destX, destY, tabuleiro);
         }
 
         return false;
     }
-
-
-    public boolean canCaptureQueen(Piece targetPiece) {
-        if (targetPiece == null) {
-            return true;
-        }
-
-        if (targetPiece.getTypeStr() == "Joker") {
-            Joker joker = (Joker) targetPiece;
-            if (joker.getCopyMoveFrom().equals("Rainha")) {
-                return false;
-            } else {
-                return true;
-            }
-        }
-
-        if (targetPiece.getTypeStr() == "Rainha" && this.getTeam() == targetPiece.getTeam()) {
-            return false;
-        }
-
-        return true;
-    }
-
+    
 
 }
