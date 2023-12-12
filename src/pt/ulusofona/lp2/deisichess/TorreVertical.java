@@ -9,7 +9,7 @@ public class TorreVertical extends Piece {
         } else if (team == 20) {
             setPngLocation("torre_v_white.png");
         }
-        setTypeStr("TorreHor");
+        setTypeStr("TorreVer");
     }
 
     public TorreVertical() {

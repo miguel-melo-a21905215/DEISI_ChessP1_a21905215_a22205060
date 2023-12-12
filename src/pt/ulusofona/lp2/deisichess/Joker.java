@@ -24,24 +24,11 @@ public class Joker extends Piece {
     public void setCopyMoveFrom(String copyMoveFrom) {
 
         switch (this.copyMoveFrom) {
-            case "Homer Simpson" -> {
-                this.copyMoveFrom = "Rainha";
-            }
-
-            case "TorreVert" -> {
-                this.copyMoveFrom = "Homer Simpson";
-            }
-
-            case "TorreHor" -> {
-                this.copyMoveFrom = "TorreVert";
-            }
-
-            case "Padre da Vila" -> {
-                this.copyMoveFrom = "TorreHor";
-            }
-            case "Ponei Mágico" -> {
-                this.copyMoveFrom = "Padre da Vila";
-            }
+            case "Homer Simpson" -> this.copyMoveFrom = "Rainha";
+            case "TorreVert" -> this.copyMoveFrom = "Homer Simpson";
+            case "TorreHor" -> this.copyMoveFrom = "TorreVert";
+            case "Padre da Vila" -> this.copyMoveFrom = "TorreHor";
+            case "Ponei Mágico" -> this.copyMoveFrom = "Padre da Vila";
             case "Rainha" -> this.copyMoveFrom = "Ponei Mágico";
         }
     }
