@@ -1,6 +1,7 @@
 package pt.ulusofona.lp2.deisichess;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class Team {
     private int idEquipa;
@@ -9,7 +10,15 @@ public class Team {
     private int numCapturadas;
     private HashMap<Integer, Piece> teamPieces;
     private int inPlayPieces;
-    private boolean kingAlive;
+
+    public Team(int idEquipa) {
+        this.idEquipa = idEquipa;
+        this.numJogadas = 0;
+        this.numFalhadas = 0;
+        this.numCapturadas = 0;
+        this.inPlayPieces = 0;
+        this.teamPieces = new HashMap<>();
+    }
 
     public int getIdEquipa() {
         return idEquipa;
@@ -19,22 +28,10 @@ public class Team {
         return teamPieces;
     }
 
-    public Team(int idEquipa) {
-        this.idEquipa = idEquipa;
-        this.numJogadas = 0;
-        this.numFalhadas = 0;
-        this.numCapturadas = 0;
-        this.inPlayPieces = 0;
-        this.teamPieces = new HashMap<>();
-        this.kingAlive = false;
-    }
-
-
     public void addPieceToHmap(Piece newPiece) {
 
         teamPieces.put(newPiece.getId(), newPiece);
     }
-
 
     public int convertNumEquipas(int num) {
         if (num == 20) {
@@ -86,15 +83,13 @@ public class Team {
     }
 
     public boolean isKingAlive() {
-        return kingAlive;
+        for (Piece consideredPiece : teamPieces.values()) {
+            if (Objects.equals(consideredPiece.getTypeStr(), "Rei") && consideredPiece.isInPlay()) {
+                return true;
+            }
+        }
+        return false;
     }
 
-    public void killKing() {
-        this.kingAlive = false;
-    }
-
-    public void setKingAlive() {
-        this.kingAlive = true;
-    }
 }
 
