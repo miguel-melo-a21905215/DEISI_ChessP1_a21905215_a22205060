@@ -75,9 +75,7 @@ public class GameManager {
                                     board.metePecaDestino(piece, x, y);
                                     piece.marcaInPlay();
                                     board.getEquipas()[board.convertNumEquipas(piece.getTeam())].incrementarInPlay();
-                                    if (Objects.equals(piece.getTypeStr(), "Rei")) {
-                                        board.getEquipas()[board.convertNumEquipas(piece.getTeam())].setKingAlive();
-                                    }
+
 
                                 }
                             }
@@ -304,9 +302,9 @@ public class GameManager {
         boolean isBlackKingAlive = board.getEquipas()[0].isKingAlive();
 
         if (!isBlackKingAlive && isWhiteKingAlive) {
-            winnerMessage = "VENCERAM AS PRETAS";
-        } else if (!isWhiteKingAlive && isBlackKingAlive) {
             winnerMessage = "VENCERAM AS BRANCAS";
+        } else if (!isWhiteKingAlive && isBlackKingAlive) {
+            winnerMessage = "VENCERAM AS PRETAS";
         } else if ((!isWhiteKingAlive && !isBlackKingAlive) || (whitePieces == 0 && blackPieces == 0)) {
             winnerMessage = "EMPATE";
         } else if (whitePieces == 0 || blackPieces == 0) {
@@ -334,7 +332,8 @@ public class GameManager {
                 if (board.temPeca(destX, destY)) {
                     Piece pecaNoDestino = board.getPecaNaPos(destX, destY);
 
-                    if (pecaMovida.getTypeStr().equals("Rainha") && pecaNoDestino.getTypeStr().equals("Rainha")) {
+                    if (pecaMovida.getTypeStr().equals("Rainha") && (pecaNoDestino.getTypeStr().equals("Rainha") || Objects.equals(pecaNoDestino.getCopyMoveFrom(), "Rainha"))) {
+                        //VERIFICA SE A PECA NO DESTINO É RAINHA OU JOKER A FAZER DE RAINHA
                         return false;
                     }
 
@@ -345,10 +344,6 @@ public class GameManager {
                     board.metePecaDestino(pecaMovida, destX, destY);
                     board.comeu();
 
-                    if (Objects.equals(pecaNoDestino.getTypeStr(), "Rei")) {
-                        board.getEquipas()[board.convertNumEquipas(pecaMovida.getTeam())].killKing();
-                        return true;
-                    }
 
                     turn++;
                     board.homerClock(turn);

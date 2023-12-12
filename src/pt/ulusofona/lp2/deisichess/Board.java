@@ -10,7 +10,7 @@ public class Board {
     private boolean currentTeam;
     private int consecPassPlays;
     private int numeroPecas;
-    private boolean firstCapture;
+    private boolean firstCaptureOcurred;
     private int turn;
 
 
@@ -24,7 +24,7 @@ public class Board {
         this.equipas[1] = new Team(20);
         this.totalPieces = new ArrayList<>();
         this.currentTeam = false;
-        this.firstCapture = true;
+        this.firstCaptureOcurred = false;
         this.turn = 0;
 
     }
@@ -37,36 +37,82 @@ public class Board {
         this.currentTeam = currentTeam;
         this.consecPassPlays = consecPassPlays;
         this.numeroPecas = numeroPecas;
-        this.firstCapture = true;
+        this.firstCaptureOcurred = true;
     }
-
 
     public Board() {
     }
 
+    public int getNumeroPecas() {
+        return numeroPecas;
+    }
+
+    public void setNumeroPecas(int numeroPecas) {
+        this.numeroPecas = numeroPecas;
+    }
+
+    public boolean isFirstCapture() {
+        return firstCaptureOcurred;
+    }
+
+    public void setFirstCapture(boolean firstCapture) {
+        this.firstCaptureOcurred = firstCapture;
+    }
+
+    public int getTurn() {
+        return turn;
+    }
+
+    public void setTurn(int turn) {
+        this.turn = turn;
+    }
 
     public Piece[][] getTabuleiro() {
         return tabuleiro;
+    }
+
+    public void setTabuleiro(Piece[][] tabuleiro) {
+        this.tabuleiro = tabuleiro;
     }
 
     public Team[] getEquipas() {
         return equipas;
     }
 
+    public void setEquipas(Team[] equipas) {
+        this.equipas = equipas;
+    }
+
     public ArrayList<Piece> getTotalPieces() {
         return totalPieces;
+    }
+
+    public void setTotalPieces(ArrayList<Piece> totalPieces) {
+        this.totalPieces = totalPieces;
     }
 
     public int getSize() {
         return size;
     }
 
+    public void setSize(int size) {
+        this.size = size;
+    }
+
     public int getConsecPassPlays() {
         return consecPassPlays;
     }
 
+    public void setConsecPassPlays(int consecPassPlays) {
+        this.consecPassPlays = consecPassPlays;
+    }
+
     public boolean isCurrentTeam() {
         return currentTeam;
+    }
+
+    public void setCurrentTeam(boolean currentTeam) {
+        this.currentTeam = currentTeam;
     }
 
     public int isCurrentTeamNumb() {
@@ -151,11 +197,11 @@ public class Board {
 
     public void comeu() {
         equipas[convertNumEquipas(isCurrentTeamNumb())].comeu();
-        consecPassPlays = 0;
+        this.consecPassPlays = 0;
         equipas[convertNumEquipas(isntCurrentTeamNumb())].decrementarInPlay();
         currentTeam = !currentTeam;
-        if (firstCapture) {
-            firstCapture = false;
+        if (!firstCaptureOcurred) {
+            firstCaptureOcurred = true;
         }
 
 
@@ -164,7 +210,7 @@ public class Board {
     public void moveu() {
         equipas[convertNumEquipas(isCurrentTeamNumb())].moveuSemComer();
         this.currentTeam = !currentTeam;
-        if (!firstCapture) {
+        if (firstCaptureOcurred) {
             this.consecPassPlays++;
         }
     }
