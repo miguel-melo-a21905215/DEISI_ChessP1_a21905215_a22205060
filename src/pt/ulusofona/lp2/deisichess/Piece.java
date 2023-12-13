@@ -174,7 +174,7 @@ public abstract class Piece {
         int y = oriY + yIncrement;
 
         while (x != destX && y != destY) {
-            if (tabuleiro[y][x] != null) {
+            if (tabuleiro[x][y] != null) {
                 return false;
             }
             x += xIncrement;
@@ -217,7 +217,7 @@ public abstract class Piece {
         return null;
     }
 
-    public void setCopyMoveFrom(String copyMoveFrom) {
+    public void jokerClock() {
 
     }
 

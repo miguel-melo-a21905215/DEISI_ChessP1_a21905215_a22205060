@@ -7,7 +7,7 @@ public class GameHistory {
 
 
     private ArrayList<String> moves;
-    private  ArrayList<Board> history;
+    private ArrayList<Board> history;
 
 
     public GameHistory() {
