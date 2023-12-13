@@ -16,6 +16,7 @@ public class HomerSimpson extends Piece {
     }
 
     public HomerSimpson() {
+        this.sleep = false;
     }
 
     @Override

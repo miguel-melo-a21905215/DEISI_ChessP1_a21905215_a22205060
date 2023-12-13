@@ -248,7 +248,7 @@ public class GameManager {
     }
 
     public String[] getSquareInfo(int x, int y) {
-        Piece consideredPiece = board.getTabuleiro()[x][y];
+        Piece consideredPiece = board.getPecaNaPos(x, y);
         if (consideredPiece == null) {
             return new String[0];
         } else {
@@ -346,8 +346,8 @@ public class GameManager {
 
 
                     turn++;
-                    board.homerClock(turn);
-                    board.jokerClock(turn);
+                    board.homerClock(this.turn);
+                    board.jokerClock(this.turn);
 
                     String moveStr = gameHistory.moveToString(oriX, oriY, destX, destY);
                     gameHistory.addNewMove(moveStr, this.board);
@@ -358,8 +358,8 @@ public class GameManager {
                     board.moveu();
 
                     turn++;
-                    board.homerClock(turn);
-                    board.jokerClock(turn);
+                    board.homerClock(this.turn);
+                    board.jokerClock(this.turn);
 
                     String moveStr = gameHistory.moveToString(oriX, oriY, destX, destY);
                     gameHistory.addNewMove(moveStr, this.board);

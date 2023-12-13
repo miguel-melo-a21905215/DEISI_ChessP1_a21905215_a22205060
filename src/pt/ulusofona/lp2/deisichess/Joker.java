@@ -2,6 +2,7 @@ package pt.ulusofona.lp2.deisichess;
 
 public class Joker extends Piece {
     private String copyMoveFrom;
+    private int turn;
 
     public Joker(int id, int type, int team, String nickname) {
         super(id, type, team, nickname);
@@ -21,7 +22,7 @@ public class Joker extends Piece {
     }
 
     @Override
-    public void setCopyMoveFrom(String copyMoveFrom) {
+    public void jokerClock() {
 
         switch (this.copyMoveFrom) {
             case "Homer Simpson" -> this.copyMoveFrom = "Rainha";
@@ -56,7 +57,7 @@ public class Joker extends Piece {
                 yield tempPadreVila.specificMoveValidation(oriX, oriY, destX, destY, tabuleiro);
             }
 
-            case "Ponei Magico" -> {
+            case "Ponei Mágico" -> {
                 PoneiMagico tempPoneiMagico = new PoneiMagico();
                 yield tempPoneiMagico.specificMoveValidation(oriX, oriY, destX, destY, tabuleiro);
             }

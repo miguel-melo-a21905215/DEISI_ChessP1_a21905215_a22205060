@@ -259,13 +259,13 @@ public class Board {
     public void homerClock(int turn) {
         if (turn % 3 == 0) {
             for (Piece consideredPiece : totalPieces) {
-                if (consideredPiece.getTypeStr().equals("Homer Simpson")) {
+                if (consideredPiece.getType() == 6) {
                     consideredPiece.goSleep();
                 }
             }
         } else {
             for (Piece consideredPiece : totalPieces) {
-                if (consideredPiece.getTypeStr().equals("Homer Simpson")) {
+                if (consideredPiece.getType() == 6) {
                     consideredPiece.awake();
                 }
             }
@@ -274,8 +274,8 @@ public class Board {
 
     public void jokerClock(int turn) {
         for (Piece piece : totalPieces) {
-            if (piece.getTypeStr().equals("Joker")) {
-                piece.setCopyMoveFrom(piece.getCopyMoveFrom());
+            if (piece.getType()==7) {
+                piece.jokerClock();
             }
         }
     }
