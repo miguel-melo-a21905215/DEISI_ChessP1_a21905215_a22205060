@@ -317,24 +317,33 @@ public class TestGameManager {
 
     /*------------------------ TESTES MOVE ESPECIFICOS + GERAIS  ---------------------------------*/
 
-    /*@Test
-    public void testValidMove() throws IOException, InvalidGameInputException {
-
+    @Test
+    public void testgetHintBegining() throws IOException, InvalidGameInputException {
         GameManager gameManager = new GameManager();
-        File file = new File("test-files/4x4.txt");
+        File file = new File("test-files/8x8.txt");
         gameManager.loadGame(file);
+        assertFalse(gameManager.gameOver());
 
-        // Obtenha a situação do tabuleiro antes do movimento
-        String[] initialSquareInfo = gameManager.getSquareInfo(1, 0);
+        assertEquals(2, gameManager.getHints(0, 0).size());         //REI
+        assertEquals(11, gameManager.getHints(1, 0).size());        //RAINHA
+        assertEquals(2, gameManager.getHints(2, 0).size());         //PONEI MAGICO
+        assertEquals(6, gameManager.getHints(3, 0).size());         //PADRE DA VILA
+        assertEquals(0, gameManager.getHints(4, 0).size());         //TORRE HORIZONTAL
+        assertEquals(7, gameManager.getHints(5, 0).size());         //TORRE VERTICAL
+        assertEquals(0, gameManager.getHints(6, 0).size());         //HOMER
+        assertEquals(10, gameManager.getHints(7, 0).size());        //JOKER
 
-        // Tente fazer um movimento válido
-        boolean validMove = gameManager.move(1, 0, 1, 1);
 
-        // Obtenha a situação do tabuleiro após o movimento
-        String[] updatedResultInfo = gameManager.getSquareInfo(1, 1);
+        assertTrue(gameManager.move(2, 0, 0, 2));
 
-        // Verifique se o movimento foi válido (true)
-        assertTrue(validMove);
-        assertNotEquals(initialSquareInfo, updatedResultInfo); // Verifica se o ID da peça mudou
-    }*/
+        assertEquals(2, gameManager.getHints(0, 7).size());         //REI
+        assertEquals(11, gameManager.getHints(1, 7).size());        //RAINHA
+        assertEquals(2, gameManager.getHints(2, 7).size());         //PONEI MAGICO
+        assertEquals(6, gameManager.getHints(3, 7).size());         //PADRE DA VILA
+        assertEquals(0, gameManager.getHints(4, 7).size());         //TORRE HORIZONTAL
+        assertEquals(7, gameManager.getHints(5, 7).size());         //TORRE VERTICAL
+        assertEquals(2, gameManager.getHints(6, 7).size());         //HOMER
+        assertEquals(1, gameManager.getHints(7, 7).size());         //JOKER
+
+    }
 }
