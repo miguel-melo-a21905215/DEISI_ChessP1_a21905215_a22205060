@@ -329,6 +329,7 @@ public class GameManager {
             Piece pecaMovida = board.getPecaNaPos(oriX, oriY);
             if (pecaMovida.specificMoveValidation(oriX, oriY, destX, destY, board.getTabuleiro())) {    //CAMINHO LIVRE + CUMPRE LIMITES MOVE ESPECIFICO
                 /*COMEU - JA FOI VERIFICADO SE A PEÇA NO DESTINO É DA EQUIPA CONTRÁRIA NA generalMoveValidation()*/
+                /*VERIFCAÇÃO DE RAINHA COME RAINHA/JOKER->RAINHA É FEITA NO SPECIFIC MOVE DA RAINHA*/
                 if (board.temPeca(destX, destY)) {
                     Piece pecaNoDestino = board.getPecaNaPos(destX, destY);
 
@@ -382,7 +383,7 @@ public class GameManager {
                     if (board.getPecaNaPos(destX, destY) != null) {
                         pointsWorthMove = board.getPecaNaPos(destX, destY).getPointsWorth();
                     }
-                    hints.add("(" + destX + ", " + destY + ") -> " + pointsWorthMove);
+                    hints.add("(" + destX + "," + destY + ") -> " + pointsWorthMove);
                 }
             }
         }
