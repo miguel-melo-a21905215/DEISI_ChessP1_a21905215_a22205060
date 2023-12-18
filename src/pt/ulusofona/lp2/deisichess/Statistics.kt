@@ -12,19 +12,18 @@ fun getStatsCalculator(estatisticas: StatType): (GameManager) -> ArrayList<Strin
 }
 
 fun getTopPontos(gameManager: GameManager): ArrayList<String> {
-
     val pieces = gameManager.board.totalPieces
-            .filter { it.pointsWorth >= 1 }
-            .sortedByDescending { it.nickname }
-            .sortedByDescending { it.numCapturas }
-            .take(5)
-            .map { piece -> "${piece.nickname} (${piece.team}) tem ${piece.getNumCapturas()} capturas" }
-            .toCollection(ArrayList())
+        .filter { it.pointsWorth >= 1 }
+        .sortedByDescending { it.pointsWorth }
+        .take(5)
+        .map { piece ->
+            "${piece.nickname} (${if (piece.team == 1) "Branca" else "Preta"}) tem ${piece.pointsWorth} pontos"
+        }
+        .toCollection(ArrayList())
 
-    return pieces;
-
-
+    return pieces
 }
+
 
 fun getTopCapturas(gameManager: GameManager): ArrayList<String> {
     val pieces = gameManager.board.totalPieces
