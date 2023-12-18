@@ -85,27 +85,26 @@ public class GameManager {
 
             }
 
-            gameHistory.startingBoard(board);
+            //TODO ADIDCIONAR LOGICA DE HISTORY
 
             if (scanner.hasNext() && Objects.equals(scanner.nextLine().trim(), "---------MOVE HISTORY---------")) {
                 int playCount = 0;
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
                     String[] split = line.split(":");
-                    if (line.equals("moveID\t:oriX\t:oriY\t:destX\t:destY")) {
+                    if (line.equals("moveID\t:oriX\t:oriY\t:destX\t:destY\t:valid")) {
                         playCount++;
-                    } else if (split.length == 5) {
+                    } else if (split.length == 6) {
                         int oriX = Integer.parseInt(split[1].trim());
                         int oriY = Integer.parseInt(split[2].trim());
                         int destX = Integer.parseInt(split[3].trim());
                         int destY = Integer.parseInt(split[4].trim());
-
+                        String validStr = split[5].trim();
+                        if (validStr.equals("VALID")) {
+                            playCount++;
+                        }
                         move(oriX, oriY, destX, destY);
-
-                        playCount++;
-
                     }
-
                 }
             }
         } catch (FileNotFoundException e) {
@@ -113,7 +112,7 @@ public class GameManager {
         }
     }
 
-
+    //TODO REVER
     public void saveGame(File file) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             Board startingBoard = gameHistory.getStartingBoard();
@@ -346,7 +345,8 @@ public class GameManager {
                     board.jokerClock(this.turn);
 
                     String moveStr = gameHistory.moveToString(oriX, oriY, destX, destY);
-                    gameHistory.addNewMove(moveStr, this.board);
+
+                    //TODO ADICIONAR HISTORY
 
                 } else {
                     board.tiraPecaOrigem(oriX, oriY);
@@ -358,7 +358,7 @@ public class GameManager {
                     board.jokerClock(this.turn);
 
                     String moveStr = gameHistory.moveToString(oriX, oriY, destX, destY);
-                    gameHistory.addNewMove(moveStr, this.board);
+                    //TODO ADICIONAR HISTORY
                 }
                 return true;
 
@@ -372,8 +372,7 @@ public class GameManager {
         Piece movingPiece = this.board.getPecaNaPos(oriX, oriY);
         int size = this.getBoardSize();
         Piece[][] tabuleiro = this.board.getTabuleiro();
-
-        ArrayList<Comparable> hints = new ArrayList<>();
+        List<Comparable> hintedPlays = new ArrayList<>();
 
         for (int destY = 0; destY < size; destY++) {
             for (int destX = 0; destX < size; destX++) {
@@ -383,21 +382,28 @@ public class GameManager {
                     if (board.getPecaNaPos(destX, destY) != null) {
                         pointsWorthMove = board.getPecaNaPos(destX, destY).getPointsWorth();
                     }
-                    hints.add("(" + destX + "," + destY + ") -> " + pointsWorthMove);
+                    Play hintedPlay = new Play(destX, destY, pointsWorthMove);
+                    hintedPlays.add(hintedPlay);
                 }
             }
         }
 
-        hints.sort(Comparator
-                .comparing(pointsWorthMove -> Integer.parseInt(pointsWorthMove.toString().split("->")[1].trim()))
-                .reversed());
+        Collections.sort(hintedPlays);
 
-        return hints;
+        return hintedPlays;
     }
 
 
     public Map<String, String> customizeBoard() {
-        return new HashMap<>();
+        HashMap<String, String> customization = new HashMap<>();
+        customization.put("title", "The Chess of the Middle Earth");
+        //customization.put("imageBlackSquare", "");
+        //customization.put("imageWhiteSquare", "");
+        //customization.put("imageBackGround", "");
+        //customization.put("boardMarginTop", "");
+        //customization.put("boardMarginBottom", "");
+
+        return customization;
     }
 
     public JPanel getAuthorsPanel() {

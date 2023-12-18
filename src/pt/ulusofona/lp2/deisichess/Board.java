@@ -219,42 +219,6 @@ public class Board {
         return x >= 0 && x < getSize() && y >= 0 && y < getSize();
     }
 
-    //TODO - NAO PODE SER FEITO ASSIM, TEM QUE SER ESPECIFICO A CADA PEÇA
-    public boolean temPecaNoCaminho(int oriX, int oriY, int destX, int destY) {
-        int deltaX = Integer.compare(destX, oriX);
-        int deltaY = Integer.compare(destY, oriY);
-
-        int x = oriX + deltaX;
-        int y = oriY + deltaY;
-
-        while (x != destX || y != destY) {
-            if (temPeca(x, y)) {
-                return true; // peça no caminho
-            }
-            x += deltaX;
-            y += deltaY;
-        }
-
-        return false; // peça no caminho
-    }
-
-
-    public Board cloneBoard() {
-        Board clonedBoard = new Board(this.size, this.totalPieces.size());
-
-        clonedBoard.currentTeam = this.currentTeam;
-        clonedBoard.consecPassPlays = this.consecPassPlays;
-
-        for (Piece consideredPiece : this.totalPieces) {
-            Piece clonedPiece = consideredPiece.clonePiece();
-
-            clonedBoard.totalPieces.add(clonedPiece);
-            clonedBoard.equipas[convertNumEquipas(clonedPiece.getTeam())].addPieceToHmap(clonedPiece);
-            clonedBoard.getTabuleiro()[consideredPiece.getPosX()][consideredPiece.getPosY()] = clonedPiece;
-
-        }
-        return clonedBoard;
-    }
 
     public void homerClock(int turn) {
         if (turn % 3 == 0) {
@@ -274,12 +238,11 @@ public class Board {
 
     public void jokerClock(int turn) {
         for (Piece piece : totalPieces) {
-            if (piece.getType()==7) {
+            if (piece.getType() == 7) {
                 piece.jokerClock();
             }
         }
     }
-
 
     public Piece getPieceByID(int id) {
         for (Piece piece : totalPieces) {
