@@ -334,7 +334,7 @@ public class TestGameManager {
         assertEquals(10, gameManager.getHints(7, 0).size());        //JOKER
 
 
-        assertTrue(gameManager.move(2, 0, 0, 2));
+        assertTrue(gameManager.move(0, 0, 0, 1));
 
         assertEquals(2, gameManager.getHints(0, 7).size());         //REI
         assertEquals(11, gameManager.getHints(1, 7).size());        //RAINHA
