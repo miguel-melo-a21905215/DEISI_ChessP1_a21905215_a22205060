@@ -345,5 +345,9 @@ public class TestGameManager {
         assertEquals(2, gameManager.getHints(6, 7).size());         //HOMER
         assertEquals(1, gameManager.getHints(7, 7).size());         //JOKER
 
+        assertFalse(gameManager.move(5, 7, 4, 3));              //MOVE ERRADO
+        assertFalse(gameManager.gameOver());                                          //NOT GAME OVER
+        assertTrue(gameManager.move(5, 7, 5, 0));               //MOVE CERTO - TORRE VERT COME TORRE VERT
+
     }
 }
