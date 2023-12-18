@@ -42,12 +42,12 @@ public class Joker extends Piece {
                 yield tempHomer.specificMoveValidation(oriX, oriY, destX, destY, tabuleiro);
             }
 
-            case "Torre Vertical" -> {
+            case "TorreVert" -> {
                 TorreVertical tempTorreVert = new TorreVertical();
                 yield tempTorreVert.specificMoveValidation(oriX, oriY, destX, destY, tabuleiro);
             }
 
-            case "Torre Horizontal" -> {
+            case "TorreHor" -> {
                 TorreHorizontal tempTorreHor = new TorreHorizontal();
                 yield tempTorreHor.specificMoveValidation(oriX, oriY, destX, destY, tabuleiro);
             }
