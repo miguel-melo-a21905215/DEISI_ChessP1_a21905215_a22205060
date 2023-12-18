@@ -1,5 +1,7 @@
 package pt.ulusofona.lp2.deisichess;
 
+import java.util.Objects;
+
 public class Rainha extends Piece {
 
     public Rainha(int id, int type, int team, String nickname) {
@@ -20,25 +22,24 @@ public class Rainha extends Piece {
     @Override
     public boolean specificMoveValidation(int oriX, int oriY, int destX, int destY, Piece[][] tabuleiro) {
 
+        if (tabuleiro[destX][destY] != null && (Objects.equals(tabuleiro[destX][destY].getTypeStr(), "Rainha") || Objects.equals(tabuleiro[destX][destY].getCopyMoveFrom(), "Rainha"))) {
+            return false;
+        }
+
         int deltaX = Math.abs(destX - oriX);
         int deltaY = Math.abs(destY - oriY);
 
 
-        if (destX < 0 || destX >= tabuleiro.length || destY < 0 || destY >= tabuleiro[0].length || deltaX > 5 || deltaY > 5 || (deltaX == 0 && deltaY == 0)) {
-            return false;
-        }
-
-
-        if (deltaY == 0) {
+        if (deltaY == 0 && deltaX <= 5) {
             return lineCheckForPieces(oriX, oriY, destX, tabuleiro);
-        } else if (deltaX == 0) {
+        } else if (deltaX == 0 && deltaY <= 5) {
             return columnCheckForPieces(oriX, oriY, destY, tabuleiro);
-        } else if (deltaX == deltaY) {
+        } else if (deltaX == deltaY && deltaY <= 5) {
             return diagonalCheckForPieces(oriX, oriY, destX, destY, tabuleiro);
         }
 
         return false;
     }
-    
+
 
 }

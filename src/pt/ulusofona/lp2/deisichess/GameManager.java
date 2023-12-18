@@ -332,11 +332,6 @@ public class GameManager {
                 if (board.temPeca(destX, destY)) {
                     Piece pecaNoDestino = board.getPecaNaPos(destX, destY);
 
-                    if (pecaMovida.getTypeStr().equals("Rainha") && (pecaNoDestino.getTypeStr().equals("Rainha") || Objects.equals(pecaNoDestino.getCopyMoveFrom(), "Rainha"))) {
-                        //VERIFICA SE A PECA NO DESTINO É RAINHA OU JOKER A FAZER DE RAINHA
-                        return false;
-                    }
-
                     pecaNoDestino.getPointsWorth();                                                     //TODO -> VER PARTE ESTATISTICA
 
                     board.tiraPecaOrigem(oriX, oriY);
@@ -377,16 +372,17 @@ public class GameManager {
         int size = this.getBoardSize();
         Piece[][] tabuleiro = this.board.getTabuleiro();
 
-        List<Comparable> hints = new ArrayList<>();
+        ArrayList<Comparable> hints = new ArrayList<>();
 
         for (int destY = 0; destY < size; destY++) {
             for (int destX = 0; destX < size; destX++) {
-                if (board.generalMoveValidation(oriX, oriY, destX, destY) && movingPiece.specificMoveValidation(oriX, oriY, destX, destY, tabuleiro)) {
+                if (board.generalMoveValidation(oriX, oriY, destX, destY)
+                        && movingPiece.specificMoveValidation(oriX, oriY, destX, destY, tabuleiro)) {
                     int pointsWorthMove = 0;
                     if (board.getPecaNaPos(destX, destY) != null) {
                         pointsWorthMove = board.getPecaNaPos(destX, destY).getPointsWorth();
                     }
-                    hints.add("(" + destX + ", " + destY + ") ->" + pointsWorthMove);
+                    hints.add("(" + destX + ", " + destY + ") -> " + pointsWorthMove);
                 }
             }
         }
