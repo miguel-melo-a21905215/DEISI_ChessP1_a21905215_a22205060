@@ -37,6 +37,7 @@ public class GameManager {
             numPecas = Integer.parseInt(scanner.nextLine());                        //numero de pecas presentes no tabuleiro
 
             this.board = new Board(boardSize, numPecas);
+            gameHistory = new GameHistory();
             int currentLine = 2;
             //LEITURA DADOS DAS PEÇAS
             for (int i = 0; i < numPecas; i++) {

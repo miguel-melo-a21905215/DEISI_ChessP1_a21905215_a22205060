@@ -41,7 +41,7 @@ public class GameHistory {
             Play consideredPlay = plays.get(count);
             boolean validDeted = false;
 
-            while (!plays.isEmpty() && !consideredPlay.isValid() && !validDeted && count >= 0) {
+            while (!plays.isEmpty() && (!consideredPlay.isValid() || !validDeted && count >= 0)) {
                 if (plays.get(plays.size() - count).isValid()) {
                     validDeted = true;
                 }
