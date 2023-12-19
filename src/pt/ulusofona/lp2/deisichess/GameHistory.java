@@ -36,13 +36,13 @@ public class GameHistory {
 
     public void deleteUntilValid() {
 
-        if (plays.size() > 1) {
+        if (!plays.isEmpty()) {
             int count = plays.size() - 1;
             Play consideredPlay = plays.get(count);
             boolean validDeted = false;
 
-            while (!plays.isEmpty() && (!consideredPlay.isValid() || !validDeted && count >= 0)) {
-                if (plays.get(plays.size() - count).isValid()) {
+            while (!plays.isEmpty() && (!consideredPlay.isValid() || !validDeted) && count >= 0 && count < plays.size()) {
+                if (plays.get(count).isValid()) {
                     validDeted = true;
                 }
                 plays.remove(count);
