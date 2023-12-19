@@ -5,7 +5,7 @@ package pt.ulusofona.lp2.deisichess;
     when (estatisticas){
         StatType.TOP_5_CAPTURAS -> return :: getTop5Capturas
         StatType.TOP_5_PONTOS -> return :: getTopPontos
-        StatType.PECAS_MAIS_5_CAPTURAS -> return :: getTopPontos
+        StatType.PECAS_MAIS_5_CAPTURAS -> return :: getPecasMais5Capturas
         StatType.PECAS_MAIS_BARALHADAS -> return :: getTopPontos
         StatType.TIPOS_CAPTURADOS -> return :: getTopPontos
     }
@@ -13,7 +13,6 @@ package pt.ulusofona.lp2.deisichess;
 
  fun getTopPontos(gameManager: GameManager): ArrayList<String> {
     val pieces = gameManager.board.totalPieces
-        .filter { it.pointsWorth >= 1 }
         .sortedByDescending { it.pointsWorth }
         .take(5)
         .map { piece ->
@@ -38,4 +37,18 @@ package pt.ulusofona.lp2.deisichess;
 
     return pieces
  }
+
+fun getPecasMais5Capturas(gameManager: GameManager): ArrayList<String> {
+    val pieces = gameManager.board.totalPieces
+        .filter { it.numCapturas > 5 }
+        .sortedByDescending { it.numCapturas }
+        .take(5)
+        .map { piece ->
+            "${piece.nickname} (${if (piece.team == 10) "PRETA" else "BRANCA"}) " +
+                    "fez ${piece.numCapturas} capturas"
+        }
+        .toCollection(ArrayList())
+
+    return pieces
+}
 
