@@ -318,6 +318,8 @@ public class GameManager {
                     pecaNoDestino.capturada();
                     board.metePecaDestino(pecaMovida, destX, destY);
                     board.comeu();
+                    pecaMovida.capturou(pecaNoDestino.getPointsWorth());
+
                 } else {
                     board.tiraPecaOrigem(oriX, oriY);
                     board.metePecaDestino(pecaMovida, destX, destY);

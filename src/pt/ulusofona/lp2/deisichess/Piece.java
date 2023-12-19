@@ -26,6 +26,7 @@ public abstract class Piece {
         this.inPlay = false;
         this.pointsWorth = 0;
         this.typeStr = "";
+        this.numCapturas = 0;
     }
 
     protected Piece() {
@@ -121,7 +122,6 @@ public abstract class Piece {
 
     public void capturada() {
         this.inPlay = false;
-        this.numCapturas++;
     }
 
     public void novaPos(int posX, int posY) {
@@ -222,16 +222,15 @@ public abstract class Piece {
 
     }
 
-    public int getNumCapturas() {
-        return numCapturas;
-    }
-
-    public void setNumCapturas(int numCapturas) {
-        this.numCapturas = numCapturas;
-    }
-
-
     public Boolean isSleeping() {
         return true;
     }
+
+    public void capturou(int pontos){
+        this.numCapturas++;
+        this.pointsWorth += pontos;
+    }
+
+
+
 }

@@ -201,13 +201,6 @@ public class Board {
         equipas[convertNumEquipas(isntCurrentTeamNumb())].decrementarInPlay();
         currentTeam = !currentTeam;
 
-        for (Piece[] linhaTabuleiro : tabuleiro) {
-            for (Piece piece : linhaTabuleiro) {
-                if (piece != null && !piece.isInPlay()) {
-                    piece.capturada();
-                }
-            }
-        }
 
         if (!firstCaptureOcurred) {
             firstCaptureOcurred = true;
