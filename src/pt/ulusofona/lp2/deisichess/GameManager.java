@@ -172,6 +172,7 @@ public class GameManager {
     }
 
     public String getPieceInfoAsString(int id) {
+
         String espBarra = " | ";
         String[] pieceInfo = getPieceInfo(id);
 
@@ -179,8 +180,31 @@ public class GameManager {
         Piece consideredPiece = board.getPieceByID(id);
 
         String points = "";
+
         if(consideredPiece.getType() == 0) {
             points = "(infinito)";
+
+        } else if(consideredPiece.getType() == 1) {
+            points = "8";
+
+        } else if(consideredPiece.getType() == 2) {
+            points = "5";
+
+        } else if(consideredPiece.getType() == 3) {
+            points = "3";
+
+        } else if(consideredPiece.getType() == 4) {
+            points = "3";
+
+        } else if(consideredPiece.getType() == 5) {
+            points = "3";
+
+        } else if(consideredPiece.getType() == 6) {
+            points = "2";
+
+        } else if(consideredPiece.getType() == 7) {
+            points = "4";
+
         } else {
             points = String.valueOf(consideredPiece.getPointsWorth());
         }
@@ -208,6 +232,7 @@ public class GameManager {
         }
 
         return result;
+
     }
 
     private String pieceTypeStr(int type) {
