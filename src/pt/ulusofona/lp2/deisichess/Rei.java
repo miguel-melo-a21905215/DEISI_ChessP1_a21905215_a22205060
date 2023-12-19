@@ -11,6 +11,7 @@ public class Rei extends Piece {
             setPngLocation("crazy_emoji_white.png");
         }
         setTypeStr("Rei");
+
     }
 
     @Override
@@ -20,4 +21,6 @@ public class Rei extends Piece {
 
         return (deslocX == 1 && deslocY == 0) || (deslocX == 0 && deslocY == 1) || (deslocX == 1 && deslocY == 1);
     }
+
+
 }

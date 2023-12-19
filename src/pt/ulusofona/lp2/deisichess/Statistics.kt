@@ -17,7 +17,7 @@ package pt.ulusofona.lp2.deisichess;
         .sortedByDescending { it.pointsWorth }
         .take(5)
         .map { piece ->
-            "${piece.nickname} (${if (piece.team == 10) "Preta" else "Branca"}) tem ${piece.pointsWorth} pontos"
+            "${piece.nickname} (${if (piece.team == 10) "PRETA" else "BRANCA"}) tem ${piece.pointsWorth} pontos"
         }
         .toCollection(ArrayList())
 
@@ -31,7 +31,7 @@ package pt.ulusofona.lp2.deisichess;
             .sortedByDescending { it.numCapturas }
             .take(5)
             .map { piece ->
-                "${piece.nickname} (${if (piece.team == 10) "Preta" else "Branca"}) " +
+                "${piece.nickname} (${if (piece.team == 10) "PRETA" else "BRANCA"}) " +
                         "fez ${piece.numCapturas} capturas"
             }
             .toCollection(ArrayList())

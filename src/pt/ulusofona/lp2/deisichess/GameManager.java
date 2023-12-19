@@ -177,33 +177,32 @@ public class GameManager {
 
         String result = "";
         Piece consideredPiece = board.getPieceByID(id);
-        String points = String.valueOf(consideredPiece.getPointsWorth());
+
+        String points = "";
+        if(consideredPiece.getType() == 0) {
+            points = "(infinito)";
+        } else {
+            points = String.valueOf(consideredPiece.getPointsWorth());
+        }
 
         if (Objects.equals(pieceInfo[1], "6") && (consideredPiece.isSleeping())) {
             return "Doh! zzzzzz";
         }
 
-        result += pieceInfo[0] + espBarra;                  //ID
+        result += pieceInfo[0] + espBarra;
         result += pieceTypeStr(Integer.parseInt(pieceInfo[1]));
-        if (pieceInfo[1].equals("7")) {                     //TipoStr
+        if (pieceInfo[1].equals("7")) {
             result += "/" + consideredPiece.getCopyMoveFrom();
         }
         result += espBarra;
-        if (Objects.equals(points, "1000")) {
-            result += "(infinito)" + espBarra;              //SE FOR O REI DEVE ESCREVER INFINTIO EM VEZ DE MIL
-        } else {
-            result += points + espBarra;                    //PointsWorth
-        }
-        result += pieceInfo[2] + espBarra;                  //team
-        result += pieceInfo[3] + " @ ";                     //nickname
-        for (Piece piece : board.getTotalPieces()) {
-            if (piece.getId() == id) {
-                consideredPiece = piece;
-            }
-        }
+
+        result += points + espBarra;
+        result += pieceInfo[2] + espBarra;
+        result += pieceInfo[3] + " @ ";
+
         if (consideredPiece != null && consideredPiece.isInPlay()) {
-            result += '(' + String.valueOf(pieceInfo[5]);                 //posX
-            result += ", " + pieceInfo[6] + ')';                          //posY
+            result += '(' + String.valueOf(pieceInfo[5]);
+            result += ", " + pieceInfo[6] + ')';
         } else {
             result += "(n/a)";
         }
