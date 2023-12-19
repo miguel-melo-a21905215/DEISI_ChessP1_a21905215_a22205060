@@ -6,9 +6,9 @@ import java.util.*;
 
 public class GameManager {
 
+    GameHistory gameHistory = new GameHistory();
     private Board board = new Board();
     private String winnerMessage = "";
-    private GameHistory gameHistory = new GameHistory();
     private int turn = 0;
 
 
@@ -85,9 +85,11 @@ public class GameManager {
 
             }
 
+            fillStartingBoardInfo();
+
             //TODO ADIDCIONAR LOGICA DE HISTORY
 
-            if (scanner.hasNext() && Objects.equals(scanner.nextLine().trim(), "---------MOVE HISTORY---------")) {
+            if (scanner.hasNext() && Objects.equals(scanner.nextLine().trim(), "------------------MOVE HISTORY------------------")) {
                 int playCount = 0;
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
@@ -99,10 +101,9 @@ public class GameManager {
                         int oriY = Integer.parseInt(split[2].trim());
                         int destX = Integer.parseInt(split[3].trim());
                         int destY = Integer.parseInt(split[4].trim());
-                        String validStr = split[5].trim();
-                        if (validStr.equals("VALID")) {
-                            playCount++;
-                        }
+                        boolean valid = Boolean.valueOf(split[5].trim());
+                        playCount++;
+
                         move(oriX, oriY, destX, destY);
                     }
                 }
@@ -115,37 +116,7 @@ public class GameManager {
     //TODO REVER
     public void saveGame(File file) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-            Board startingBoard = gameHistory.getStartingBoard();
-            writer.write(startingBoard.getSize() + "\n");
-            writer.write(startingBoard.getTotalPieces().size() + "\n");
-
-            /*---------DADOS DE CADA PECA---------*/
-            for (Piece piece : startingBoard.getTotalPieces()) {
-                writer.write(piece.getId() + ":" + piece.getType() + ":" + piece.getTeam() + ":" + piece.getNickname() + "\n");
-            }
-            /*---------TABULEIRO---------*/
-
-            for (int y = 0; y < startingBoard.getSize(); y++) {
-                for (int x = 0; x < startingBoard.getSize(); x++) {
-                    Piece currentPiece = startingBoard.getPecaNaPos(x, y);
-                    if (currentPiece == null) {
-                        writer.write(0 + "");
-                    } else {
-                        writer.write(String.valueOf(startingBoard.getPecaNaPos(x, y).getId()));
-                    }
-                    if (x < startingBoard.getSize() - 1) {
-                        writer.write(":");
-                    }
-                }
-                writer.write("\n");
-            }
-            /*---------MOVE HISTORY---------*/
-            if (gameHistory.getMoves().size() > 1) {
-                for (String currentMove : gameHistory.getMoves()) {
-                    writer.write(currentMove + "\n");
-                }
-            }
-
+            gameHistory.writeFile(file);
         } catch (IOException e) {
             throw new IOException("File not found: " + file.getPath());
         }
@@ -153,9 +124,16 @@ public class GameManager {
 
 
     public void undo() {
-        /*TODO - VERIFICAR DEPOIS DE TER A MOVE FEITA*/
-        if (gameHistory.getMoves().size() > 1) {
-            this.board = gameHistory.getPreviousBoard();
+        gameHistory.deleteUntilValid();
+        try {
+            File usableFile = new File("gameHistoryFile.txt");
+            gameHistory.writeFile(usableFile);
+            loadGame(usableFile);
+        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (InvalidGameInputException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -323,48 +301,36 @@ public class GameManager {
      * ADICIONAR CLONAGEM DO TABULEIRO + REGISTO DO MOVE PARA A GAME HISTORY
      * FALTA VALIDAÇÃO DO JOKER*/
     public boolean move(int oriX, int oriY, int destX, int destY) {
+        //TODO ->gameHistory.addNewMove(oriX, oriY, destX, destY);
 
         if (board.generalMoveValidation(oriX, oriY, destX, destY)) {                                    //COORD. DENTRO TABULEIRO + PEÇA VALIDA + DESTINO VALIDO
             Piece pecaMovida = board.getPecaNaPos(oriX, oriY);
             if (pecaMovida.specificMoveValidation(oriX, oriY, destX, destY, board.getTabuleiro())) {    //CAMINHO LIVRE + CUMPRE LIMITES MOVE ESPECIFICO
                 /*COMEU - JA FOI VERIFICADO SE A PEÇA NO DESTINO É DA EQUIPA CONTRÁRIA NA generalMoveValidation()*/
                 /*VERIFCAÇÃO DE RAINHA COME RAINHA/JOKER->RAINHA É FEITA NO SPECIFIC MOVE DA RAINHA*/
+
                 if (board.temPeca(destX, destY)) {
                     Piece pecaNoDestino = board.getPecaNaPos(destX, destY);
-
                     pecaNoDestino.getPointsWorth();                                                     //TODO -> VER PARTE ESTATISTICA
 
                     board.tiraPecaOrigem(oriX, oriY);
                     pecaNoDestino.capturada();
                     board.metePecaDestino(pecaMovida, destX, destY);
                     board.comeu();
-
-
-                    turn++;
-                    board.homerClock(this.turn);
-                    board.jokerClock(this.turn);
-
-                    String moveStr = gameHistory.moveToString(oriX, oriY, destX, destY);
-
-                    //TODO ADICIONAR HISTORY
-
                 } else {
                     board.tiraPecaOrigem(oriX, oriY);
                     board.metePecaDestino(pecaMovida, destX, destY);
                     board.moveu();
-
-                    turn++;
-                    board.homerClock(this.turn);
-                    board.jokerClock(this.turn);
-
-                    String moveStr = gameHistory.moveToString(oriX, oriY, destX, destY);
-                    //TODO ADICIONAR HISTORY
                 }
+                turn++;
+                board.homerClock(this.turn);
+                board.jokerClock(this.turn);
+                gameHistory.addPlay(oriX, oriY, destX, destY, true);
                 return true;
-
             }
         }
         board.falhou();
+        gameHistory.addPlay(oriX, oriY, destX, destY, false);
         return false;
     }
 
@@ -395,6 +361,7 @@ public class GameManager {
 
 
     public Map<String, String> customizeBoard() {
+        //TODO -> ADICIONAR PNGs
         HashMap<String, String> customization = new HashMap<>();
         customization.put("title", "The Chess of the Middle Earth");
         //customization.put("imageBlackSquare", "");
@@ -438,8 +405,29 @@ public class GameManager {
         return winnerMessage;
     }
 
-    public GameHistory getGameHistory() {
-        return gameHistory;
+    public void fillStartingBoardInfo() {
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(getBoardSize()).append("\n");
+        stringBuilder.append(getBoard().getTotalPieces().size()).append("\n");
+        for (Piece piece : getBoard().getTotalPieces()) {
+            stringBuilder.append(piece.getId()).append(":").append(piece.getType()).append(":").append(piece.getTeam()).append(":").append(piece.getNickname()).append("\n");
+        }
+        for (int y = 0; y < getBoardSize(); y++) {
+            for (int x = 0; x < getBoardSize(); x++) {
+                Piece currentPiece = getBoard().getPecaNaPos(x, y);
+                if (currentPiece == null) {
+                    stringBuilder.append("0");
+                } else {
+                    stringBuilder.append(currentPiece.getId());
+                }
+                if (x < getBoardSize() - 1) {
+                    stringBuilder.append(":");
+                }
+            }
+            stringBuilder.append("\n");
+        }
+        gameHistory.setStartingBoard(stringBuilder.toString());
     }
 
     public ArrayList<String> holderMethod() {
