@@ -359,6 +359,7 @@ public class GameManager {
         board.falhou();
         gameHistory.addPlay(oriX, oriY, destX, destY, false);
         return false;
+
     }
 
     public List<Comparable> getHints(int oriX, int oriY) {

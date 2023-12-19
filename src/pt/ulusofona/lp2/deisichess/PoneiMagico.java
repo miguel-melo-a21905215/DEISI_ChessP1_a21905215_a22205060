@@ -10,7 +10,7 @@ public class PoneiMagico extends Piece {
             setPngLocation("ponei_magico_white.png");
         }
         setTypeStr("Ponei Mágico");
-        this.pointsWorth = 0;
+
     }
 
     public PoneiMagico() {

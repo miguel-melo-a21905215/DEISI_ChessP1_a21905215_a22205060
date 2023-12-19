@@ -11,7 +11,7 @@ public class Rei extends Piece {
             setPngLocation("crazy_emoji_white.png");
         }
         setTypeStr("Rei");
-        this.pointsWorth = 0;
+
 
     }
 

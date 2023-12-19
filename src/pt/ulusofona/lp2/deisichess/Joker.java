@@ -14,7 +14,7 @@ public class Joker extends Piece {
         }
         setTypeStr("Joker");
         this.copyMoveFrom = "Rainha";
-        this.pointsWorth = 0;
+
     }
 
     @Override
