@@ -13,6 +13,7 @@ public class Rainha extends Piece {
             setPngLocation("rainha_white.png");
         }
         setTypeStr("Rainha");
+        this.pointsWorth = 0;
     }
 
     public Rainha() {

@@ -10,6 +10,7 @@ public class PadreVila extends Piece {
             setPngLocation("padre_vila_white.png");
         }
         setTypeStr("Padre da Vila");
+        this.pointsWorth = 0;
     }
 
     public PadreVila() {

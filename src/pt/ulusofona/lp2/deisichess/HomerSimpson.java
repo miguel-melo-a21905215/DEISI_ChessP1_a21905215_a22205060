@@ -13,6 +13,7 @@ public class HomerSimpson extends Piece {
         }
         setTypeStr("Doh! zzzzzz");
         this.sleep = true;
+        this.pointsWorth = 0;
     }
 
     public HomerSimpson() {

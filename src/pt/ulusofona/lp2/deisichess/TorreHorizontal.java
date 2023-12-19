@@ -10,6 +10,7 @@ public class TorreHorizontal extends Piece {
             setPngLocation("torre_h_white.png");
         }
         setTypeStr("TorreHor");
+        this.pointsWorth = 0;
     }
 
     public TorreHorizontal() {
