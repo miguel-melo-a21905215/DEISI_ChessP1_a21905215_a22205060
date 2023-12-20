@@ -181,6 +181,7 @@ public class GameManager {
 
         String points = "";
 
+
         if(consideredPiece.getType() == 0) {
             points = "(infinito)";
 
@@ -201,6 +202,7 @@ public class GameManager {
 
         } else if(consideredPiece.getType() == 6) {
             points = "2";
+
 
         } else if(consideredPiece.getType() == 7) {
             points = "4";
@@ -336,13 +338,14 @@ public class GameManager {
 
                 if (board.temPeca(destX, destY)) {
                     Piece pecaNoDestino = board.getPecaNaPos(destX, destY);
-                    pecaNoDestino.getPointsWorth();                                                     //TODO -> VER PARTE ESTATISTICA
+                    int points = pecaNoDestino.getPointsWorth(); //TODO -> VER PARTE ESTATISTICA
+                    pecaMovida.setPointsWorth(0);
 
                     board.tiraPecaOrigem(oriX, oriY);
                     pecaNoDestino.capturada();
                     board.metePecaDestino(pecaMovida, destX, destY);
                     board.comeu();
-                    pecaMovida.capturou(pecaNoDestino.getPointsWorth());
+                    pecaMovida.incrementPointsWorth(points);
 
                 } else {
                     board.tiraPecaOrigem(oriX, oriY);

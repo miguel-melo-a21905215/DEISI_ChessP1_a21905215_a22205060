@@ -4,7 +4,7 @@ import java.io.File;
 
 public abstract class Piece {
 
-
+    private int pointsWorth = 0;
     protected int numCapturas;
     protected int id;
     protected int team;
@@ -14,7 +14,7 @@ public abstract class Piece {
     protected String nickname;
     protected File icon;
     protected boolean inPlay = false;
-    protected int pointsWorth;
+
     protected String pngLocation;
     protected String typeStr;
 
@@ -226,10 +226,12 @@ public abstract class Piece {
         return true;
     }
 
-    public void capturou(int pontos){
-        this.numCapturas++;
-        this.pointsWorth += pontos;
+
+
+    public void incrementPointsWorth(int points) {
+        this.pointsWorth += points;
     }
+
 
 
 
