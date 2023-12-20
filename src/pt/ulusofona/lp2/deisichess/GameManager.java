@@ -181,33 +181,24 @@ public class GameManager {
 
         String points = "";
 
-
         if(consideredPiece.getType() == 0) {
             points = "(infinito)";
-
         } else if(consideredPiece.getType() == 1) {
             points = "8";
-
         } else if(consideredPiece.getType() == 2) {
             points = "5";
-
         } else if(consideredPiece.getType() == 3) {
             points = "3";
-
         } else if(consideredPiece.getType() == 4) {
             points = "3";
-
         } else if(consideredPiece.getType() == 5) {
             points = "3";
-
         } else if(consideredPiece.getType() == 6) {
             points = "2";
-
-
         } else if(consideredPiece.getType() == 7) {
-            points = "4";
-
-        } else {
+            points = "3";
+        }
+        else {
             points = String.valueOf(consideredPiece.getPointsWorth());
         }
 
@@ -338,14 +329,13 @@ public class GameManager {
 
                 if (board.temPeca(destX, destY)) {
                     Piece pecaNoDestino = board.getPecaNaPos(destX, destY);
-                    int points = pecaNoDestino.getPointsWorth(); //TODO -> VER PARTE ESTATISTICA
-                    pecaMovida.setPointsWorth(0);
+                                                                      //TODO -> VER PARTE ESTATISTICA
 
                     board.tiraPecaOrigem(oriX, oriY);
                     pecaNoDestino.capturada();
                     board.metePecaDestino(pecaMovida, destX, destY);
                     board.comeu();
-                    pecaMovida.incrementPointsWorth(points);
+                    pecaMovida.capturou(pecaNoDestino.getPointsWorth());
 
                 } else {
                     board.tiraPecaOrigem(oriX, oriY);
@@ -362,7 +352,6 @@ public class GameManager {
         board.falhou();
         gameHistory.addPlay(oriX, oriY, destX, destY, false);
         return false;
-
     }
 
     public List<Comparable> getHints(int oriX, int oriY) {
