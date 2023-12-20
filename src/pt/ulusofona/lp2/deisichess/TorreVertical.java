@@ -10,7 +10,6 @@ public class TorreVertical extends Piece {
             setPngLocation("torre_v_white.png");
         }
         setTypeStr("TorreVer");
-
     }
 
     public TorreVertical() {

@@ -233,6 +233,7 @@ public abstract class Piece {
     }
 
     public void capturou(int pontos){
+        this.pointsWorth = 0;
         this.numCapturas++;
         this.pointsWorth += pontos;
     }

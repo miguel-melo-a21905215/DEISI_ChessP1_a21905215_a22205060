@@ -52,7 +52,6 @@ public class PoneiMagico extends Piece {
             return false;
         }
 
-        // Invalid move pattern or there are pieces in the way
         return false;
     }
 }

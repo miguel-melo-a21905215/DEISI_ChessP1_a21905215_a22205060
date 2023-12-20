@@ -185,20 +185,25 @@ public class GameManager {
             points = "(infinito)";
         } else if(consideredPiece.getType() == 1) {
             points = "8";
+
         } else if(consideredPiece.getType() == 2) {
             points = "5";
+
         } else if(consideredPiece.getType() == 3) {
             points = "3";
+
         } else if(consideredPiece.getType() == 4) {
             points = "3";
+
         } else if(consideredPiece.getType() == 5) {
             points = "3";
+
         } else if(consideredPiece.getType() == 6) {
             points = "2";
+
         } else if(consideredPiece.getType() == 7) {
-            points = "3";
-        }
-        else {
+            points = "4";
+        } else {
             points = String.valueOf(consideredPiece.getPointsWorth());
         }
 
