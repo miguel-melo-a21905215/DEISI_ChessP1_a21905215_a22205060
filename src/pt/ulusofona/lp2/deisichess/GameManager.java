@@ -334,13 +334,15 @@ public class GameManager {
 
                 if (board.temPeca(destX, destY)) {
                     Piece pecaNoDestino = board.getPecaNaPos(destX, destY);
-                                                                      //TODO -> VER PARTE ESTATISTICA
+                                                                                                    //TODO -> VER PARTE ESTATISTICA
 
                     board.tiraPecaOrigem(oriX, oriY);
                     pecaNoDestino.capturada();
                     board.metePecaDestino(pecaMovida, destX, destY);
                     board.comeu();
                     pecaMovida.capturou(pecaNoDestino.getPointsWorth());
+                    pecaMovida.incrementPointsWorth(pecaNoDestino.getPointsWorth());
+
 
                 } else {
                     board.tiraPecaOrigem(oriX, oriY);
