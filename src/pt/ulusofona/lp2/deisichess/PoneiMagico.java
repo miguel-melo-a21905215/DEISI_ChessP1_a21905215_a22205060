@@ -3,7 +3,7 @@ package pt.ulusofona.lp2.deisichess;
 public class PoneiMagico extends Piece {
     public PoneiMagico(int id, int type, int team, String nickname) {
         super(id, type, team, nickname);
-
+        setPointsWorth(5);
         if (team == 10) {
             setPngLocation("ponei_magico_black.png");
         } else if (team == 20) {
@@ -17,10 +17,6 @@ public class PoneiMagico extends Piece {
 
     }
 
-    @Override
-    public void setPointsWorth(int pointsWorth) {
-        this.pointsWorth = 5;
-    }
 
     @Override
     public boolean specificMoveValidation(int oriX, int oriY, int destX, int destY, Piece[][] tabuleiro) {

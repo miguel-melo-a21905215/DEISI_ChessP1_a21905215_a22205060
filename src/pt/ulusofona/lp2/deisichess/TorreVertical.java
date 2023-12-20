@@ -3,7 +3,7 @@ package pt.ulusofona.lp2.deisichess;
 public class TorreVertical extends Piece {
     public TorreVertical(int id, int type, int team, String nickname) {
         super(id, type, team, nickname);
-
+        setPointsWorth(3);
         if (team == 10) {
             setPngLocation("torre_v_black.png");
         } else if (team == 20) {
@@ -16,10 +16,7 @@ public class TorreVertical extends Piece {
 
     }
 
-    @Override
-    public void setPointsWorth(int pointsWorth) {
-        this.pointsWorth = 3;
-    }
+
 
     @Override
     public boolean specificMoveValidation(int oriX, int oriY, int destX, int destY, Piece[][] tabuleiro) {

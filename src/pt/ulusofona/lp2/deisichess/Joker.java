@@ -6,7 +6,7 @@ public class Joker extends Piece {
 
     public Joker(int id, int type, int team, String nickname) {
         super(id, type, team, nickname);
-
+        setPointsWorth(4);
         if (team == 10) {
             setPngLocation("joker_black.png");
         } else if (team == 20) {
@@ -20,11 +20,6 @@ public class Joker extends Piece {
     @Override
     public String getCopyMoveFrom() {
         return this.copyMoveFrom;
-    }
-
-    @Override
-    public void setPointsWorth(int pointsWorth) {
-        this.pointsWorth = 4;
     }
 
     @Override
