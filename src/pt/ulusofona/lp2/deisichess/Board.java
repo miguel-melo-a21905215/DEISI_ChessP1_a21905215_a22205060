@@ -155,22 +155,18 @@ public class Board {
          */
 
         if (oriX == destX && oriY == destY) {
-            this.equipas[convertNumEquipas(isCurrentTeamNumb())].invalida();
             return false;
         }
         if (!temPeca(oriX, oriY) || !coordenadasDentroTabuleiro(destX, destY) || !coordenadasDentroTabuleiro(oriX, oriY)) {
-            this.equipas[convertNumEquipas(isCurrentTeamNumb())].invalida();
             return false;
         }
 
         Piece pecaMovida = getPecaNaPos(oriX, oriY);
         if (pecaMovida.getTeam() != isCurrentTeamNumb() || !pecaMovida.isInPlay()) {
-            this.equipas[convertNumEquipas(isCurrentTeamNumb())].invalida();
             return false;
         }
 
         if (temPeca(destX, destY) && (getPecaNaPos(destX, destY).getTeam() == isCurrentTeamNumb())) {
-            this.equipas[convertNumEquipas(isCurrentTeamNumb())].invalida();
             return false;
         }
 
