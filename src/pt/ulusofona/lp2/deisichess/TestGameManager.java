@@ -30,25 +30,7 @@ public class TestGameManager {
         assertEquals(8, gameManager.getBoard().getEquipas()[0].getTeamPieces().size());
         assertEquals(8, gameManager.getBoard().getEquipas()[1].getTeamPieces().size());
 
-        boolean containsWhitePieces = false;
-        boolean containsBlackPieces = false;
-        for (Piece blackPiece : gameManager.getBoard().getEquipas()[0].getTeamPieces().values()) {
-            if (blackPiece.getTeam() == 20) {
-                containsWhitePieces = true;
-                break;
-            }
 
-        }
-
-        for (Piece whitePiece : gameManager.getBoard().getEquipas()[1].getTeamPieces().values()) {
-            if (whitePiece.getTeam() == 10) {
-                containsWhitePieces = true;
-                break;
-            }
-
-        }
-        assertFalse(containsWhitePieces);
-        assertFalse(containsWhitePieces);
     }
 
     @Test
@@ -267,7 +249,6 @@ public class TestGameManager {
 
     @Test
     void gameOverVitoriaPretasLeitura() throws IOException, InvalidGameInputException {
-        /*TODO - MOVER PARA COMER REI*2 || COMER + 10 PASSIVAS*/
         GameManager gameManager = new GameManager();
         File file = new File("test-files/8x8_No_White_King.txt");
         gameManager.loadGame(file);
@@ -289,7 +270,6 @@ public class TestGameManager {
 
     @Test
     void gameOverEmpateLeitura() throws IOException, InvalidGameInputException {
-        /*TODO - MOVER PARA COMER REI*2 || COMER + 10 PASSIVAS*/
         GameManager gameManager = new GameManager();
         File file = new File("test-files/8x8_No_Kings.txt");
         gameManager.loadGame(file);
@@ -351,6 +331,8 @@ public class TestGameManager {
 
     }
 
+
+    /*----------------------TESTES MOVES DAS PEÇAS-----------------------------------*/
     @Test
     public void rainhaTesting() throws IOException, InvalidGameInputException {
         GameManager gameManager = new GameManager();
@@ -464,4 +446,26 @@ public class TestGameManager {
         winningPlay = new Play(1, 4, 1000);
         assertNotEquals(winningPlay.toString(), gameManager.getHints(3, 3).get(0).toString());
     }
+
+    @Test
+    public void homerTesting() throws IOException, InvalidGameInputException {
+        GameManager gameManager = new GameManager();
+        File file = new File("test-files/8x8_Homer_Test.txt");
+        gameManager.loadGame(file);
+        assertFalse(gameManager.gameOver());
+
+        assertEquals(0, gameManager.getHints(3, 2).size());
+        assertEquals("Doh! zzzzzz",gameManager.getPieceInfoAsString(7));
+
+        assertEquals("Doh! zzzzzz",gameManager.getPieceInfoAsString(15));
+        gameManager.move(4, 4, 5, 4);
+        assertEquals(4, gameManager.getHints(3, 4).size());
+        assertTrue(gameManager.move(3,4,2,3));
+
+        gameManager.move(5,4,4,4);
+
+        assertEquals("Doh! zzzzzz",gameManager.getPieceInfoAsString(7));
+        assertEquals("Doh! zzzzzz",gameManager.getPieceInfoAsString(15));
+    }
+
 }

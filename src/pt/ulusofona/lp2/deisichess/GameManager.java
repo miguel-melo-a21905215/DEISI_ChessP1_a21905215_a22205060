@@ -454,8 +454,4 @@ public class GameManager {
         }
         gameHistory.setStartingBoard(stringBuilder.toString());
     }
-
-    public ArrayList<String> holderMethod() {
-        return new ArrayList<>();
-    }
 }
