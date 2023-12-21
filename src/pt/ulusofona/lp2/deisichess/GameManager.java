@@ -181,27 +181,27 @@ public class GameManager {
 
         String points = "";
 
-        if(consideredPiece.getType() == 0) {
+        if (consideredPiece.getType() == 0) {
             points = "(infinito)";
-        } else if(consideredPiece.getType() == 1) {
+        } else if (consideredPiece.getType() == 1) {
             points = "8";
 
-        } else if(consideredPiece.getType() == 2) {
+        } else if (consideredPiece.getType() == 2) {
             points = "5";
 
-        } else if(consideredPiece.getType() == 3) {
+        } else if (consideredPiece.getType() == 3) {
             points = "3";
 
-        } else if(consideredPiece.getType() == 4) {
+        } else if (consideredPiece.getType() == 4) {
             points = "3";
 
-        } else if(consideredPiece.getType() == 5) {
+        } else if (consideredPiece.getType() == 5) {
             points = "3";
 
-        } else if(consideredPiece.getType() == 6) {
+        } else if (consideredPiece.getType() == 6) {
             points = "2";
 
-        } else if(consideredPiece.getType() == 7) {
+        } else if (consideredPiece.getType() == 7) {
             points = "4";
         } else {
             points = String.valueOf(consideredPiece.getPointsWorth());
@@ -307,8 +307,6 @@ public class GameManager {
             winnerMessage = "VENCERAM AS PRETAS";
         } else if ((!isWhiteKingAlive && !isBlackKingAlive) || (whitePieces == 0 && blackPieces == 0)) {
             winnerMessage = "EMPATE";
-        } else if (whitePieces == 0 || blackPieces == 0) {
-            winnerMessage = whitePieces == 0 ? "VENCERAM AS PRETAS" : "VENCERAM AS BRANCAS";
         } else if ((blackPieces == 1 && whitePieces == 1) || board.getConsecPassPlays() == 10) {
             winnerMessage = "EMPATE";
         } else {
@@ -334,7 +332,7 @@ public class GameManager {
 
                 if (board.temPeca(destX, destY)) {
                     Piece pecaNoDestino = board.getPecaNaPos(destX, destY);
-                                                                                                    //TODO -> VER PARTE ESTATISTICA
+                    //TODO -> VER PARTE ESTATISTICA
 
                     board.tiraPecaOrigem(oriX, oriY);
                     pecaNoDestino.capturada();

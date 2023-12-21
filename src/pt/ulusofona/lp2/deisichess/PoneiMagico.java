@@ -45,12 +45,9 @@ public class PoneiMagico extends Piece {
                 yCount += yIncrement;
                 if (tabuleiro[oriX][yCount] == null) {
                     xCount = oriX + xIncrement;
-                    if (tabuleiro[xCount][yCount] == null) {
-                        return true;
-                    }
+                    return tabuleiro[xCount][yCount] == null;
                 }
             }
-            return false;
         }
 
         return false;
