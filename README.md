@@ -11,16 +11,55 @@ Para tal, recorremos às seguintes imagens :
 <table>
   <tr>
     <td align="center" colspan="2">Rei</td>
+    <td align="center" colspan="2">Rainha</td>
+    <td align="center" colspan="2">Padre da Vila</td>
+    <td align="center" colspan="2">Pónei Mágico</td>
+    <td align="center" colspan="2">Torre Horizontal</td>
+    <td align="center" colspan="2">Torre Vertical</td>
+    <td align="center" colspan="2">Homer Simpson</td>
+    <td align="center" colspan="2">Joker</td>
+    <td align="center" colspan="2">Peça Criativa</td>
   </tr>
   <tr>
     <td align="center">Sauron</td>
     <td align="center">Aragorn</td>
+    <td align="center">Dark Galadriel</td>
+    <td align="center">Lady Galadriel</td>
+    <td align="center">Saruman</td>
+    <td align="center">Gandalf</td>
+    <td align="center">Azog</td>
+    <td align="center">Éomer</td>
+    <td align="center">Mount Doom</td>
+    <td align="center">Lonely Mountain</td>
+    <td align="center">Eisengard</td>
+    <td align="center">Minas Tirith</td>
+    <td align="center">Grima </td>
+    <td align="center">Gimli</td>
+    <td align="center">Gollum</td>
+    <td align="center">Frodo</td>
+    <td align="center">Ring of Power</td>
   </tr>
   <tr>
     <td align="center"><img src="src/images/crazy_emoji_black.png" alt="Sauron"></td>
     <td align="center"><img src="src/images/crazy_emoji_white.png" alt="Aragorn"></td>
+    <td align="center"><img src="src/images/rainha_black.png" alt="Dark Galadriel"></td>
+    <td align="center"><img src="src/images/rainha_white.png" alt="Lady Galadriel"></td>
+    <td align="center"><img src="src/images/padre_vila_black.png" alt="Saruman"></td>
+    <td align="center"><img src="src/images/padre_vila_white.png" alt="Gandalf"></td>
+    <td align="center"><img src="src/images/ponei_magico_black.png" alt="Azog the Defiler"></td>
+    <td align="center"><img src="src/images/ponei_magico_white.png" alt="Éomer"></td>
+    <td align="center"><img src="src/images/torre_h_black.png" alt="Mount Doom"></td>
+    <td align="center"><img src="src/images/torre_h_white.png" alt="Erebor"></td>
+    <td align="center"><img src="src/images/torre_v_black.png" alt="Eisengard"></td>
+    <td align="center"><img src="src/images/torre_v_white.png" alt="Minas Tirith"></td>
+    <td align="center"><img src="src/images/homer_black.png" alt="Grima"></td>
+    <td align="center"><img src="src/images/homer_white.png" alt="Gimli"></td>
+    <td align="center"><img src="src/images/joker_black.png" alt="Gollum"></td>
+    <td align="center"><img src="src/images/joker_white.png" alt="Frodo"></td>
+    <td align="center"><img src="src/images/ring50.png" alt="Frodo"></td>
   </tr>
 </table>
+
 
 <p align="center">
   <img src="src/images/ScreenshotTabuleiro.png" alt="Diagrama UML">
