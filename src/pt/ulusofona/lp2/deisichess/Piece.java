@@ -1,10 +1,7 @@
 package pt.ulusofona.lp2.deisichess;
 
-import java.io.File;
-
 public abstract class Piece {
 
-    private int pointsWorth = 0;
     protected int numCapturas;
     protected int id;
     protected int team;
@@ -12,11 +9,10 @@ public abstract class Piece {
     protected int posX;
     protected int posY;
     protected String nickname;
-    protected File icon;
     protected boolean inPlay = false;
-
     protected String pngLocation;
     protected String typeStr;
+    private int pointsWorth = 0;
 
     protected Piece(int id, int type, int team, String nickname) {
         this.id = id;
@@ -56,9 +52,6 @@ public abstract class Piece {
         this.typeStr = typeStr;
     }
 
-    public void setIcon(File icon) {
-        this.icon = icon;
-    }
 
     public int getTeam() {
         return team;
@@ -228,11 +221,8 @@ public abstract class Piece {
 
 
 
-    public void incrementPointsWorth(int points) {
-        this.pointsWorth += points;
-    }
 
-    public void capturou(int pontos){
+    public void capturou(int pontos) {
         this.pointsWorth = 0;
         this.numCapturas++;
         this.pointsWorth += pontos;

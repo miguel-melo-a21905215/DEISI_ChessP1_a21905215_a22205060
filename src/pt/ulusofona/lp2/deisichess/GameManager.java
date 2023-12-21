@@ -339,7 +339,6 @@ public class GameManager {
                     board.metePecaDestino(pecaMovida, destX, destY);
                     board.comeu();
                     pecaMovida.capturou(pecaNoDestino.getPointsWorth());
-                    pecaMovida.incrementPointsWorth(pecaNoDestino.getPointsWorth());
 
 
                 } else {
@@ -386,14 +385,13 @@ public class GameManager {
 
 
     public Map<String, String> customizeBoard() {
-        //TODO -> ADICIONAR PNGs
         HashMap<String, String> customization = new HashMap<>();
         customization.put("title", "The Chess of the Middle Earth");
-        //customization.put("imageBlackSquare", "");
-        //customization.put("imageWhiteSquare", "");
-        //customization.put("imageBackGround", "");
-        //customization.put("boardMarginTop", "");
-        //customization.put("boardMarginBottom", "");
+        customization.put("imageBlackSquare", "black-box.png");
+        customization.put("imageWhiteSquare", "white-box.png");
+        customization.put("imageBackGround", "src/images/map.jpg");
+        customization.put("boardMarginTop", "10");
+        customization.put("boardMarginBottom", "20");
 
         return customization;
     }
@@ -401,7 +399,7 @@ public class GameManager {
     public JPanel getAuthorsPanel() {
         JPanel result = new JPanel();
 
-        ImageIcon gifIcon = new ImageIcon("src/images/14outta14.gif");
+        ImageIcon gifIcon = new ImageIcon("src/images/DefesaGoneWrong.gif");
         JLabel gifLabel = new JLabel(gifIcon);
 
         result.add(gifLabel);
