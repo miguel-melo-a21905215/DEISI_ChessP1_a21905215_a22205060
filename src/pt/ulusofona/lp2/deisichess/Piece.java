@@ -65,9 +65,6 @@ public abstract class Piece {
         return type;
     }
 
-    public void setType(int type) {
-        this.type = type;
-    }
 
     public String getNickname() {
         return nickname;
@@ -81,9 +78,6 @@ public abstract class Piece {
         return inPlay;
     }
 
-    public void setInPlay(boolean inPlay) {
-        this.inPlay = inPlay;
-    }
 
     public void marcaInPlay() {
         inPlay = true;
@@ -101,16 +95,9 @@ public abstract class Piece {
         return posX;
     }
 
-    public void setPosX(int posX) {
-        this.posX = posX;
-    }
 
     public int getPosY() {
         return posY;
-    }
-
-    public void setPosY(int posY) {
-        this.posY = posY;
     }
 
     public void capturada() {
@@ -194,13 +181,6 @@ public abstract class Piece {
     }
 
 
-    public Piece clonePiece() {
-        Piece clonedPiece = newPieceByType(this.id, this.type, this.team, this.nickname);
-        clonedPiece.marcaInPlay();
-        clonedPiece.novaPos(posX, posY);
-        return clonedPiece;
-    }
-
     public void goSleep() {
     }
 
@@ -218,8 +198,6 @@ public abstract class Piece {
     public Boolean isSleeping() {
         return true;
     }
-
-
 
 
     public void capturou(int pontos) {

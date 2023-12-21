@@ -198,6 +198,19 @@ public class TestGameManager {
 
     }
 
+    @Test
+    void getSquareInfoTesting() throws IOException, InvalidGameInputException {
+        GameManager gameManager = new GameManager();
+        File file = new File("test-files/8x8.txt");
+        gameManager.loadGame(file);
+        assertEquals("1", gameManager.getSquareInfo(0, 0)[0]);
+        assertEquals(5, gameManager.getSquareInfo(0, 0).length);
+
+        assertEquals(0, gameManager.getSquareInfo(2, 2).length);
+
+        assertEquals(6, gameManager.customizeBoard().size());
+    }
+
 
 
     /*--------------------------------- TESTES BOARD - GETTERS ---------------------------------*/
@@ -455,17 +468,27 @@ public class TestGameManager {
         assertFalse(gameManager.gameOver());
 
         assertEquals(0, gameManager.getHints(3, 2).size());
-        assertEquals("Doh! zzzzzz",gameManager.getPieceInfoAsString(7));
+        assertEquals("Doh! zzzzzz", gameManager.getPieceInfoAsString(7));
 
-        assertEquals("Doh! zzzzzz",gameManager.getPieceInfoAsString(15));
+        assertEquals("Doh! zzzzzz", gameManager.getPieceInfoAsString(15));
         gameManager.move(4, 4, 5, 4);
         assertEquals(4, gameManager.getHints(3, 4).size());
-        assertTrue(gameManager.move(3,4,2,3));
+        assertTrue(gameManager.move(3, 4, 2, 3));
 
-        gameManager.move(5,4,4,4);
+        gameManager.move(5, 4, 4, 4);
 
-        assertEquals("Doh! zzzzzz",gameManager.getPieceInfoAsString(7));
-        assertEquals("Doh! zzzzzz",gameManager.getPieceInfoAsString(15));
+        assertEquals("Doh! zzzzzz", gameManager.getPieceInfoAsString(7));
+        assertEquals("Doh! zzzzzz", gameManager.getPieceInfoAsString(15));
     }
 
+    @Test
+    public void saveGameTesting() throws IOException, InvalidGameInputException {
+        GameManager gameManager = new GameManager();
+        File file = new File("test-files/8x8_saveGame_Test.txt");
+        gameManager.loadGame(file);
+
+        assertEquals(15, gameManager.getGameHistory().getPlays().size());
+        gameManager.undo();
+
+    }
 }

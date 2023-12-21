@@ -25,28 +25,9 @@ class Play implements Comparable<Play> {
         this.valid = valid;
     }
 
-    public int getDestX() {
-        return destX;
-    }
-
-    public int getDestY() {
-        return destY;
-    }
-
-    public int getPointsWorthMove() {
-        return pointsWorthMove;
-    }
 
     public boolean isValid() {
         return valid;
-    }
-
-    public int getOriX() {
-        return oriX;
-    }
-
-    public int getOriY() {
-        return oriY;
     }
 
     @Override

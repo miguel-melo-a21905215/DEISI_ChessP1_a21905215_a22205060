@@ -33,13 +33,6 @@ public class Team {
         teamPieces.put(newPiece.getId(), newPiece);
     }
 
-    public int convertNumEquipas(int num) {
-        if (num == 20) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
 
     public void incrementarInPlay() {
         this.inPlayPieces++;

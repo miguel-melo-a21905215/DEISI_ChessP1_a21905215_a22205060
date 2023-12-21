@@ -61,9 +61,6 @@ public class GameHistory {
         plays.add(play);
     }
 
-    public String getStartingBoard() {
-        return startingBoard;
-    }
 
     public void setStartingBoard(String startingBoard) {
         this.startingBoard = startingBoard;

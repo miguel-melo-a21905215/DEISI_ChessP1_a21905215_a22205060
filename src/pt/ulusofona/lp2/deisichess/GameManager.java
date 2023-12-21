@@ -12,15 +12,6 @@ public class GameManager {
     private int turn = 0;
 
 
-    //a preencher pelo gameOver
-
-    public GameManager(Board board, String winner) {
-        this.board = board;
-        this.winnerMessage = winner;
-        this.gameHistory = new GameHistory();
-        this.turn = 0;
-    }
-
     public GameManager() {
 
     }
@@ -130,7 +121,7 @@ public class GameManager {
             File usableFile = new File("gameHistoryFile.txt");
             gameHistory.writeFile(usableFile);
             loadGame(usableFile);
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException ignored) {
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (InvalidGameInputException e) {
@@ -316,6 +307,10 @@ public class GameManager {
         return true;
     }
 
+
+    public GameHistory getGameHistory() {
+        return gameHistory;
+    }
 
     /*TODO - VERIFICAR MOVES CORRETOS DEPOIS DA CRIACAO DAS PECAS NOVAS + ADICIONAR ALTERAÇÃO DE PONTOS
      *  PARA A ESTATISTICA -> QUANDO COME +X PONTOS PARA !CURRENTTEAM -> ADICIONAR NA COMEU(?)
