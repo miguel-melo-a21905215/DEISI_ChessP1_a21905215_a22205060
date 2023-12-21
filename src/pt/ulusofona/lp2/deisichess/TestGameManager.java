@@ -350,4 +350,118 @@ public class TestGameManager {
         assertTrue(gameManager.move(5, 7, 5, 0));               //MOVE CERTO - TORRE VERT COME TORRE VERT
 
     }
+
+    @Test
+    public void rainhaTesting() throws IOException, InvalidGameInputException {
+        GameManager gameManager = new GameManager();
+        File file = new File("test-files/8x8_Rainha_Test.txt");
+        gameManager.loadGame(file);
+        assertFalse(gameManager.gameOver());
+
+        assertEquals(22, gameManager.getHints(3, 3).size());
+        assertEquals(0, gameManager.getHints(3, 4).size());
+        assertFalse(gameManager.move(3, 3, 3, 4));
+        assertTrue(gameManager.move(3, 3, 4, 4));
+        assertEquals(22, gameManager.getHints(3, 4).size());
+    }
+
+    @Test
+    public void padreVilaTesting() throws IOException, InvalidGameInputException {
+        GameManager gameManager = new GameManager();
+        File file = new File("test-files/8x8_PadreVila_Test.txt");
+        gameManager.loadGame(file);
+        assertFalse(gameManager.gameOver());
+
+        assertEquals(11, gameManager.getHints(3, 3).size());
+        assertEquals(0, gameManager.getHints(3, 4).size());
+        assertFalse(gameManager.move(3, 3, 3, 4));
+        assertFalse(gameManager.move(3, 3, 7, 7));
+        assertTrue(gameManager.move(3, 3, 4, 4));
+        assertEquals(11, gameManager.getHints(3, 4).size());
+        assertTrue(gameManager.move(3, 4, 2, 3));
+        assertEquals(12, gameManager.getHints(4, 4).size());
+    }
+
+    @Test
+    public void torreVertTesting() throws IOException, InvalidGameInputException {
+        GameManager gameManager = new GameManager();
+        File file = new File("test-files/8x8_TorreVert_Test.txt");
+        gameManager.loadGame(file);
+        assertFalse(gameManager.gameOver());
+
+        assertEquals(7, gameManager.getHints(5, 0).size());
+        assertEquals(0, gameManager.getHints(5, 7).size());
+        assertFalse(gameManager.move(5, 0, 4, 0));
+        assertFalse(gameManager.move(5, 0, 6, 1));
+        assertTrue(gameManager.move(5, 0, 5, 6));
+        assertEquals(1, gameManager.getHints(5, 7).size());
+        assertFalse(gameManager.move(5, 7, 5, 5));
+        assertTrue(gameManager.move(5, 7, 5, 6));
+        assertEquals(0, gameManager.getHints(5, 6).size());
+        assertTrue(gameManager.move(0, 0, 1, 0));
+        assertTrue(gameManager.move(5, 6, 5, 5));
+        assertTrue(gameManager.move(1, 0, 2, 0));
+        assertTrue(gameManager.move(5, 5, 5, 6));
+        assertTrue(gameManager.move(2, 0, 3, 0));
+        assertTrue(gameManager.move(5, 6, 5, 5));
+        assertTrue(gameManager.move(3, 0, 4, 0));
+        assertTrue(gameManager.move(5, 5, 5, 6));
+        assertTrue(gameManager.move(4, 0, 5, 0));
+        assertEquals(7, gameManager.getHints(5, 6).size());
+        Play winningPLay = new Play(5, 0, 1000);
+        assertEquals(winningPLay.toString(), gameManager.getHints(5, 6).get(0).toString());
+        assertTrue(gameManager.move(5, 6, 5, 0));
+        assertTrue(gameManager.gameOver());
+    }
+
+    @Test
+    public void torreHorTesting() throws IOException, InvalidGameInputException {
+        GameManager gameManager = new GameManager();
+        File file = new File("test-files/8x8_TorreHor_Test.txt");
+        gameManager.loadGame(file);
+        assertFalse(gameManager.gameOver());
+
+        assertEquals(6, gameManager.getHints(5, 0).size());
+        assertEquals(0, gameManager.getHints(5, 7).size());
+        assertFalse(gameManager.move(5, 0, 0, 0));
+        assertFalse(gameManager.move(5, 0, 0, 5));
+        assertTrue(gameManager.move(5, 0, 2, 0));
+
+        assertEquals(3, gameManager.getHints(5, 7).size());
+
+    }
+
+    @Test
+    public void poneiMagicoTesting() throws IOException, InvalidGameInputException {
+        GameManager gameManager = new GameManager();
+        File file = new File("test-files/8x8_PoneiMagico_Test.txt");
+        gameManager.loadGame(file);
+        assertFalse(gameManager.gameOver());
+
+
+        assertEquals(4, gameManager.getHints(3, 3).size());
+        gameManager.move(6, 5, 5, 5);
+
+        gameManager.move(0, 6, 0, 5);
+        assertEquals(3, gameManager.getHints(3, 3).size());
+
+        gameManager.move(5, 5, 6, 5);
+        gameManager.move(5, 7, 5, 3);
+        assertEquals(4, gameManager.getHints(3, 3).size());
+
+        gameManager.move(0, 0, 1, 1);
+        gameManager.move(0, 5, 1, 5);
+        assertEquals(3, gameManager.getHints(3, 3).size());
+        Play winningPlay = new Play(1, 5, 1000);
+        Play noPlay = new Play(1, 1, 1000);
+        assertEquals(winningPlay.toString(), gameManager.getHints(3, 3).get(0).toString());
+        assertFalse(gameManager.getHints(3, 3).contains(noPlay));
+
+        gameManager.move(5, 6, 5, 7);
+        gameManager.move(1, 5, 1, 4);
+
+        assertEquals(3, gameManager.getHints(3, 3).size());
+        winningPlay = new Play(1, 4, 1000);
+        assertNotEquals(winningPlay.toString(), gameManager.getHints(3, 3).get(0).toString());
+    }
 }
