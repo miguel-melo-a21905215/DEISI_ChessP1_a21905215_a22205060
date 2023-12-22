@@ -6,7 +6,7 @@ fun getStatsCalculator(estatisticas: StatType): (GameManager) -> ArrayList<Strin
         StatType.TOP_5_CAPTURAS -> return ::getTop5Capturas
         StatType.TOP_5_PONTOS -> return ::getTopPontos
         StatType.PECAS_MAIS_5_CAPTURAS -> return ::getPecasMais5Capturas
-        StatType.PECAS_MAIS_BARALHADAS -> return ::getTopPontos
+        StatType.PECAS_MAIS_BARALHADAS -> return ::getTop3Baralhadas
         StatType.TIPOS_CAPTURADOS -> return ::getTiposPecaCapturados
     }
 }
