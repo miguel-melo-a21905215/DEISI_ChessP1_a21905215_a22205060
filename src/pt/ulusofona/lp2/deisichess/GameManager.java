@@ -327,7 +327,6 @@ public class GameManager {
 
                 if (board.temPeca(destX, destY)) {
                     Piece pecaNoDestino = board.getPecaNaPos(destX, destY);
-                    //TODO -> VER PARTE ESTATISTICA
 
                     board.tiraPecaOrigem(oriX, oriY);
                     pecaNoDestino.capturada();
