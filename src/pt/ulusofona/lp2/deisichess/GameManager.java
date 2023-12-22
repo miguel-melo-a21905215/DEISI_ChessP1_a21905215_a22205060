@@ -384,7 +384,7 @@ public class GameManager {
         customization.put("title", "The Chess of the Middle Earth");
         customization.put("imageBlackSquare", "black-box.png");
         customization.put("imageWhiteSquare", "white-box.png");
-        customization.put("imageBackGround", "src/images/map.jpg");
+        customization.put("imageBackground", "imageBackground.png");
         customization.put("boardMarginTop", "10");
         customization.put("boardMarginBottom", "20");
 
