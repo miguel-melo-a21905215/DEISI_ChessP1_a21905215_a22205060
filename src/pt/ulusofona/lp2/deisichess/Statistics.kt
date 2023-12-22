@@ -11,12 +11,23 @@ fun getStatsCalculator(estatisticas: StatType): (GameManager) -> ArrayList<Strin
     }
 }
 
+fun getTop3Baralhadas(gameManager: GameManager): ArrayList<String> {
+    val pieces = gameManager.getBoard().getTotalPieces()
+        .sortedByDescending { it.getFailedAttempts() }
+        .take(3)
+        .map { piece ->
+            "${piece.getTeam()}:${piece.getNickname()}:${piece.getFailedAttempts()}:${piece.getSuccessfulAttempts()}"
+        }
+        .toCollection(ArrayList())
+    return pieces
+}
+
 fun getTopPontos(gameManager: GameManager): ArrayList<String> {
-    val pieces = gameManager.board.totalPieces
-        .sortedByDescending { it.pointsWorth }
+    val pieces = gameManager.getBoard().getTotalPieces()
+        .sortedByDescending { it.getPointsWorth() }
         .take(5)
         .map { piece ->
-            "${piece.nickname} (${if (piece.team == 10) "PRETA" else "BRANCA"}) tem ${piece.pointsWorth} pontos"
+            "${piece.getNickname()} (${if (piece.getTeam() == 10) "PRETA" else "BRANCA"}) tem ${piece.getPointsWorth()} pontos"
         }
         .toCollection(ArrayList())
 
@@ -25,12 +36,12 @@ fun getTopPontos(gameManager: GameManager): ArrayList<String> {
 
 
 fun getTop5Capturas(gameManager: GameManager): ArrayList<String> {
-    val pieces = gameManager.board.totalPieces
-        .sortedByDescending { it.numCapturas }
+    val pieces = gameManager.getBoard().getTotalPieces()
+        .sortedByDescending { it.getNumCapturas() }
         .take(5)
         .map { piece ->
-            "${piece.nickname} (${if (piece.team == 10) "PRETA" else "BRANCA"}) " +
-                    "fez ${piece.numCapturas} capturas"
+            "${piece.getNickname()} (${if (piece.getTeam() == 10) "PRETA" else "BRANCA"}) " +
+                    "fez ${piece.getNumCapturas()} capturas"
         }
         .toCollection(ArrayList())
 
@@ -38,12 +49,12 @@ fun getTop5Capturas(gameManager: GameManager): ArrayList<String> {
 }
 
 fun getPecasMais5Capturas(gameManager: GameManager): ArrayList<String> {
-    val pieces = gameManager.board.totalPieces
-        .filter { it.numCapturas > 5 }
-        .sortedByDescending { it.numCapturas }
+    val pieces = gameManager.getBoard().getTotalPieces()
+        .filter { it.getNumCapturas() > 5 }
+        .sortedByDescending { it.getNumCapturas() }
         .take(5)
         .map { piece ->
-            "${if (piece.team == 10) "PRETA" else "BRANCA"}:${piece.nickname}:${piece.numCapturas}"
+            "${if (piece.getTeam() == 10) "PRETA" else "BRANCA"}:${piece.getNickname()}:${piece.getNumCapturas()}"
         }
         .toCollection(ArrayList())
 
@@ -53,9 +64,9 @@ fun getPecasMais5Capturas(gameManager: GameManager): ArrayList<String> {
 
 fun getTiposPecaCapturados(gameManager: GameManager): ArrayList<String> {
 
-    val piecesCaptured = gameManager.board.totalPieces.filter { !it.isInPlay() }
+    val piecesCaptured = gameManager.getBoard().getTotalPieces().filter { !it.isInPlay() }
     val namesCaptured = piecesCaptured.map { piece ->
-        piece.typeStr
+        piece.getTypeStr()
     }.distinct()
 
     return ArrayList(namesCaptured)

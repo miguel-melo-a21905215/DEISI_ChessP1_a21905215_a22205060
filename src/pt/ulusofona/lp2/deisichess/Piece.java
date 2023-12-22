@@ -12,7 +12,9 @@ public abstract class Piece {
     protected boolean inPlay = false;
     protected String pngLocation;
     protected String typeStr;
-    private int pointsWorth = 0;
+    protected int pointsWorth = 0;
+    protected int failedAttempts = 0;
+    protected int successfulAttempts = 0;
 
     protected Piece(int id, int type, int team, String nickname) {
         this.id = id;
@@ -23,9 +25,27 @@ public abstract class Piece {
         this.pointsWorth = 0;
         this.typeStr = "";
         this.numCapturas = 0;
+        this.failedAttempts = 0;
+        this.successfulAttempts = 0;
     }
 
     protected Piece() {
+    }
+
+    public int getSuccessfulAttempts() {
+        return successfulAttempts;
+    }
+
+    public int getFailedAttempts() {
+        return failedAttempts;
+    }
+
+    public void acertou() {
+        this.successfulAttempts++;
+    }
+
+    public void falhou() {
+        this.failedAttempts++;
     }
 
     public int getPointsWorth() {
@@ -166,21 +186,6 @@ public abstract class Piece {
     }
 
 
-    public Piece newPieceByType(int id, int type, int team, String nickname) {
-        return switch (type) {
-            case 0 -> new Rei(id, type, team, nickname);
-            case 1 -> new Rainha(id, type, team, nickname);
-            case 2 -> new PoneiMagico(id, type, team, nickname);
-            case 3 -> new PadreVila(id, type, team, nickname);
-            case 4 -> new TorreHorizontal(id, type, team, nickname);
-            case 5 -> new TorreVertical(id, type, team, nickname);
-            case 6 -> new HomerSimpson(id, type, team, nickname);
-            case 7 -> new Joker(id, type, team, nickname);
-            default -> null;
-        };
-    }
-
-
     public void goSleep() {
     }
 
@@ -199,6 +204,10 @@ public abstract class Piece {
         return true;
     }
 
+
+    public int getNumCapturas() {
+        return numCapturas;
+    }
 
     public void capturou(int pontos) {
         this.numCapturas++;

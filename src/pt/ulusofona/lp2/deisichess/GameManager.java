@@ -79,8 +79,6 @@ public class GameManager {
 
             fillStartingBoardInfo();
 
-            //TODO ADIDCIONAR LOGICA DE HISTORY
-
             if (scanner.hasNext() && Objects.equals(scanner.nextLine().trim(), "------------------MOVE HISTORY------------------")) {
                 int playCount = 0;
                 while (scanner.hasNextLine()) {
@@ -312,12 +310,8 @@ public class GameManager {
         return gameHistory;
     }
 
-    /*TODO - VERIFICAR MOVES CORRETOS DEPOIS DA CRIACAO DAS PECAS NOVAS + ADICIONAR ALTERAÇÃO DE PONTOS
-     *  PARA A ESTATISTICA -> QUANDO COME +X PONTOS PARA !CURRENTTEAM -> ADICIONAR NA COMEU(?)
-     * ADICIONAR CLONAGEM DO TABULEIRO + REGISTO DO MOVE PARA A GAME HISTORY
-     * FALTA VALIDAÇÃO DO JOKER*/
+
     public boolean move(int oriX, int oriY, int destX, int destY) {
-        //TODO ->gameHistory.addNewMove(oriX, oriY, destX, destY);
 
         if (board.generalMoveValidation(oriX, oriY, destX, destY)) {                                    //COORD. DENTRO TABULEIRO + PEÇA VALIDA + DESTINO VALIDO
             Piece pecaMovida = board.getPecaNaPos(oriX, oriY);
@@ -340,12 +334,18 @@ public class GameManager {
                     board.metePecaDestino(pecaMovida, destX, destY);
                     board.moveu();
                 }
+
+                pecaMovida.acertou();
                 turn++;
                 board.homerClock(this.turn);
                 board.jokerClock(this.turn);
                 gameHistory.addPlay(oriX, oriY, destX, destY, true);
                 return true;
             }
+        }
+        if (oriX > 0 && oriX < getBoardSize() && oriY > 0 && oriY < getBoardSize() && board.temPeca(oriX, oriY)) {
+            Piece pecaConsiderada = board.getPecaNaPos(oriX, oriY);
+            pecaConsiderada.falhou();
         }
         board.falhou();
         gameHistory.addPlay(oriX, oriY, destX, destY, false);
