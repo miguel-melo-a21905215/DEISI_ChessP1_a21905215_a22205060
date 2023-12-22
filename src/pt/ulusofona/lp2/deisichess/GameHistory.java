@@ -21,7 +21,7 @@ public class GameHistory {
             writer.write(startingBoard);
             writer.write(initiateHistory());
             writer.newLine();
-            int count = 0;
+            int count = 1;
             for (Play play : plays) {
                 writer.write(count + "");
                 writer.write(play.toString());

@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -482,13 +483,73 @@ public class TestGameManager {
     }
 
     @Test
+    public void jokerTesting() throws IOException, InvalidGameInputException {
+        GameManager gameManager = new GameManager();
+        File file = new File("test-files/8x8.txt");
+        gameManager.loadGame(file);
+
+        assertTrue(gameManager.move(7, 0, 7, 5));
+        assertFalse(gameManager.move(7, 7, 7, 2));
+        assertTrue(gameManager.move(6, 7, 5, 6));
+        assertFalse(gameManager.move(7, 7, 5, 5));
+        assertTrue(gameManager.move(7, 5, 5, 3));
+        assertTrue(gameManager.move(7, 7, 6, 7));
+        assertTrue(gameManager.move(5, 3, 5, 6));
+        assertTrue(gameManager.move(6, 7, 7, 6));
+    }
+
+    @Test
     public void saveGameTesting() throws IOException, InvalidGameInputException {
+        GameManager gameManager = new GameManager();
+        File file = new File("test-files/8x8.txt");
+        gameManager.loadGame(file);
+
+        assertEquals(0, gameManager.getGameHistory().getPlays().size());
+        gameManager.move(0, 0, 1, 1);
+        gameManager.move(0, 7, 0, 7);
+        assertEquals(2, gameManager.getGameHistory().getPlays().size());
+        gameManager.move(0, 7, 0, 6);
+
+        gameManager.undo();
+
+        assertEquals(10, gameManager.getBoard().getPecaNaPos(1, 1).getTeam());
+        ;
+        assertEquals(20, gameManager.getBoard().getPecaNaPos(0, 7).getTeam());
+        ;
+        assertEquals(2, gameManager.getGameHistory().getPlays().size());
+
+
+    }
+
+    @Test
+    public void enumTesting() throws IOException, InvalidGameInputException {
         GameManager gameManager = new GameManager();
         File file = new File("test-files/8x8_saveGame_Test.txt");
         gameManager.loadGame(file);
 
-        assertEquals(15, gameManager.getGameHistory().getPlays().size());
-        gameManager.undo();
+        StatType statType = StatType.TOP_5_PONTOS;
+
+        ArrayList<String> result = StatisticsKt.getStatsCalculator(statType).invoke(gameManager);
+        assertEquals(5, result.size());
+
+        statType = StatType.PECAS_MAIS_5_CAPTURAS;
+
+        result = StatisticsKt.getStatsCalculator(statType).invoke(gameManager);
+        assertEquals(0, result.size());
+
+        statType = StatType.TOP_5_CAPTURAS;
+
+        result = StatisticsKt.getStatsCalculator(statType).invoke(gameManager);
+        assertEquals(5, result.size());
+
+        statType = StatType.PECAS_MAIS_BARALHADAS;
+
+        result = StatisticsKt.getStatsCalculator(statType).invoke(gameManager);
+        assertEquals(3, result.size());
+
+        statType = StatType.TIPOS_CAPTURADOS;
+        result = StatisticsKt.getStatsCalculator(statType).invoke(gameManager);
+        assertEquals(1, result.size());
 
     }
 }

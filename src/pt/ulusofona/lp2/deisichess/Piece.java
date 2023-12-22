@@ -77,9 +77,6 @@ public abstract class Piece {
         return team;
     }
 
-    public void setTeam(int team) {
-        this.team = team;
-    }
 
     public int getType() {
         return type;
@@ -90,9 +87,6 @@ public abstract class Piece {
         return nickname;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
 
     public boolean isInPlay() {
         return inPlay;
@@ -107,9 +101,6 @@ public abstract class Piece {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public int getPosX() {
         return posX;
