@@ -336,6 +336,7 @@ public class GameManager {
                 }
 
                 pecaMovida.acertou();
+
                 turn++;
                 board.homerClock(this.turn);
                 board.jokerClock(this.turn);
@@ -343,10 +344,8 @@ public class GameManager {
                 return true;
             }
         }
-        if (oriX > 0 && oriX < getBoardSize() && oriY > 0 && oriY < getBoardSize() && board.temPeca(oriX, oriY)) {
             Piece pecaConsiderada = board.getPecaNaPos(oriX, oriY);
             pecaConsiderada.falhou();
-        }
         board.falhou();
         gameHistory.addPlay(oriX, oriY, destX, destY, false);
         return false;

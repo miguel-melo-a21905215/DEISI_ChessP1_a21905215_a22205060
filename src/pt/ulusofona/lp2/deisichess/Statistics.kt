@@ -13,13 +13,15 @@ fun getStatsCalculator(estatisticas: StatType): (GameManager) -> ArrayList<Strin
 
 fun getTop3Baralhadas(gameManager: GameManager): ArrayList<String> {
     val pieces = gameManager.getBoard().getTotalPieces()
-        .sortedByDescending { it.getFailedAttempts() }
+        .sortedByDescending { it.getFailedAttempts() + it.getSuccessfulAttempts() }
         .take(3)
         .map { piece ->
             "${piece.getTeam()}:${piece.getNickname()}:${piece.getFailedAttempts()}:${piece.getSuccessfulAttempts()}"
         }
         .toCollection(ArrayList())
-    return pieces
+
+    return pieces;
+
 }
 
 fun getTopPontos(gameManager: GameManager): ArrayList<String> {
