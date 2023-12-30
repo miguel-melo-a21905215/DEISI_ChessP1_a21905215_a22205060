@@ -6,7 +6,7 @@ public class Rainha extends Piece {
 
     public Rainha(int id, int type, int team, String nickname) {
         super(id, type, team, nickname);
-        setPointsWorth(8);
+        this.pointsWorth = 8;
         if (team == 10) {
             setPngLocation("rainha_black.png");
         } else if (team == 20) {

@@ -13,9 +13,9 @@ public abstract class Piece {
     protected String pngLocation;
     protected String typeStr;
     protected int accumulatedPoints;
-    protected int pointsWorth = 0;
-    protected int failedAttempts = 0;
-    protected int successfulAttempts = 0;
+    protected int pointsWorth;
+    protected int failedAttempts;
+    protected int successfulAttempts;
 
     protected Piece(int id, int type, int team, String nickname) {
         this.id = id;
@@ -23,7 +23,6 @@ public abstract class Piece {
         this.type = type;
         this.nickname = nickname;
         this.inPlay = false;
-        this.pointsWorth = 0;
         this.typeStr = "";
         this.numCapturas = 0;
         this.accumulatedPoints = 0;

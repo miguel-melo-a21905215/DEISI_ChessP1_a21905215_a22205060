@@ -4,7 +4,7 @@ public class Rei extends Piece {
 
     public Rei(int id, int type, int team, String nickname) {
         super(id, type, team, nickname);
-        setPointsWorth(1000);
+        this.pointsWorth = 1000;
         if (team == 10) {
             setPngLocation("crazy_emoji_black.png");
         } else if (team == 20) {

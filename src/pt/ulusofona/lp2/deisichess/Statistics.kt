@@ -12,7 +12,8 @@ fun getStatsCalculator(estatisticas: StatType): (GameManager) -> ArrayList<Strin
 }
 
 fun getTop3Baralhadas(gameManager: GameManager): ArrayList<String> {
-    val pieces = gameManager.board.totalPieces
+    var pieces = gameManager.board.totalPieces
+        .asSequence()
         .filter { it.getSuccessfulAttempts() > 0 } // Exclude pieces with successfulAttempts <= 0
         .sortedByDescending {
             it.getFailedAttempts().toDouble() / it.getSuccessfulAttempts().toDouble()
@@ -28,16 +29,15 @@ fun getTop3Baralhadas(gameManager: GameManager): ArrayList<String> {
 
 
 fun getTopPontos(gameManager: GameManager): ArrayList<String> {
-    val pieces = gameManager.board.totalPieces
-        .filter { it.getAccumulatedPoints() > 0 }
+    return gameManager.board.totalPieces
+        .asSequence()
+        //.filter { it.getAccumulatedPoints() > 0 }
         .sortedByDescending { it.getAccumulatedPoints() }
         .take(5)
         .map { piece ->
-            "${piece.getNickname()} (${if (piece.getTeam() == 10) "PRETA" else "BRANCA"}) tem ${piece.getPointsWorth()} pontos"
+            "${piece.getNickname()} (${if (piece.getTeam() == 10) "PRETA" else "BRANCA"}) tem ${piece.getAccumulatedPoints()} pontos"
         }
         .toCollection(ArrayList())
-
-    return pieces
 }
 
 
@@ -70,9 +70,9 @@ fun getPecasMais5Capturas(gameManager: GameManager): ArrayList<String> {
 
 fun getTiposPecaCapturados(gameManager: GameManager): ArrayList<String> {
 
-    val capturedCounters = gameManager.board.capturedCounters
+    var capturedCounters = gameManager.board.capturedCounters
 
-    val sortedList = capturedCounters.entries.sortedByDescending { it.value }
+    var sortedList = capturedCounters.entries.sortedByDescending { it.value }
         .map { it.key }
         .toCollection(ArrayList())
 
