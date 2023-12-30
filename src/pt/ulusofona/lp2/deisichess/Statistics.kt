@@ -78,12 +78,13 @@ fun getTiposPecaCapturados(gameManager: GameManager): ArrayList<String> {
     val resultList = ArrayList<String>()
     var jokerCaptured = false
 
-    for ((key, _) in capturedCounters.entries.sortedByDescending { it.value }) {
-        if (!key.startsWith("Joker")) {
-            resultList.add(key)
-        } else if (!jokerCaptured) {
-            resultList.add(key)
+    for (key in capturedCounters.keys) { // Itera sobre cada key do tipo de peça nas peças capturadas
+        if (key.startsWith("Joker") && !jokerCaptured) { // ve se a key começa com o nome "Joker" e ve tambem se o joker nao foi adicionado na resultlist
+
+            resultList.add(key) //adiciona nome "Joker/(...)" na lista resultlist
             jokerCaptured = true
+        } else if (!key.startsWith("Joker")) { // se a key nao começa com o nome "Joker"
+            resultList.add(key)                      // adiciona o nome da outra peça na resultlist
         }
     }
 
