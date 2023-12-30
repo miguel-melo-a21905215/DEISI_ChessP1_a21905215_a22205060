@@ -12,6 +12,7 @@ public class GameManager {
     private int turn = 0;
 
 
+
     public GameManager() {
 
     }
@@ -325,7 +326,7 @@ public class GameManager {
                     board.tiraPecaOrigem(oriX, oriY);
                     pecaNoDestino.capturada();
                     board.metePecaDestino(pecaMovida, destX, destY);
-                    board.comeu();
+                    board.comeu(pecaNoDestino.getTypeStr());
                     pecaMovida.capturou(pecaNoDestino.getPointsWorth());
 
 

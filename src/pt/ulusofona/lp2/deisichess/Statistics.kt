@@ -1,4 +1,4 @@
-package pt.ulusofona.lp2.deisichess;
+package pt.ulusofona.lp2.deisichess
 
 fun getStatsCalculator(estatisticas: StatType): (GameManager) -> ArrayList<String>? {
 
@@ -12,7 +12,7 @@ fun getStatsCalculator(estatisticas: StatType): (GameManager) -> ArrayList<Strin
 }
 
 fun getTop3Baralhadas(gameManager: GameManager): ArrayList<String> {
-    val pieces = gameManager.getBoard().getTotalPieces()
+    val pieces = gameManager.board.totalPieces
         .sortedByDescending { it.getFailedAttempts() }
         .take(3)
         .map { piece ->
@@ -20,12 +20,12 @@ fun getTop3Baralhadas(gameManager: GameManager): ArrayList<String> {
         }
         .toCollection(ArrayList())
 
-    return pieces;
+    return pieces
 
 }
 
 fun getTopPontos(gameManager: GameManager): ArrayList<String> {
-    val pieces = gameManager.getBoard().getTotalPieces()
+    val pieces = gameManager.board.totalPieces
         .asSequence()
         .filter { it.getAccumulatedPoints() > 0 }
         .sortedByDescending { it.getAccumulatedPoints() }
@@ -40,7 +40,7 @@ fun getTopPontos(gameManager: GameManager): ArrayList<String> {
 
 
 fun getTop5Capturas(gameManager: GameManager): ArrayList<String> {
-    val pieces = gameManager.getBoard().getTotalPieces()
+    val pieces = gameManager.board.totalPieces
         .sortedByDescending { it.getNumCapturas() }
         .take(5)
         .map { piece ->
@@ -53,7 +53,7 @@ fun getTop5Capturas(gameManager: GameManager): ArrayList<String> {
 }
 
 fun getPecasMais5Capturas(gameManager: GameManager): ArrayList<String> {
-    val pieces = gameManager.getBoard().getTotalPieces()
+    val pieces = gameManager.board.totalPieces
         .filter { it.getNumCapturas() > 5 }
         .sortedByDescending { it.getNumCapturas() }
         .take(5)
@@ -68,14 +68,22 @@ fun getPecasMais5Capturas(gameManager: GameManager): ArrayList<String> {
 
 fun getTiposPecaCapturados(gameManager: GameManager): ArrayList<String> {
 
-    val piecesCaptured = gameManager.getBoard().getTotalPieces().filter { !it.isInPlay() }
-    val namesCaptured = piecesCaptured.map { piece ->
-        piece.getTypeStr()
-    }.distinct()
+    val capturedCounters = gameManager.board.capturedCounters
 
-    return ArrayList(namesCaptured)
+    val sortedList = capturedCounters.entries.sortedByDescending { it.value }
+        .map { it.key }
+        .toCollection(ArrayList())
+
+
+    return sortedList
 }
 
+class ValueComparator : Comparator<Map.Entry<String, Int>> {
+    override fun compare(o1: Map.Entry<String, Int>, o2: Map.Entry<String, Int>): Int {
+
+        return o2.value.compareTo(o1.value)
+    }
+}
 
 
 
