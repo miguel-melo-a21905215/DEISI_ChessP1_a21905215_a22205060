@@ -74,15 +74,22 @@ fun getPecasMais5Capturas(gameManager: GameManager): ArrayList<String> {
 
 fun getTiposPecaCapturados(gameManager: GameManager): ArrayList<String> {
 
-    var capturedCounters = gameManager.board.capturedCounters
+    val capturedCounters = gameManager.board.capturedCounters
+    val resultList = ArrayList<String>()
+    var jokerCaptured = false
 
-    var sortedList = capturedCounters.entries.sortedByDescending { it.value }
-        .map { it.key }
-        .toCollection(ArrayList())
+    for ((key, _) in capturedCounters.entries.sortedByDescending { it.value }) {
+        if (!key.startsWith("Joker")) {
+            resultList.add(key)
+        } else if (!jokerCaptured) {
+            resultList.add(key)
+            jokerCaptured = true
+        }
+    }
 
-
-    return sortedList
+    return resultList
 }
+
 
 
 
