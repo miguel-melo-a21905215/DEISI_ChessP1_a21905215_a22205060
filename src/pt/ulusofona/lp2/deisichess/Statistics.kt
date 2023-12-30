@@ -31,7 +31,7 @@ fun getTop3Baralhadas(gameManager: GameManager): ArrayList<String> {
 fun getTopPontos(gameManager: GameManager): ArrayList<String> {
     return gameManager.board.totalPieces
         .asSequence()
-        //.filter { it.getAccumulatedPoints() > 0 }
+        .filter { it.getAccumulatedPoints() > 0 }
         .sortedByDescending { it.getAccumulatedPoints() }
         .take(5)
         .map { piece ->
@@ -43,6 +43,8 @@ fun getTopPontos(gameManager: GameManager): ArrayList<String> {
 
 fun getTop5Capturas(gameManager: GameManager): ArrayList<String> {
     val pieces = gameManager.board.totalPieces
+        .asSequence()
+        .filter { it.getAccumulatedPoints() > 4 }
         .sortedByDescending { it.getNumCapturas() }
         .take(5)
         .map { piece ->
@@ -56,7 +58,8 @@ fun getTop5Capturas(gameManager: GameManager): ArrayList<String> {
 
 fun getPecasMais5Capturas(gameManager: GameManager): ArrayList<String> {
     val pieces = gameManager.board.totalPieces
-        .filter { it.getNumCapturas() > 5 }
+        .asSequence()
+        .filter { it.getNumCapturas() > 4 }
         .sortedByDescending { it.getNumCapturas() }
         .take(5)
         .map { piece ->

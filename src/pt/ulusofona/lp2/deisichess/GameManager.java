@@ -16,7 +16,6 @@ public class GameManager {
 
     }
 
-    //TODO loadGame() VERIFICAR DEPOIS DE TER O SAVE FEITO
     public void loadGame(File file) throws InvalidGameInputException, IOException {
 
         try {
@@ -103,7 +102,6 @@ public class GameManager {
         }
     }
 
-    //TODO REVER
     public void saveGame(File file) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             gameHistory.writeFile(file);
@@ -175,7 +173,7 @@ public class GameManager {
             case 3, 4, 5 -> "3";
             case 6 -> "2";
             case 7 -> "4";
-            default -> ""; // Handle default case if needed
+            default -> "";
         };
 
 
@@ -311,7 +309,7 @@ public class GameManager {
                     pecaNoDestino.capturada();
                     board.metePecaDestino(pecaMovida, destX, destY);
                     if (Objects.equals(pecaNoDestino.getTypeStr(), "Joker")) {
-                        typeStr += pecaNoDestino.getCopyMoveFrom();
+                        typeStr += "/" + pecaNoDestino.getCopyMoveFrom();
                     }
                     board.comeu(typeStr);
                     pecaMovida.capturou(pecaNoDestino.getPointsWorth());
