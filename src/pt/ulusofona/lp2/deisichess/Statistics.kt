@@ -44,7 +44,7 @@ fun getTopPontos(gameManager: GameManager): ArrayList<String> {
 fun getTop5Capturas(gameManager: GameManager): ArrayList<String> {
     val pieces = gameManager.board.totalPieces
         .asSequence()
-        .filter { it.getAccumulatedPoints() > 4 }
+        .filter { it.getAccumulatedPoints() > 0 }
         .sortedByDescending { it.getNumCapturas() }
         .take(5)
         .map { piece ->
@@ -59,7 +59,7 @@ fun getTop5Capturas(gameManager: GameManager): ArrayList<String> {
 fun getPecasMais5Capturas(gameManager: GameManager): ArrayList<String> {
     val pieces = gameManager.board.totalPieces
         .asSequence()
-        .filter { it.getNumCapturas() > 4 }
+        .filter { it.getNumCapturas() > 5 }
         .sortedByDescending { it.getNumCapturas() }
         .take(5)
         .map { piece ->
