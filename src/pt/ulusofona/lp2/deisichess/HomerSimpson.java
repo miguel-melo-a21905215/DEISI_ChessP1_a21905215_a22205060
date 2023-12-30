@@ -11,7 +11,6 @@ public class HomerSimpson extends Piece {
         } else if (team == 20) {
             setPngLocation("homer_white.png");
         }
-        setTypeStr("Doh! zzzzzz");
         this.sleep = true;
 
     }

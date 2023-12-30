@@ -12,7 +12,6 @@ public class GameManager {
     private int turn = 0;
 
 
-
     public GameManager() {
 
     }
@@ -169,36 +168,20 @@ public class GameManager {
         String result = "";
         Piece consideredPiece = board.getPieceByID(id);
 
-        String points = "";
+        String points = switch (consideredPiece.getType()) {
+            case 0 -> "(infinito)";
+            case 1 -> "8";
+            case 2 -> "5";
+            case 3, 4, 5 -> "3";
+            case 6 -> "2";
+            case 7 -> "4";
+            default -> ""; // Handle default case if needed
+        };
 
-        if (consideredPiece.getType() == 0) {
-            points = "(infinito)";
-        } else if (consideredPiece.getType() == 1) {
-            points = "8";
-
-        } else if (consideredPiece.getType() == 2) {
-            points = "5";
-
-        } else if (consideredPiece.getType() == 3) {
-            points = "3";
-
-        } else if (consideredPiece.getType() == 4) {
-            points = "3";
-
-        } else if (consideredPiece.getType() == 5) {
-            points = "3";
-
-        } else if (consideredPiece.getType() == 6) {
-            points = "2";
-
-        } else if (consideredPiece.getType() == 7) {
-            points = "4";
-        } else {
-            points = String.valueOf(consideredPiece.getPointsWorth());
-        }
 
         if (Objects.equals(pieceInfo[1], "6") && (consideredPiece.isSleeping())) {
             return "Doh! zzzzzz";
+
         }
 
         result += pieceInfo[0] + espBarra;
@@ -322,11 +305,15 @@ public class GameManager {
 
                 if (board.temPeca(destX, destY)) {
                     Piece pecaNoDestino = board.getPecaNaPos(destX, destY);
+                    String typeStr = pecaNoDestino.getTypeStr();
 
                     board.tiraPecaOrigem(oriX, oriY);
                     pecaNoDestino.capturada();
                     board.metePecaDestino(pecaMovida, destX, destY);
-                    board.comeu(pecaNoDestino.getTypeStr());
+                    if (Objects.equals(pecaNoDestino.getTypeStr(), "Joker")) {
+                        typeStr += pecaNoDestino.getCopyMoveFrom();
+                    }
+                    board.comeu(typeStr);
                     pecaMovida.capturou(pecaNoDestino.getPointsWorth());
 
 

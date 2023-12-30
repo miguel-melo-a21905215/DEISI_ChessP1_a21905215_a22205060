@@ -13,7 +13,13 @@ fun getStatsCalculator(estatisticas: StatType): (GameManager) -> ArrayList<Strin
 
 fun getTop3Baralhadas(gameManager: GameManager): ArrayList<String> {
     val pieces = gameManager.board.totalPieces
-        .sortedByDescending { it.getFailedAttempts() }
+        .sortedByDescending {
+            if (it.getSuccessfulAttempts() == 0) {
+                Double.POSITIVE_INFINITY
+            } else {
+                it.getFailedAttempts().toDouble() / it.getSuccessfulAttempts().toDouble()
+            }
+        }
         .take(3)
         .map { piece ->
             "${piece.getTeam()}:${piece.getNickname()}:${piece.getFailedAttempts()}:${piece.getSuccessfulAttempts()}"
@@ -21,12 +27,11 @@ fun getTop3Baralhadas(gameManager: GameManager): ArrayList<String> {
         .toCollection(ArrayList())
 
     return pieces
-
 }
+
 
 fun getTopPontos(gameManager: GameManager): ArrayList<String> {
     val pieces = gameManager.board.totalPieces
-        .asSequence()
         .filter { it.getAccumulatedPoints() > 0 }
         .sortedByDescending { it.getAccumulatedPoints() }
         .take(5)
@@ -78,12 +83,6 @@ fun getTiposPecaCapturados(gameManager: GameManager): ArrayList<String> {
     return sortedList
 }
 
-class ValueComparator : Comparator<Map.Entry<String, Int>> {
-    override fun compare(o1: Map.Entry<String, Int>, o2: Map.Entry<String, Int>): Int {
-
-        return o2.value.compareTo(o1.value)
-    }
-}
 
 
 
