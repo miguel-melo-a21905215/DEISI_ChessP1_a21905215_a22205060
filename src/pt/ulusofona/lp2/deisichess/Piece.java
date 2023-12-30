@@ -12,6 +12,7 @@ public abstract class Piece {
     protected boolean inPlay = false;
     protected String pngLocation;
     protected String typeStr;
+    protected int accumulatedPoints;
     protected int pointsWorth = 0;
     protected int failedAttempts = 0;
     protected int successfulAttempts = 0;
@@ -25,6 +26,7 @@ public abstract class Piece {
         this.pointsWorth = 0;
         this.typeStr = "";
         this.numCapturas = 0;
+        this.accumulatedPoints = 0;
         this.failedAttempts = 0;
         this.successfulAttempts = 0;
     }
@@ -202,7 +204,7 @@ public abstract class Piece {
 
     public void capturou(int pontos) {
         this.numCapturas++;
-        this.pointsWorth += pontos;
+        this.accumulatedPoints += pontos;
     }
 
 
