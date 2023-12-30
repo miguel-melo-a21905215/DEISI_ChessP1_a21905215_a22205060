@@ -13,12 +13,9 @@ fun getStatsCalculator(estatisticas: StatType): (GameManager) -> ArrayList<Strin
 
 fun getTop3Baralhadas(gameManager: GameManager): ArrayList<String> {
     val pieces = gameManager.board.totalPieces
+        .filter { it.getSuccessfulAttempts() > 0 } // Exclude pieces with successfulAttempts <= 0
         .sortedByDescending {
-            if (it.getSuccessfulAttempts() == 0) {
-                Double.POSITIVE_INFINITY
-            } else {
-                it.getFailedAttempts().toDouble() / it.getSuccessfulAttempts().toDouble()
-            }
+            it.getFailedAttempts().toDouble() / it.getSuccessfulAttempts().toDouble()
         }
         .take(3)
         .map { piece ->
