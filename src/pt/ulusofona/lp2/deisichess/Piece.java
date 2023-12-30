@@ -197,6 +197,9 @@ public abstract class Piece {
         return true;
     }
 
+    public int getAccumulatedPoints() {
+        return accumulatedPoints;
+    }
 
     public int getNumCapturas() {
         return numCapturas;
