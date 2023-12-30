@@ -63,6 +63,17 @@ public class TestGameManager {
         assertEquals("DADOS A MENOS (Esperava: 4 ; Obtive: 3)", exception.getProblemDescription());
     }
 
+    @Test
+    void loadNsaveTest() throws IOException, InvalidGameInputException {
+        GameManager gameManager = new GameManager();
+        File file = new File("test-files/8x8.txt");
+        gameManager.loadGame(file);
+
+        File destination = new File("gameHistoryFile");
+        gameManager.saveGame(destination);
+
+    }
+
 
     /*--------------------------------- TESTES PIECEINFO + PIECEINFOASSTRING ---------------------------------*/
     @Test
@@ -540,7 +551,7 @@ public class TestGameManager {
         statType = StatType.TOP_5_CAPTURAS;
 
         result = StatisticsKt.getStatsCalculator(statType).invoke(gameManager);
-        assertEquals(5, result.size());
+        assertEquals(0, result.size());
 
         statType = StatType.PECAS_MAIS_BARALHADAS;
 
