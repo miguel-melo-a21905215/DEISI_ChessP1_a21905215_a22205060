@@ -304,6 +304,7 @@ public class GameManager {
                 if (board.temPeca(destX, destY)) {
                     Piece pecaNoDestino = board.getPecaNaPos(destX, destY);
                     String typeStr = pecaNoDestino.getTypeStr();
+                    int type = pecaNoDestino.getType();
 
                     board.tiraPecaOrigem(oriX, oriY);
                     pecaNoDestino.capturada();
@@ -311,7 +312,7 @@ public class GameManager {
                     if (Objects.equals(pecaNoDestino.getTypeStr(), "Joker")) {
                         typeStr += "/" + pecaNoDestino.getCopyMoveFrom();
                     }
-                    board.comeu(typeStr);
+                    board.comeu(type, typeStr);
                     pecaMovida.capturou(pecaNoDestino.getPointsWorth());
 
 

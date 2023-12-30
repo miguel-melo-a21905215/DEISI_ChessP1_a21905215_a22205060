@@ -2,6 +2,7 @@ package pt.ulusofona.lp2.deisichess;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Board {
     private int size;
@@ -11,7 +12,7 @@ public class Board {
     private boolean currentTeam;
     private int consecPassPlays;
     private boolean firstCaptureOcurred;
-    private HashMap<String, Integer> capturedCounters;
+    private HashMap<Integer, String> capturedPieces;
 
     public Board(int size, int numeroPecas) {
         this.size = size;
@@ -23,15 +24,15 @@ public class Board {
         this.totalPieces = new ArrayList<>();
         this.currentTeam = false;
         this.firstCaptureOcurred = false;
-        this.capturedCounters = new HashMap<>();
+        this.capturedPieces = new HashMap<>();
     }
 
 
     public Board() {
     }
 
-    public HashMap<String, Integer> getCapturedCounters() {
-        return capturedCounters;
+    public Map getCapturedCounters() {
+        return capturedPieces;
     }
 
     public Piece[][] getTabuleiro() {
@@ -140,7 +141,7 @@ public class Board {
         equipas[convertNumEquipas(isCurrentTeamNumb())].invalida();
     }
 
-    public void comeu(String typeStr) {
+    public void comeu(int type, String typeStr) {
         equipas[convertNumEquipas(isCurrentTeamNumb())].comeu();
         this.consecPassPlays = 0;
         equipas[convertNumEquipas(isntCurrentTeamNumb())].decrementarInPlay();
@@ -150,13 +151,9 @@ public class Board {
             firstCaptureOcurred = true;
         }
 
-        if (capturedCounters.containsKey(typeStr)) {
-            int currentValue = capturedCounters.get(typeStr);
-            capturedCounters.put(typeStr, currentValue + 1);
-        } else {
-            capturedCounters.put(typeStr, 1);
+        if (!capturedPieces.containsKey(type)) {
+            capturedPieces.put(type, typeStr);
         }
-
 
     }
 

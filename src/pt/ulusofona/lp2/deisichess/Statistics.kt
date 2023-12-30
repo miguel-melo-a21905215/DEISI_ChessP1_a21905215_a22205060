@@ -73,16 +73,13 @@ fun getPecasMais5Capturas(gameManager: GameManager): ArrayList<String> {
 
 
 fun getTiposPecaCapturados(gameManager: GameManager): ArrayList<String> {
-    val capturedCounters = gameManager.board.capturedCounters
+    val capturedPieces = gameManager.board.capturedCounters
     val resultList = ArrayList<String>()
 
-    for (key in capturedCounters.keys) {
-        if (key.startsWith("Joker/") && resultList.isEmpty()) {
-            resultList.add(key)
-        } else if (!key.startsWith("Joker/")) {
-            resultList.add(key)
-        }
+    for (capturedPiece in capturedPieces) {
+        resultList.add(capturedPiece.value.toString())
     }
+
 
     resultList.sort()
     return resultList
