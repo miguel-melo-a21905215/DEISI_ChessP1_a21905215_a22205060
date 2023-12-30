@@ -5,7 +5,10 @@ public class HomerSimpson extends Piece {
 
     public HomerSimpson(int id, int type, int team, String nickname) {
         super(id, type, team, nickname);
-        setPointsWorth(2);
+        this.pointsWorth = 2;
+        this.typeStr = "Homer Simpson";
+
+
         if (team == 10) {
             setPngLocation("homer_black.png");
         } else if (team == 20) {
