@@ -32,7 +32,8 @@ fun getTopPontos(gameManager: GameManager): ArrayList<String> {
     return gameManager.board.totalPieces
         .asSequence()
         .filter { it.getAccumulatedPoints() > 0 }
-        .sortedWith(compareBy({ it.getAccumulatedPoints() }, { it.getNickname() }))
+        .sortedWith(compareByDescending<Piece> { it.getAccumulatedPoints() }
+            .thenBy { it.getNickname() })
         .take(5)
         .map { piece ->
             "${piece.getNickname()} (${if (piece.getTeam() == 10) "PRETA" else "BRANCA"}) tem ${piece.getAccumulatedPoints()} pontos"
