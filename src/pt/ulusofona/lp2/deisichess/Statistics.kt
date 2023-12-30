@@ -87,6 +87,7 @@ fun getTiposPecaCapturados(gameManager: GameManager): ArrayList<String> {
         }
     }
 
+    resultList.sort()
     return resultList
 }
 
