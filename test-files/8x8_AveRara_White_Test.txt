@@ -1,0 +1,66 @@
+8
+16
+1:0:10:O Poderoso Chefao
+2:1:10:A Dama Selvagem
+3:2:10:O Grande Artista
+4:3:10:Amante de Praia
+5:4:10:Artolas
+6:5:10:O Maior Grande
+7:6:10:Hommie
+8:7:10:O Beberolas
+9:0:20:Chefe dos Indios
+10:1:20:A Barulhenta do Bairro
+11:2:20:My Little Pony
+12:3:20:Padreco
+13:4:20:Torre Poderosa
+14:5:20:Torre Trapalhona
+15:6:20:Homer Jay Simpson
+16:7:20:O Bobo da Corte
+1:2:3:4:5:6:7:8
+0:0:0:0:0:0:0:0
+0:0:0:0:0:0:0:0
+0:0:0:0:0:0:0:0
+0:0:0:0:0:0:0:0
+0:0:0:0:0:0:0:0
+0:0:0:0:0:0:0:0
+9:10:11:12:13:14:15:16
+--AVE RARA MAY APPEAR--
+------------------MOVE HISTORY------------------
+moveID	:oriX	:oriY	:destX	:destY	:valid
+1		:1		:0		:1		:5		:true
+2		:2		:7		:4		:5		:true
+3		:5		:0		:5		:7		:true
+4		:3		:7		:5		:5		:true
+5		:5		:7		:5		:5		:true
+6		:4		:7		:3		:7		:true
+7		:1		:5		:3		:7		:true
+8		:6		:7		:5		:6		:true
+9		:5		:5		:5		:6		:true
+10		:1		:7		:1		:2		:true
+11		:3		:0		:1		:2		:true
+12		:4		:5		:2		:7		:true
+13		:3		:7		:2		:7		:true
+14		:0		:7		:1		:6		:true
+15		:0		:0		:1		:1		:true
+16		:2		:7		:5		:7		:false
+17		:1		:6		:2		:5		:true
+18		:1		:1		:2		:2		:true
+19		:2		:5		:1		:5		:true
+20		:2		:2		:3		:2		:true
+21		:1		:5		:1		:4		:true
+22		:3		:2		:4		:3		:true
+23		:7		:7		:3		:7		:true
+24		:6		:7		:5		:6		:false
+25		:1		:4		:2		:5		:false
+26		:2		:7		:6		:7		:false
+27		:4		:3		:5		:3		:true
+28		:2		:5		:1		:4		:false
+29		:4		:3		:5		:3		:false
+30		:3		:7		:4		:6		:true
+31		:2		:7		:2		:6		:true
+32		:1		:4		:2		:4		:true
+33		:5		:3		:5		:2		:true
+34		:2		:6		:4		:6		:false
+35		:2		:4		:3		:4		:true
+36		:6		:7		:7		:7		:false
+37		:2		:6		:4		:6		:true

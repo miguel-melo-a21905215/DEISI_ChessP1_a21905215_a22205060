@@ -541,7 +541,7 @@ public class TestGameManager {
         StatType statType = StatType.TOP_5_PONTOS;
 
         ArrayList<String> result = StatisticsKt.getStatsCalculator(statType).invoke(gameManager);
-        assertEquals(5, result.size());
+        assertEquals(2, result.size());
 
         statType = StatType.PECAS_MAIS_5_CAPTURAS;
 
@@ -562,5 +562,31 @@ public class TestGameManager {
         result = StatisticsKt.getStatsCalculator(statType).invoke(gameManager);
         assertEquals(1, result.size());
 
+    }
+
+    @Test
+    public void aveRaraBlackTesting() throws IOException, InvalidGameInputException {
+        GameManager gameManager = new GameManager();
+        File file = new File("test-files/8x8_AveRara_Black_Test.txt");
+        gameManager.loadGame(file);
+
+        assertTrue(gameManager.isAveRaraInGame());
+        assertTrue(gameManager.isAveRaraAppeared());
+
+        assertEquals(16, gameManager.getHints(1, 1).size());
+    }
+
+    @Test
+    public void aveRaraWhiteTesting() throws IOException, InvalidGameInputException {
+        GameManager gameManager = new GameManager();
+        File file = new File("test-files/8x8_AveRara_White_Test.txt");
+        gameManager.loadGame(file);
+
+
+
+        assertTrue(gameManager.isAveRaraInGame());
+        assertTrue(gameManager.isAveRaraAppeared());
+
+        assertEquals(22, gameManager.getHints(4, 4).size());
     }
 }

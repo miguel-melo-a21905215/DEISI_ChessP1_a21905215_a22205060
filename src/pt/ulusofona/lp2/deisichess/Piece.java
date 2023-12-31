@@ -33,6 +33,14 @@ public abstract class Piece {
     protected Piece() {
     }
 
+    public String checkAdjacent(Piece[][] tabuleiro, int y, int x, int team) {
+        return null;
+    }
+
+    public boolean checkPosition(Piece[][] tabuleiro, int y, int x, int team) {
+        return false;
+    }
+
     public int getSuccessfulAttempts() {
         return successfulAttempts;
     }
@@ -73,26 +81,21 @@ public abstract class Piece {
         this.typeStr = typeStr;
     }
 
-
     public int getTeam() {
         return team;
     }
-
 
     public int getType() {
         return type;
     }
 
-
     public String getNickname() {
         return nickname;
     }
 
-
     public boolean isInPlay() {
         return inPlay;
     }
-
 
     public void marcaInPlay() {
         inPlay = true;
@@ -102,11 +105,9 @@ public abstract class Piece {
         return id;
     }
 
-
     public int getPosX() {
         return posX;
     }
-
 
     public int getPosY() {
         return posY;
@@ -155,7 +156,6 @@ public abstract class Piece {
         return true;
     }
 
-
     public boolean diagonalCheckForPieces(int oriX, int oriY, int destX, int destY, Piece[][] tabuleiro) {
         int deltaX = destX - oriX;
         int deltaY = destY - oriY;
@@ -176,7 +176,6 @@ public abstract class Piece {
 
         return true;
     }
-
 
     public void goSleep() {
     }
@@ -208,6 +207,5 @@ public abstract class Piece {
         this.numCapturas++;
         this.accumulatedPoints += pontos;
     }
-
 
 }

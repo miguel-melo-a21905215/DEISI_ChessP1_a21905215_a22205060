@@ -14,9 +14,10 @@ fun getStatsCalculator(estatisticas: StatType): (GameManager) -> ArrayList<Strin
 fun getTop3Baralhadas(gameManager: GameManager): ArrayList<String> {
     var pieces = gameManager.board.totalPieces
         .asSequence()
-        .filter { it.getSuccessfulAttempts() > 0 } // Exclude pieces with successfulAttempts <= 0
+        //.filter { it.getSuccessfulAttempts() > 0 } // Exclude pieces with successfulAttempts <= 0
         .sortedByDescending {
-            it.getFailedAttempts().toDouble() / it.getSuccessfulAttempts().toDouble()
+            it.getFailedAttempts()
+                //.toDouble() / it.getSuccessfulAttempts().toDouble()
         }
         .take(3)
         .map { piece ->

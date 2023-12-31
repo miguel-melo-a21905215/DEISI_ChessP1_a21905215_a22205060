@@ -10,9 +10,13 @@ public class GameManager {
     private Board board = new Board();
     private String winnerMessage = "";
     private int turn = 0;
+    private boolean aveRaraInGame;
+    private boolean aveRaraAppeared;
 
 
     public GameManager() {
+        this.aveRaraAppeared = false;
+        this.aveRaraInGame = false;
 
     }
 
@@ -75,26 +79,30 @@ public class GameManager {
                 }
 
             }
-
             fillStartingBoardInfo();
+            while (scanner.hasNext()) {
+                String nextLine = scanner.nextLine();
+                switch (nextLine) {
+                    case "--AVE RARA MAY APPEAR--":
+                        this.aveRaraInGame = true;
+                        fillStartingBoardInfo();
+                        break;
 
-            if (scanner.hasNext() && Objects.equals(scanner.nextLine().trim(), "------------------MOVE HISTORY------------------")) {
-                int playCount = 0;
-                while (scanner.hasNextLine()) {
-                    String line = scanner.nextLine();
-                    String[] split = line.split(":");
-                    if (line.equals("moveID\t:oriX\t:oriY\t:destX\t:destY\t:valid")) {
-                        playCount++;
-                    } else if (split.length == 6) {
-                        int oriX = Integer.parseInt(split[1].trim());
-                        int oriY = Integer.parseInt(split[2].trim());
-                        int destX = Integer.parseInt(split[3].trim());
-                        int destY = Integer.parseInt(split[4].trim());
-                        boolean valid = Boolean.valueOf(split[5].trim());
-                        playCount++;
+                    case "------------------MOVE HISTORY------------------":
+                        break;
+                    case "moveID\t:oriX\t:oriY\t:destX\t:destY\t:valid":
+                        break;
+                    default:
+                        String[] split = nextLine.split(":");
+                        if (split.length == 6) {
+                            int oriX = Integer.parseInt(split[1].trim());
+                            int oriY = Integer.parseInt(split[2].trim());
+                            int destX = Integer.parseInt(split[3].trim());
+                            int destY = Integer.parseInt(split[4].trim());
 
-                        move(oriX, oriY, destX, destY);
-                    }
+                            move(oriX, oriY, destX, destY);
+                        }
+                        break;
                 }
             }
         } catch (FileNotFoundException e) {
@@ -110,10 +118,10 @@ public class GameManager {
         }
     }
 
-
     public void undo() {
         gameHistory.deleteUntilValid();
         try {
+            aveRaraAppeared = false;
             File usableFile = new File("gameHistoryFile.txt");
             gameHistory.writeFile(usableFile);
             loadGame(usableFile);
@@ -214,6 +222,7 @@ public class GameManager {
             case 5 -> "TorreVert";
             case 6 -> "Homer Simpson";
             case 7 -> "Joker";
+            case 44 -> "Ave Rara";
             default -> null;
         };
     }
@@ -287,11 +296,9 @@ public class GameManager {
         return true;
     }
 
-
     public GameHistory getGameHistory() {
         return gameHistory;
     }
-
 
     public int getTurn() {
         return turn;
@@ -316,6 +323,11 @@ public class GameManager {
 
                     board.comeu(type, typeStr);
                     pecaMovida.capturou(pecaNoDestino.getPointsWorth());
+
+                    if (aveRaraInGame && !aveRaraAppeared && aveRaraConditions() != 0 && type != 1) {
+                        aveRaraAppeared = true;
+                        aveRaraAppears(getCurrentTeamID());
+                    }
 
 
                 } else {
@@ -434,6 +446,66 @@ public class GameManager {
             }
             stringBuilder.append("\n");
         }
+        if (aveRaraInGame) {
+            stringBuilder.append("--AVE RARA MAY APPEAR--");
+            stringBuilder.append("\n");
+        }
+
         gameHistory.setStartingBoard(stringBuilder.toString());
+    }
+
+    public void aveRaraAppears(int team) {
+        AveRara aveRara = new AveRara(team);
+        int kingX = 0;
+        int kingY = 0;
+        int teamIndex;
+
+        if (team == 10) {
+            teamIndex = 0;
+        } else {
+            teamIndex = 1;
+        }
+
+        Map<Integer, Piece> teamPiecesMap = board.getEquipas()[teamIndex].getTeamPieces();
+
+        for (Map.Entry<Integer, Piece> entry : teamPiecesMap.entrySet()) {
+            Piece piece = entry.getValue();
+            if (piece.getType() == 0) {
+                kingX = piece.getPosX();
+                kingY = piece.getPosY();
+                break;
+            }
+
+        }
+
+        String landingCoordinates = aveRara.checkAdjacent(board.getTabuleiro(), kingX, kingY, team);
+        int landingX = Integer.parseInt(landingCoordinates.split(",")[0].trim());
+        int landingY = Integer.parseInt(landingCoordinates.split(",")[1].trim());
+
+        board.metePecaDestino(aveRara, landingX, landingY);
+
+        board.getEquipas()[board.convertNumEquipas(team)].addPieceToHmap(aveRara);
+        board.getTotalPieces().add(aveRara);
+
+    }
+
+    public int aveRaraConditions() {
+
+        if (board.getEquipas()[0].getInPlayPieces() == 1 || board.getEquipas()[1].getInPlayPieces() == 1) {
+            if (board.getEquipas()[0].getInPlayPieces() == 1 && board.getEquipas()[1].getInPlayPieces() > board.getEquipas()[1].getTeamPieces().size() / 2) {
+                return 10;
+            } else if (board.getEquipas()[1].getInPlayPieces() == 1 && board.getEquipas()[0].getInPlayPieces() > board.getEquipas()[0].getTeamPieces().size() / 2) {
+                return 20;
+            }
+        }
+        return 0;
+    }
+
+    public boolean isAveRaraInGame() {
+        return aveRaraInGame;
+    }
+
+    public boolean isAveRaraAppeared() {
+        return aveRaraAppeared;
     }
 }

@@ -26,4 +26,3 @@
 9:0:0:0:0:0:0:0
 ------------------MOVE HISTORY------------------
 moveID	:oriX	:oriY	:destX	:destY	:valid
-1		:3		:4		:5		:5		:false
