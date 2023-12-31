@@ -31,6 +31,7 @@ fun getTop3Baralhadas(gameManager: GameManager): ArrayList<String> {
 fun getTopPontos(gameManager: GameManager): ArrayList<String> {
     return gameManager.board.totalPieces
         .asSequence()
+        .filter { it.getAccumulatedPoints() > 0 }
         .sortedWith(compareByDescending<Piece> { it.getAccumulatedPoints() }
             .thenBy { it.getNickname() })
         .take(5)
