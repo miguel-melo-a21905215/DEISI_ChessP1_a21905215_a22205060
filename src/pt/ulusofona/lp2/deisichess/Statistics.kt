@@ -44,7 +44,6 @@ fun getTopPontos(gameManager: GameManager): ArrayList<String> {
 fun getTop5Capturas(gameManager: GameManager): ArrayList<String> {
     val pieces = gameManager.board.totalPieces
         .asSequence()
-        .filter { it.getAccumulatedPoints() > 0 }
         .sortedByDescending { it.getNumCapturas() }
         .take(5)
         .map { piece ->
@@ -75,10 +74,18 @@ fun getTiposPecaCapturados(gameManager: GameManager): ArrayList<String> {
     val capturedPieces = gameManager.board.capturedCounters
     val resultList = ArrayList<String>()
 
-    for (capturedPiece in capturedPieces) {
-        resultList.add(capturedPiece.value.toString())
-    }
+    val turn = gameManager.turn
 
+    val jokerTypes = arrayOf("Rainha", "Pónei Mágico", "Padre da Vila", "TorreHor", "TorreVert", "Homer Simpson")
+    val actualType = jokerTypes[turn % 6]
+
+    for (capturedPiece in capturedPieces) {
+        if (capturedPiece.value?.equals("Joker") == true) {
+            resultList.add("Joker/$actualType")
+        } else {
+            resultList.add(capturedPiece.value.toString())
+        }
+    }
 
     resultList.sort()
     return resultList

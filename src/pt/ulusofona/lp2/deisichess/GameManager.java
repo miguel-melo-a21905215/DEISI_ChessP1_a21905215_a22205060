@@ -293,6 +293,10 @@ public class GameManager {
     }
 
 
+    public int getTurn() {
+        return turn;
+    }
+
     public boolean move(int oriX, int oriY, int destX, int destY) {
 
         if (board.generalMoveValidation(oriX, oriY, destX, destY)) {                                    //COORD. DENTRO TABULEIRO + PEÇA VALIDA + DESTINO VALIDO
@@ -309,9 +313,7 @@ public class GameManager {
                     board.tiraPecaOrigem(oriX, oriY);
                     pecaNoDestino.capturada();
                     board.metePecaDestino(pecaMovida, destX, destY);
-                    if (Objects.equals(pecaNoDestino.getTypeStr(), "Joker")) {
-                        typeStr += "/" + pecaNoDestino.getCopyMoveFrom();
-                    }
+
                     board.comeu(type, typeStr);
                     pecaMovida.capturou(pecaNoDestino.getPointsWorth());
 
