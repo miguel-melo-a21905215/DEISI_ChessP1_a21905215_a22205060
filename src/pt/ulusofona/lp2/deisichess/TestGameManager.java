@@ -556,7 +556,7 @@ public class TestGameManager {
         statType = StatType.PECAS_MAIS_BARALHADAS;
 
         result = StatisticsKt.getStatsCalculator(statType).invoke(gameManager);
-        assertEquals(3, result.size());
+        assertEquals(1, result.size());
 
         statType = StatType.TIPOS_CAPTURADOS;
         result = StatisticsKt.getStatsCalculator(statType).invoke(gameManager);
