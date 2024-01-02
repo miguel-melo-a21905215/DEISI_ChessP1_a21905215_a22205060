@@ -16,8 +16,7 @@ fun getTop3Baralhadas(gameManager: GameManager): ArrayList<String> {
         .asSequence()
         .filter { it.getSuccessfulAttempts() > 0 }
         .sortedByDescending {
-            it.getFailedAttempts()
-                //.toDouble() / it.getSuccessfulAttempts().toDouble()
+            it.getFailedAttempts().toDouble() / it.getSuccessfulAttempts().toDouble() + it.getFailedAttempts()
         }
         .take(3)
         .map { piece ->
