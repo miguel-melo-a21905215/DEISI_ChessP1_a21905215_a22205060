@@ -6,15 +6,19 @@ import java.util.*;
 
 public class GameManager {
 
-    GameHistory gameHistory = new GameHistory();
-    private Board board = new Board();
-    private String winnerMessage = "";
-    private int turn = 0;
+    GameHistory gameHistory;
+    private Board board;
+    private String winnerMessage;
+    private int turn;
     private boolean aveRaraInGame;
     private boolean aveRaraAppeared;
 
 
     public GameManager() {
+        this.board = new Board();
+        this.winnerMessage = "";
+        this.turn = 0;
+        this.gameHistory = new GameHistory();
         this.aveRaraAppeared = false;
         this.aveRaraInGame = false;
 

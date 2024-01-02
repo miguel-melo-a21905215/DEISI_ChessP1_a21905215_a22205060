@@ -61,9 +61,6 @@ public abstract class Piece {
         return pointsWorth;
     }
 
-    public void setPointsWorth(int pointsWorth) {
-        this.pointsWorth = pointsWorth;
-    }
 
     public String getPngLocation() {
         return pngLocation;

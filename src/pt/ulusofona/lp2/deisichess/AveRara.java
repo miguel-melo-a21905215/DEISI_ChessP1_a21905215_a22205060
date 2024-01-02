@@ -25,8 +25,6 @@ public class AveRara extends Piece {
         }
     }
 
-    public AveRara() {
-    }
 
     @Override
     public boolean specificMoveValidation(int oriX, int oriY, int destX, int destY, Piece[][] tabuleiro) {
