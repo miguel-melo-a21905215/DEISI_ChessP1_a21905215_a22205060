@@ -1,6 +1,7 @@
 # Middle Earth Chess
 
-O jogo de xadrez desenvolvido pelo nosso grupo foi inspirado na saga de J.R.R.Tolkien, O Senhor dos Anéis.
+O jogo de xadrez desenvolvido pelo nosso grupo foi inspirado na saga
+de [J.R.R.Tolkien](https://pt.wikipedia.org/wiki/J._R._R._Tolkien), O Senhor dos Anéis.
 
 Do lado das peças pretas, joga o lado do mal, onde o olho de Sauron assume a posição de Rei. No lado das peças brancas,
 temos o lado do bem, no qual Aragorn também assume a posição de Rei.
