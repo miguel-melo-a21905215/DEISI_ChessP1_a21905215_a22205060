@@ -14,7 +14,7 @@ public class Board {
     private boolean firstCaptureOcurred;
     private HashMap<Integer, String> capturedPieces;
 
-    public Board(int size, int numeroPecas) {
+    public Board(int size) {
         this.size = size;
         this.consecPassPlays = -1000;
         this.tabuleiro = new Piece[size][size];

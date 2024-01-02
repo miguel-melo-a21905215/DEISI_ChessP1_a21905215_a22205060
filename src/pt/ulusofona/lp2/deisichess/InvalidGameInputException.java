@@ -4,7 +4,7 @@ public class InvalidGameInputException extends Exception {
 
     private int lineWithError;
     private String problemDescription;
-    private int obtainedData;
+
 
     public InvalidGameInputException(int lineWithError, int obtainedData) {
         this.lineWithError = lineWithError;

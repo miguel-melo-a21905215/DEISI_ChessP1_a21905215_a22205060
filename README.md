@@ -67,7 +67,9 @@ Para atingir esse objetivo, utilizamos as seguintes imagens:
   <img src="src/images/ScreenshotTabuleiro.png" alt="Diagrama UML">
 </p>
 
-# UML Diagram
+#### Vídeo explicativo: https://youtu.be/1xSWG4G5OXo
+
+# Diagrama UML
 
 <p align="center">
   <img src="diagrama.png" alt="Diagrama UML">
@@ -106,7 +108,7 @@ peça presente no arquivo/tabuleiro e armazenar suas informações de forma aces
 
 ---------------------
 
-## Chess Pieces and Movements
+## Chess Pieces e Moves
 
 Na segunda parte do trabalho, focamos nos diferentes tipos de peças e suas características específicas, destacando-se o
 tipo de movimento de cada uma. Abordamos a questão visando repetir o mínimo de código possível. Para isso, dividimos a
@@ -124,7 +126,7 @@ se movimentarem que coincidem com os movimentos de outras peças.
 
 ---------------------
 
-## SaveGame and Undo
+## SaveGame e Undo
 
 Desenvolvemos os métodos `saveGame()` e `undo()` tentando, mais uma vez, reaproveitar código e outros métodos já
 implementados.
@@ -141,7 +143,7 @@ final, o tabuleiro e as estatísticas tenham os valores pretendidos.
 
 ---------------------
 
-# Rare Bird - Creative Chess Piece
+# Ave Rara - Peça Criativa
 
 A peça criativa desenvolvida faz alusão às águias presentes nos filmes de Tolkien que aparecem sempre no último momento
 para salvar os bons da fita. No caso, o tabuleiro só pode ter apenas uma peça deste tipo em jogo. A `Ave Rara`
@@ -161,6 +163,7 @@ O movimento das peças deste tipo assemalha-se ao da `Rainha` sem que seja limit
 tamanho do tabuleiro podendo movimentar-se na horizontal, vertical e diagonal.
 
 ---------------------------------------------
+
 
 
 Trabalho desenvolvido por [Miguel Melo](https://github.com/miguel-melo-a21905215) (21905215)
