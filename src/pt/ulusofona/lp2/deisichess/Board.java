@@ -97,25 +97,23 @@ public class Board {
 
     public boolean generalMoveValidation(int oriX, int oriY, int destX, int destY) {
 
-        /*Verifica:
-        ->destino e diferente da origem
-        ->as coordenadas de origem e destino estão dentro do tabuleiro
-        ->tem peça na origem e se essa peça é da equipa a jogar
-        ->tem peça no destino e se essa peça é da equipa contrária
-         */
-
-        if (oriX == destX && oriY == destY) {
+        if (oriX == destX && oriY == destY) { // Verifica se as coordenadas de origem e destino são as mesmas.
             return false;
         }
+
+        //Verifica se nao tem peça na origem ou se a origem ou o destino nao tao dentro do tabuleiro
         if (!temPeca(oriX, oriY) || !coordenadasDentroTabuleiro(destX, destY) || !coordenadasDentroTabuleiro(oriX, oriY)) {
             return false;
         }
 
-        Piece pecaMovida = getPecaNaPos(oriX, oriY);
+        Piece pecaMovida = getPecaNaPos(oriX, oriY); // Obtém a peça na posição de origem
+
+        // Verifica se a equipe da peça movida não é a equipe atual ou se a peça não está em jogo
         if (pecaMovida.getTeam() != isCurrentTeamNumb() || !pecaMovida.isInPlay()) {
             return false;
         }
 
+        // Verifica se há uma peça na posição de destino e se pertence à mesma equipe da peça movida
         if (temPeca(destX, destY) && (getPecaNaPos(destX, destY).getTeam() == isCurrentTeamNumb())) {
             return false;
         }
@@ -141,26 +139,35 @@ public class Board {
         equipas[convertNumEquipas(isCurrentTeamNumb())].invalida();
     }
 
-    public void comeu(int type, String typeStr) {
+    public void comeu(int type, String typeStr) {  // Declaração do método que representa uma peça sendo capturada.
+
+        // Atualiza a contagem de peças capturadas para a equipe atual.
         equipas[convertNumEquipas(isCurrentTeamNumb())].comeu();
+
+        // Reseta para 0 o valor de jogadas consecutivas sem captura.
         this.consecPassPlays = 0;
+
+        // Decrementa o número de peças em jogo para a equipe adversária.
         equipas[convertNumEquipas(isntCurrentTeamNumb())].decrementarInPlay();
+
+        // Muda para a equipa seguinte
         currentTeam = !currentTeam;
 
+        // Se esta for a primeira captura ocorrida no jogo.
         if (!firstCaptureOcurred) {
-            firstCaptureOcurred = true;
+            firstCaptureOcurred = true;  // Marca que a primeira captura ocorreu
         }
 
+        // Se o tipo de peça ainda não estiver no map de peças capturadas
         if (!capturedPieces.containsKey(type)) {
-            capturedPieces.put(type, typeStr);
+            capturedPieces.put(type, typeStr);  // Adiciona o tipo de peça ao mapa de peças capturadas.
         }
-
     }
 
     public void moveu() {
-        equipas[convertNumEquipas(isCurrentTeamNumb())].moveuSemComer();
-        this.currentTeam = !currentTeam;
-        if (firstCaptureOcurred) {
+        equipas[convertNumEquipas(isCurrentTeamNumb())].moveuSemComer(); // Atualiza o contador de movimentos sem captura para a equipe atual
+        this.currentTeam = !currentTeam; // Muda para a próxima equipa
+        if (firstCaptureOcurred) { // Se já ocorreu a primeira captura no jogo
             this.consecPassPlays++;
         }
     }

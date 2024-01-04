@@ -143,10 +143,10 @@ public class GameManager {
 
 
         String[] result = new String[7];
-        result[0] = String.valueOf(id);
-        while (!Objects.equals(result[1], "")) {
+        result[0] = String.valueOf(id); // id fornecido na primeira posição do array
+        while (!Objects.equals(result[1], "")) { // e o valor na segunda posição do array result não é uma string vazia
             for (Piece consideredPiece : board.getTotalPieces()) {
-                if (id == consideredPiece.getId()) {
+                if (id == consideredPiece.getId()) { // id fornecido corresponde ao id da peça atual
                     result[1] = String.valueOf(consideredPiece.getType());
                     result[2] = String.valueOf(consideredPiece.getTeam());
                     result[3] = String.valueOf(consideredPiece.getNickname());
@@ -176,38 +176,38 @@ public class GameManager {
         String[] pieceInfo = getPieceInfo(id);
 
         String result = "";
-        Piece consideredPiece = board.getPieceByID(id);
+        Piece consideredPiece = board.getPieceByID(id); // obtem a peça especifica com base no id
 
-        String points = switch (consideredPiece.getType()) {
-            case 0 -> "(infinito)";
-            case 1 -> "8";
-            case 2 -> "5";
-            case 3, 4, 5 -> "3";
-            case 6 -> "2";
-            case 7 -> "4";
+        String points = switch (consideredPiece.getType()) { //  associa os pontos
+            case 0 -> "(infinito)"; //rei
+            case 1 -> "8"; //rainha
+            case 2 -> "5"; // ponei magico
+            case 3, 4, 5 -> "3"; // padre vila e ambas as torres
+            case 6 -> "2"; // Hommer
+            case 7 -> "4"; // Joker
             default -> "";
         };
 
 
-        if (Objects.equals(pieceInfo[1], "6") && (consideredPiece.isSleeping())) {
-            return "Doh! zzzzzz";
+        if (Objects.equals(pieceInfo[1], "6") && (consideredPiece.isSleeping())) { // se a peça e tipo 6 e esta a dormir
+            return "Doh! zzzzzz";                                                     // muda o nome
 
         }
 
         result += pieceInfo[0] + espBarra;
-        result += pieceTypeStr(Integer.parseInt(pieceInfo[1]));
-        if (pieceInfo[1].equals("7")) {
-            result += "/" + consideredPiece.getCopyMoveFrom();
+        result += pieceTypeStr(Integer.parseInt(pieceInfo[1])); // id | nome
+        if (pieceInfo[1].equals("7")) {                         //
+            result += "/" + consideredPiece.getCopyMoveFrom();  // id | joker/(..)
         }
-        result += espBarra;
+        result += espBarra; //id | nome |
 
-        result += points + espBarra;
-        result += pieceInfo[2] + espBarra;
-        result += pieceInfo[3] + " @ ";
+        result += points + espBarra; // id | nome | pontos |
+        result += pieceInfo[2] + espBarra; // id | nome | pontos | equipa |
+        result += pieceInfo[3] + " @ "; // id | nome | pontos | equipa | nickname @
 
-        if (consideredPiece != null && consideredPiece.isInPlay()) {
-            result += '(' + String.valueOf(pieceInfo[5]);
-            result += ", " + pieceInfo[6] + ')';
+        if (consideredPiece != null && consideredPiece.isInPlay()) { // se a peça esta em jogo
+            result += '(' + String.valueOf(pieceInfo[5]); // id | nome | pontos | equipa | nickname @ (posX
+            result += ", " + pieceInfo[6] + ')'; // id | nome | pontos | equipa | nickname @ (posX, posY)
         } else {
             result += "(n/a)";
         }
@@ -232,11 +232,13 @@ public class GameManager {
     }
 
     public String[] getSquareInfo(int x, int y) {
-        Piece consideredPiece = board.getPecaNaPos(x, y);
+        Piece consideredPiece = board.getPecaNaPos(x, y); // obtém a peça na posição (x, y)
         if (consideredPiece == null) {
-            return new String[0];
+            return new String[0]; // Retorna um array vazio se não houver peça.
         } else {
-            String[] result = new String[5];
+
+            String[] result = new String[5]; // Cria um novo array de strings para armazenar informações da peça
+
             result[0] = String.valueOf(consideredPiece.getId());
             result[1] = String.valueOf(consideredPiece.getType());
             result[2] = String.valueOf(consideredPiece.getTeam());
@@ -280,17 +282,21 @@ public class GameManager {
     }
 
     public boolean gameOver() {
-        int whitePieces = board.getEquipas()[1].getInPlayPieces();
-        int blackPieces = board.getEquipas()[0].getInPlayPieces();
-        boolean isWhiteKingAlive = board.getEquipas()[1].isKingAlive();
-        boolean isBlackKingAlive = board.getEquipas()[0].isKingAlive();
+        int whitePieces = board.getEquipas()[1].getInPlayPieces(); // número de peças brancas em jogo
+        int blackPieces = board.getEquipas()[0].getInPlayPieces();  // número de peças pretas em jogo
+        boolean isWhiteKingAlive = board.getEquipas()[1].isKingAlive(); // Verifica se o rei branco está vivo
+        boolean isBlackKingAlive = board.getEquipas()[0].isKingAlive(); // Verifica se o rei preto está vivo
 
         if (!isBlackKingAlive && isWhiteKingAlive) {
             winnerMessage = "VENCERAM AS BRANCAS";
         } else if (!isWhiteKingAlive && isBlackKingAlive) {
             winnerMessage = "VENCERAM AS PRETAS";
+
+            // Verifica se ambos os reis estão mortos ou se não há peças brancas e pretas em jogo
         } else if ((!isWhiteKingAlive && !isBlackKingAlive) || (whitePieces == 0 && blackPieces == 0)) {
             winnerMessage = "EMPATE";
+
+            // Verifica se há apenas uma peça de cada equipa ou se o número de jogadas consecutivas sem captura é 10
         } else if ((blackPieces == 1 && whitePieces == 1) || board.getConsecPassPlays() == 10) {
             winnerMessage = "EMPATE";
         } else {
@@ -310,17 +316,20 @@ public class GameManager {
 
     public boolean move(int oriX, int oriY, int destX, int destY) {
 
-        if (board.generalMoveValidation(oriX, oriY, destX, destY)) {                                    //COORD. DENTRO TABULEIRO + PEÇA VALIDA + DESTINO VALIDO
-            Piece pecaMovida = board.getPecaNaPos(oriX, oriY);
-            if (pecaMovida.specificMoveValidation(oriX, oriY, destX, destY, board.getTabuleiro())) {    //CAMINHO LIVRE + CUMPRE LIMITES MOVE ESPECIFICO
-                /*COMEU - JA FOI VERIFICADO SE A PEÇA NO DESTINO É DA EQUIPA CONTRÁRIA NA generalMoveValidation()*/
-                /*VERIFCAÇÃO DE RAINHA COME RAINHA/JOKER->RAINHA É FEITA NO SPECIFIC MOVE DA RAINHA*/
+        if (board.generalMoveValidation(oriX, oriY, destX, destY)) {
+            Piece pecaMovida = board.getPecaNaPos(oriX, oriY); // Obtém a peça na posição de origem
+
+            // Verifica se o movimento específico para a peça é válido
+            if (pecaMovida.specificMoveValidation(oriX, oriY, destX, destY, board.getTabuleiro())) {
 
                 if (board.temPeca(destX, destY)) {
+
+                    // Obtém a peça na posição de destino e suas informações
                     Piece pecaNoDestino = board.getPecaNaPos(destX, destY);
                     String typeStr = pecaNoDestino.getTypeStr();
                     int type = pecaNoDestino.getType();
 
+                    //ações relacionadas à captura da peça e atualiza o tabuleiro
                     board.tiraPecaOrigem(oriX, oriY);
                     pecaNoDestino.capturada();
                     board.metePecaDestino(pecaMovida, destX, destY);
@@ -340,7 +349,7 @@ public class GameManager {
                     board.moveu();
                 }
 
-                pecaMovida.acertou();
+                pecaMovida.acertou(); // peça acertou o movimento
 
                 turn++;
                 board.homerClock(this.turn);
@@ -349,12 +358,15 @@ public class GameManager {
                 return true;
             }
         }
+
+        // Se a peça na posição de origem for válida, mas o movimento for inválido
         if (oriX >= 0 && oriX < getBoardSize() && oriY >= 0 && oriY < getBoardSize() && board.temPeca(oriX, oriY)) {
+            // Obtém a peça na posição de origem e marca que falhou no movimento
             Piece pecaConsiderada = board.getPecaNaPos(oriX, oriY);
             pecaConsiderada.falhou();
         }
-        board.falhou();
-        gameHistory.addPlay(oriX, oriY, destX, destY, false);
+        board.falhou(); // Marca que o movimento falhou
+        gameHistory.addPlay(oriX, oriY, destX, destY, false); // Adiciona o movimento ao histórico de jogadas
         return false;
     }
 
